@@ -3,8 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-def index(request):
+def blog(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-# Create your models here.
 
