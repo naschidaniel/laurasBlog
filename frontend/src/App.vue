@@ -1,24 +1,24 @@
 <template>
-  <div id="app" class="container mx-auto py-10">
-    <Blog></Blog>
+  <div class="antialiased text-gray-900">
+    <div class="bg-gray-100 min-h-screen">
+      <navbar></navbar>
+      <Blog></Blog>
 
-    <navbar></navbar>
+    </div>
 
-    <img alt="Vue logo" src="./assets/logo.png" class="center">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
   </div>
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld.vue'
-  import Navbar from './components/Navbar'
-  import Blog from './components/Blog'
+  import Navbar from './components/Navbar.vue'
+  import Blog from './components/Blog.vue'
+
 
   export default {
     name: 'app',
     components: {
-      HelloWorld,
       Navbar,
       Blog
     }

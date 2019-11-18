@@ -1,16 +1,13 @@
 <template>
-  <article>
+  <div class="bg-gray-100">
     Blog:
-    <div v-for="p in post" :key="p.title">
+    <div v-for="p in post" :key="p.title" class="bg-gray-700">
       <pre>
-        <h3>{{ p.title }}</h3>
+        <h3 class="ml-1 ">{{ p.title }}</h3>
         <p>{{ p.content }}</p>
       </pre>
     </div>
-    <br>
-    data:
-    {{ post }}
-  </article>
+  </div>
 </template>
 
 <script>
