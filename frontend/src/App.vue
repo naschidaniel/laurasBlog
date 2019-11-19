@@ -1,9 +1,8 @@
 <template>
   <div class="antialiased text-gray-900">
-    <div class="bg-gray-100 min-h-screen">
+    <div class="bg-gray-800 min-h-screen">
       <navbar></navbar>
       <Blog></Blog>
-
     </div>
 
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -14,7 +13,6 @@
 <script>
   import Navbar from './components/Navbar.vue'
   import Blog from './components/Blog.vue'
-
 
   export default {
     name: 'app',

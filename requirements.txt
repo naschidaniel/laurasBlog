@@ -1,0 +1,7 @@
+django
+node
+yarn
+python
+djangorestframework
+
+django-webpack-loader
