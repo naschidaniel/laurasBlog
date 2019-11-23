@@ -3,8 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
-frontend/webpack-stats.json
-
+*/webpack-stats.json
 
 
 # Editor directories and files

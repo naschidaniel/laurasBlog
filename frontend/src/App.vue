@@ -1,5 +1,5 @@
 <template>
-  <div class="antialiased text-gray-900">
+  <div class="antialiased text-gray-90">
     <div class="bg-gray-800 min-h-screen">
       <navbar></navbar>
       <Blog></Blog>
