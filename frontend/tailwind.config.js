@@ -1,6 +1,21 @@
 module.exports = {
   theme: {
     extend: {
+      fontFamily: {
+        title: ['Pacifico']
+      },
+      textColor: {
+        'lauraOrange': '#f39200',
+        'lauraBlau': '#009fe3'
+      },
+      borderColor: {
+        'lauraOrange': '#f39200',
+        'lauraBlau': '#009fe3'
+      },
+      backgroundColor: {
+        'lauraOrange': '#f39200',
+        'lauraBlau': '#009fe3'
+      },
       spacing: {
         '1/2': '50%',
         '1/3': '33.333333%',
