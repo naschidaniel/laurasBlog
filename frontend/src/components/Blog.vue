@@ -17,9 +17,8 @@
             <div class="pt-3 pb-3 font-semibold">
               Kategorien:
                 Stricken, Hude, Rudi
-                <span class="sm:invisible md:visible"> | </span>
-              <br class="md:hidden"> 
-              www.naschi.info 
+                <span class="invisible md:visible"> | </span> 
+                <br class="md:hidden"> www.naschi.info 
             </div>
           </div>
         </div>
