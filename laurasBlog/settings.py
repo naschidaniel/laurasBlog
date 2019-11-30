@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'blog.apps.BlogConfig',
+    'pages.apps.PagesConfig',
     'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
