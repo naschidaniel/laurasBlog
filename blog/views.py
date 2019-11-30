@@ -1,9 +1,3 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
-
-
-def blog(request):
-    return HttpResponse("Hello, world. You're at the blogs index.")
-
-
+# Create your views here.

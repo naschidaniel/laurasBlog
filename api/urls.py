@@ -3,7 +3,7 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'post', views.PostViewSet)
+router.register(r'blogposts', views.BlogPostsViewSet)
 router.register(r'page', views.PageViewSet)
 
 # Wire up our API using automatic URL routing.
