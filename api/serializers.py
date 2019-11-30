@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from blog.models import BlogPosts
-from pages.models import Page
+from pages.models import Pages
 
 ## BlogPosts
 class BlogPostsSerializer(serializers.ModelSerializer):
@@ -10,7 +10,7 @@ class BlogPostsSerializer(serializers.ModelSerializer):
 
 
 ## Pages
-class PageSerializer(serializers.ModelSerializer):
+class PagesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Page
+        model = Pages
         fields = ['title', 'content', 'datePosted']
