@@ -1,5 +1,5 @@
 <template>
-  <Blog/>
+  <Blog />
 </template>
 
 <script>
