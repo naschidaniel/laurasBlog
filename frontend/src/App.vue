@@ -25,6 +25,9 @@
       <blog></blog>
       <BlogCategories></BlogCategories>
     </div>
+    <div>
+      <pages></pages>
+    </div>
     <footer class=" border-t px-2 pt-2 pb-2 text-center w-full">
       <p>
         <a href="#" class="">Impressum</a> | <a href="#" class="">Datenschutz</a> | <a href="#">laura@milena-and-her-dog.com</a>
@@ -37,15 +40,15 @@
   import Navbar from './components/Navbar.vue'
   import Blog from './components/Blog.vue'
   import BlogCategories from './components/BlogCategories.vue'
+  import Pages from './components/Pages.vue'
 
   export default {
     name: 'app',
     components: {
       Navbar,
       Blog,
-      BlogCategories
+      BlogCategories,
+      Pages
     }
   }
-
-
 </script>
