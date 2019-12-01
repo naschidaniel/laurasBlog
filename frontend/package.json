@@ -1,51 +1,26 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "laurasBlog",
+  "version": "1.0.0",
+  "description": "My superior Nuxt.js project",
+  "author": "Daniel Naschberger",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "watch": "vue-cli-service build --watch"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^1.3.0",
-    "@vue/cli": "^4.0.5",
-    "axios": "^0.19.0",
-    "core-js": "^3.3.2",
-    "eslint-plugin-html": "^6.0.0",
-    "marked": "^0.7.0",
-    "tailwindcss": "^1.1.3",
-    "vue": "^2.6.10"
+    "nuxt": "^2.0.0",
+    "@nuxtjs/axios": "^5.3.6"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-eslint": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack-bundle-tracker": "^0.4.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {
-      "no-console": "off"
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2"
+  }
 }
