@@ -1,9 +1,5 @@
 # frontend
 
-```
-cd frontend
-```
-
 ## Project setup
 ```
 yarn install
@@ -26,13 +22,3 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
-
-# backend
-
-
-## Startup django
-```
-python manage.py runserver
-```
