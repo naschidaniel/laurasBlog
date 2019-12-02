@@ -21,7 +21,6 @@ urlpatterns = [
     #path('blog/', include('blog.urls')),
     #path('', include('main.urls')),
     path('',TemplateView.as_view(template_name="application.html"), name="app", ),
-    path('about/',TemplateView.as_view(template_name="application.html"), name="app", ),
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
 ]
