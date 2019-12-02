@@ -1,5 +1,9 @@
 <template>
-  <Pages />
+  <div>
+    <div>Page {{ $route.params.page }}</div>
+    <Pages />
+  </div>
+    
 </template>
 
 <script>

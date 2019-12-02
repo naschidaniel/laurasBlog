@@ -31,22 +31,22 @@
         class="px-2 pt-2 pb-4 sm:flex sm:p-0 bg-lauraBlau rounded-b"
       >
         <router-link
-          to="/about"
-          class="block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange"
-        >
-          About
-        </router-link>
-        <router-link
           to="/"
-          class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange sm:mt-0 sm:ml-2"
+          class="block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange"
         >
           Blog
         </router-link>
         <router-link
-          to="#"
+          :to="{ name: 'page', params: { page: 'about' }}"
           class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange sm:mt-0 sm:ml-2"
         >
-          Messages
+          About
+        </router-link>
+        <router-link
+          :to="{ name: 'page', params: { page: 'Kontakt' }}"
+          class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange sm:mt-0 sm:ml-2"
+        >
+          Kontakt
         </router-link>
       </nav>
     </header>
