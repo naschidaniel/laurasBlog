@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <div class="antialiased">
+    <div class="antialiased flex flex-col min-h-screen">
       <top></top>
       <div
-        class="flex bg-white border-gray-200 border-b shadow-sm sticky top-0 inset-x-0 z-100 h-16 items-center"
+        class="bg-white border-gray-200 border-b shadow-sm sticky top-0 inset-x-0 h-16 items-center"
       >
         <navbar></navbar>
       </div>
-      <div class=" lg:max-w-6xl mx-auto min-h-screen">
+      <main class=" mx-auto flex-grow lg:max-w-6xl">
         <router-view />
         <BlogCategories></BlogCategories>
-      </div>
+      </main>
+      <Footer></Footer>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
