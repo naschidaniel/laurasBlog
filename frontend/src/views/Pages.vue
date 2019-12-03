@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div>Page {{ $route.params.page }}</div>
-    <Pages />
+    <Pages v-bind:link="$route.params.link" />
   </div>
-    
 </template>
 
 <script>

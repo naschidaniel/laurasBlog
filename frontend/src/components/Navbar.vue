@@ -1,6 +1,10 @@
 <template>
-  <div class="bg-white border-b border-gray-200 shadow-sm sticky top-0 inset-x-0 h-16 items-center w-full relative">
-    <header class=" h-12 w-full lg:max-w-6xl bg-lauraBlau mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg">
+  <div
+    class="bg-white border-b border-gray-200 shadow-sm sticky top-0 inset-x-0 h-16 items-center w-full relative"
+  >
+    <header
+      class=" h-12 w-full lg:max-w-6xl bg-lauraBlau mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg"
+    >
       <div class="flex items-center justify-between px-4 py-3 sm:p-0">
         <div>
           Logo
@@ -37,13 +41,13 @@
           Blog
         </router-link>
         <router-link
-          :to="{ name: 'page', params: { page: 'about' }}"
+          :to="{ name: 'page', params: { link: 'about' } }"
           class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange sm:mt-0 sm:ml-2"
         >
           About
         </router-link>
         <router-link
-          :to="{ name: 'page', params: { page: 'Kontakt' }}"
+          :to="{ name: 'page', params: { link: 'kontakt' } }"
           class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-lauraOrange sm:mt-0 sm:ml-2"
         >
           Kontakt

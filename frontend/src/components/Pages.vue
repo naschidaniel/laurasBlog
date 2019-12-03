@@ -1,12 +1,10 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <div v-for="p in pages" :key="p.titel" class="">
-        <h1 class="">
-          {{ p.titel }}
-        </h1>
-        <div v-html="compiledMarkdown(p.content)"></div>
-      </div>
+      <h1 v-if="apiData">
+        {{ apiData.title }}
+      </h1>
+      <div v-if="apiData" v-html="compiledMarkdown(apiData.content)"></div>
     </div>
   </div>
 </template>
@@ -17,22 +15,23 @@ import marked from "marked";
 
 export default {
   props: {
-    page: String
+    link: String
   },
   data() {
     return {
-      pages: null
+      apiData: null
     };
   },
   methods: {
     compiledMarkdown: function(content) {
-      return marked(content, { sanitize: true });
+      return marked(content);
     }
   },
   mounted() {
-    axios.get("/api/pages/?format=json").then(response => {
-      return (this.pages = response.data);
-    });
+    var url = "/api/pages/" + this.link + "?format=json";
+    axios.get(url)
+      .then(response => this.apiData = response.data)
+      .catch(error => console.log(error));
   }
 };
 </script>
