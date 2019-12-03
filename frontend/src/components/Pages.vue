@@ -4,8 +4,8 @@
       <h1 v-if="apiData" class="">
         {{ apiData.title }}
       </h1>
-      <div 
-        v-if="apiData" 
+      <div
+        v-if="apiData"
         v-html="compiledMarkdown(apiData.content)"
         class=""
       ></div>
@@ -33,8 +33,9 @@ export default {
   },
   mounted() {
     var url = "/api/pages/" + this.link + "?format=json";
-    axios.get(url)
-      .then(response => this.apiData = response.data)
+    axios
+      .get(url)
+      .then(response => (this.apiData = response.data))
       .catch(error => console.log(error));
   }
 };
