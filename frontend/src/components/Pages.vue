@@ -1,10 +1,14 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <h1 v-if="apiData">
+      <h1 v-if="apiData" class="">
         {{ apiData.title }}
       </h1>
-      <div v-if="apiData" v-html="compiledMarkdown(apiData.content)"></div>
+      <div 
+        v-if="apiData" 
+        v-html="compiledMarkdown(apiData.content)"
+        class=""
+      ></div>
     </div>
   </div>
 </template>
@@ -35,3 +39,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-xl;
+}
+h3 {
+  @apply text-lg;
+}
+</style>
