@@ -19,8 +19,6 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    #path('blog/', include('blog.urls')),
-    #path('', include('main.urls')),
     path('',TemplateView.as_view(template_name="application.html"), name="app", ),
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
