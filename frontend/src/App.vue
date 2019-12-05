@@ -3,7 +3,7 @@
     <div class="antialiased flex flex-col min-h-screen">
       <app-top />
       <navbar></navbar>
-      <main class=" mx-auto flex-grow lg:max-w-6xl">
+      <main class=" px-3 mx-auto flex-grow lg:max-w-6xl">
         <router-view />
         <BlogCategories></BlogCategories>
       </main>

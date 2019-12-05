@@ -1,7 +1,7 @@
 <template>
-  <div class=" w-full lg:max-w-6xl mx-auto">
+  <div class="min-w-full mx-auto  bg-purple-200 lg:max-w-6xl">
     <div
-      class="font-title text-lg md:text-3xl text-gray-600 truncate text-center h-8 md:h-20 mt-2 md:mt-8 align-middle px-3"
+      class=" font-title text-lg md:text-3xl text-gray-600 truncate text-center h-8 md:h-20 mt-2 md:mt-8 align-middle px-3"
     >
       <span class="mr-3">
         Outdoor
