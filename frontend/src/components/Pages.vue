@@ -50,9 +50,6 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  @apply text-5xl;
-}
 .content >>> h2 {
   @apply text-2xl text-lauraOrange;
   }

@@ -1,5 +1,9 @@
 @tailwind base;
 
+h1 {
+  @apply text-4xl text-lauraOrange;
+}
+
 @tailwind components;
 
 @tailwind utilities;
