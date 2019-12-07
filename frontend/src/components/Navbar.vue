@@ -3,7 +3,7 @@
     class="bg-purple-200 border-b border-gray-200 shadow-sm sticky top-0 h-16 items-center"
   >
     <header
-      class=" h-12 w-full lg:max-w-6xl bg-lauraBlau mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2"
+      class=" h-12 w-full bg-lauraBlau mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
     >
       <div class="flex items-center justify-between px-4 py-3 sm:p-0">
         <div>

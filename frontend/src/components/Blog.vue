@@ -4,7 +4,7 @@
       <div
         v-for="bp in blogposts"
         :key="bp.title"
-        class="w-full px-2 mt-3 md:w-1/2 lg:w-1/2 "
+        class="w-full px-2 mt-3 md:w-1/2 "
       >
         <div
           class="border border-lauraOrange rounded-lg shadow-md overflow-hidden"

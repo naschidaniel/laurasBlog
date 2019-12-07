@@ -1,15 +1,13 @@
 <template>
   <div>
-    <div class="flex flex-wrap">
-      <h1 v-if="apiData" class="">
-        {{ apiData.title }}
-      </h1>
-      <div
-        v-if="apiData"
-        v-html="compiledMarkdown(apiData.content)"
-        class=""
-      ></div>
-    </div>
+    <h1 v-if="apiData.title">
+      {{ apiData.title }}
+    </h1>
+    <div
+      v-if="apiData.content"
+      v-html="compileMarkdown(apiData.content)"
+      class="content"
+    ></div>
   </div>
 </template>
 
@@ -23,7 +21,7 @@ export default {
   },
   data() {
     return {
-      apiData: null
+      apiData: null,
     };
   },
   watch: { 
@@ -32,15 +30,16 @@ export default {
     }
   },
   methods: {
-    compiledMarkdown: function(content) {
-      return marked(content);
+    compileMarkdown: function(string) { 
+      return(marked(string))
     },
+
     getContent: function() {
       var url = "/api/pages/" + this.link + "?format=json";
       console.log("Page API URL: " + url)
       axios
         .get(url)
-        .then(response => (this.apiData = response.data))
+        .then(response => this.apiData = response.data)
         .catch(error => console.log(error));
     }
   },
@@ -52,12 +51,19 @@ export default {
 
 <style scoped>
 h1 {
-  @apply text-3xl;
+  @apply text-5xl;
 }
-h2 {
-  @apply text-xl;
-}
-h3 {
-  @apply text-lg;
-}
+.content >>> h2 {
+  @apply text-2xl text-lauraOrange;
+  }
+.content >>> h3 {
+  @apply text-xl text-lauraOrange;
+  }
+
+.content >>> ul {
+  @apply list-inside;
+  }
+.content >>> li {
+  @apply list-disc;
+  }
 </style>
