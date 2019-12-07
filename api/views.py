@@ -1,17 +1,17 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from blog.models import BlogPosts
+from blog.models import BlogPost
 from pages.models import Pages
 
-from api.serializers import BlogPostsSerializer, PagesSerializer
+from api.serializers import BlogPostSerializer, PagesSerializer
 
 
-class BlogPostsViewSet(viewsets.ModelViewSet):
+class BlogPostViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = BlogPosts.objects.all()
-    serializer_class = BlogPostsSerializer
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostSerializer
 
 class PagesViewSet(viewsets.ModelViewSet):
     """
