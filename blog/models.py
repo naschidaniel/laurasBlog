@@ -8,19 +8,22 @@ class BlogPost(models.Model):
     datePosted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=False)
-
+    slug = models.SlugField()
+    
     def __str__(self):
-        return self.title
+        return '{} | {}'.format(self.get_cat_list(), self.title)
 
     def get_cat_list(self):
-        k = self.category # for now ignore this instance method
+        k = self.category 
         
         breadcrumb = ["dummy"]
         while k is not None:
             breadcrumb.append(k.slug)
             k = k.parent
+        
         for i in range(len(breadcrumb)-1):
             breadcrumb[i] = '/'.join(breadcrumb[-1:i-1:-1])
+        
         return breadcrumb[-1:0:-1]
 
     class Meta:
@@ -41,7 +44,6 @@ class BlogCategory(models.Model):
         while k is not None:
             full_path.append(k.category)
             k = k.parent
-            print(full_path[::-1])
         return ' -> '.join(full_path[::-1])
 
     class Meta:

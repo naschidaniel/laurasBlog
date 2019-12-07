@@ -11,6 +11,7 @@ class BlogPostViewSet(viewsets.ModelViewSet):
     API endpoint that allows users to be viewed or edited.
     """
     queryset = BlogPost.objects.all()
+    param = 'fadsfdafad'
     serializer_class = BlogPostSerializer
 
 class BlogCategoryViewSet(viewsets.ModelViewSet):
