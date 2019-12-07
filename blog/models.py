@@ -6,28 +6,43 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     datePosted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=False)
 
     def __str__(self):
         return self.title
 
+    def get_cat_list(self):
+        k = self.category # for now ignore this instance method
+        
+        breadcrumb = ["dummy"]
+        while k is not None:
+            breadcrumb.append(k.slug)
+            k = k.parent
+        for i in range(len(breadcrumb)-1):
+            breadcrumb[i] = '/'.join(breadcrumb[-1:i-1:-1])
+        return breadcrumb[-1:0:-1]
+
     class Meta:
         ordering = ['-datePosted']
 
-class BlogMaincategorie(models.Model):
-    maincategorie = models.CharField(max_length=300, unique=True, primary_key=True)
-    allowSubcategorie = models.BooleanField(default=False)
-    def __str__(self):
-        return self.maincategorie
+class BlogCategory(models.Model):
+    category = models.CharField(max_length=300)
+    slug = models.SlugField()
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=True)
 
     class Meta:
-        ordering = ['maincategorie']
-    
-class BlogSubcategorie(models.Model):
-    maincategorie = models.ForeignKey(BlogMaincategorie, related_name="main", on_delete=models.CASCADE)
-    subcategorie = models.CharField(max_length=300, default='---')
-    def __str__(self):
-        return "{} | {}".format(self.maincategorie, self.subcategorie)
+        unique_together = ('slug', 'parent')    
+        verbose_name_plural = "BlogCategory"     
+
+    def __str__(self):                           
+        full_path = [self.category]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.category)
+            k = k.parent
+            print(full_path[::-1])
+        return ' -> '.join(full_path[::-1])
 
     class Meta:
-        ordering = ['maincategorie', 'subcategorie']
+        ordering = ['category', 'slug']
