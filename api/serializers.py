@@ -11,7 +11,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
 class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogCategory
-        fields = ['category', 'slug', 'parent']
+        fields = ['id', 'category', 'slug', 'parent']
 
 ## Pages
 class PagesSerializer(serializers.ModelSerializer):
