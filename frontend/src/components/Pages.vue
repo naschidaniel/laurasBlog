@@ -21,30 +21,30 @@ export default {
   },
   data() {
     return {
-      apiData: null,
+      apiData: null
     };
   },
-  watch: { 
+  watch: {
     link: function() {
-      this.getContent()
+      this.getContent();
     }
   },
   methods: {
-    compileMarkdown: function(string) { 
-      return(marked(string))
+    compileMarkdown: function(string) {
+      return marked(string);
     },
 
     getContent: function() {
       var url = "/api/pages/" + this.link + "?format=json";
-      console.log("Page API URL: " + url)
+      console.log("Page API URL: " + url);
       axios
         .get(url)
-        .then(response => this.apiData = response.data)
+        .then(response => (this.apiData = response.data))
         .catch(error => console.log(error));
     }
   },
   mounted() {
-    this.getContent()
+    this.getContent();
   }
 };
 </script>
@@ -52,15 +52,15 @@ export default {
 <style scoped>
 .content >>> h2 {
   @apply text-2xl text-lauraOrange;
-  }
+}
 .content >>> h3 {
   @apply text-xl text-lauraOrange;
-  }
+}
 
 .content >>> ul {
   @apply list-inside;
-  }
+}
 .content >>> li {
   @apply list-disc;
-  }
+}
 </style>
