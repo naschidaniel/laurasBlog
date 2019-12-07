@@ -26,17 +26,26 @@ export default {
       apiData: null
     };
   },
+  watch: { 
+    link: function() {
+      this.getContent()
+    }
+  },
   methods: {
     compiledMarkdown: function(content) {
       return marked(content);
+    },
+    getContent: function() {
+      var url = "/api/pages/" + this.link + "?format=json";
+      console.log("Page API URL: " + url)
+      axios
+        .get(url)
+        .then(response => (this.apiData = response.data))
+        .catch(error => console.log(error));
     }
   },
   mounted() {
-    var url = "/api/pages/" + this.link + "?format=json";
-    axios
-      .get(url)
-      .then(response => (this.apiData = response.data))
-      .catch(error => console.log(error));
+    this.getContent()
   }
 };
 </script>
