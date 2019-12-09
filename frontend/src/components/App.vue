@@ -17,6 +17,7 @@ import Navbar from "./Navbar.vue";
 import AppTop from "./AppTop.vue";
 import BlogCategories from "./BlogCategories.vue";
 import AppFooter from "./AppFooter.vue";
+import 'es6-promise/auto'
 
 export default {
   name: "app",

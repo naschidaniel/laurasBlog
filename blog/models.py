@@ -11,7 +11,7 @@ class BlogPost(models.Model):
     slug = models.SlugField()
     
     def __str__(self):
-        return '{} | {}'.format(self.get_cat_list(), self.title)
+        return '{}'.format(self.title)
 
     def get_cat_list(self):
         k = self.category 
@@ -22,7 +22,7 @@ class BlogPost(models.Model):
             k = k.parent
         
         for i in range(len(breadcrumb)-1):
-            breadcrumb[i] = '/'.join(breadcrumb[-1:i-1:-1])
+            breadcrumb[i] = ' => '.join(breadcrumb[-1:i-1:-1])
         
         return breadcrumb[-1:0:-1]
 
@@ -47,4 +47,4 @@ class BlogCategory(models.Model):
         return ' -> '.join(full_path[::-1])
 
     class Meta:
-        ordering = ['category', 'slug']
+        ordering = ['slug', 'category']
