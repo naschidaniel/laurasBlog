@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar.vue";
-import AppTop from "./components/AppTop.vue";
-import BlogCategories from "./components/BlogCategories.vue";
-import AppFooter from "./components/AppFooter.vue";
+import Navbar from "./Navbar.vue";
+import AppTop from "./AppTop.vue";
+import BlogCategories from "./BlogCategories.vue";
+import AppFooter from "./AppFooter.vue";
 
 export default {
   name: "app",
