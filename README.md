@@ -1,4 +1,8 @@
 # laurasBlog
 
-django
 
+### Install example Data
+
+```
+./manage.py loaddata user.json
+```
