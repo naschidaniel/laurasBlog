@@ -37,6 +37,7 @@ class BlogCategory(models.Model):
     class Meta:
         unique_together = ('slug', 'parent')    
         verbose_name_plural = "BlogCategory"     
+        ordering = ['category', 'parent__category']
 
     def __str__(self):                           
         full_path = [self.category]
@@ -45,6 +46,3 @@ class BlogCategory(models.Model):
             full_path.append(k.category)
             k = k.parent
         return ' -> '.join(full_path[::-1])
-
-    class Meta:
-        ordering = ['slug', 'category']
