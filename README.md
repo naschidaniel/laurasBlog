@@ -4,5 +4,5 @@
 ### Install example Data
 
 ```
-./manage.py loaddata user.json
+./manage.py loaddata db.json
 ```
