@@ -53,6 +53,7 @@ export default {
 .content >>> h2 {
   @apply text-2xl text-lauraOrange;
 }
+
 .content >>> h3 {
   @apply text-xl text-lauraOrange;
 }

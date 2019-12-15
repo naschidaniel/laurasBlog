@@ -17,45 +17,18 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  name: "Navbar",
-  data() {
-    return {
-      blogCategories: null
-    };
-  },
-  filters: {
-    substring: function(string) {
-      return string.substring(0, 200);
+  name: "blogCategory",
+  computed: {
+    loadingStatus () {
+      return this.$store.getters.getLoadingStatus
+    },
+    blogCategories () {
+      return this.$store.getters.allBlogCateogries
     }
   },
   mounted() {
-    axios.get("/api/blogcategories/?format=json").then(response => {
-      var data = response.data;
-      console.log(data);
-      for (var index = 0; index < response.data.length; index++) {
-        var breadcrumps = [data[index].category];
-        var breadcrumpsID = [data[index].id];
-        var k = data[index].parent;
-
-        while (k != null) {
-          if (k.parent != null) {
-            breadcrumps.push(k.category);
-            breadcrumpsID.push(k.id);
-          } else {
-            var selectParent = data[index].parent - 1;
-            breadcrumps.push(data[selectParent].category);
-            breadcrumpsID.push(data[selectParent].id);
-          }
-          k = k.parent;
-        }
-        data[index]["breadcrumps"] = breadcrumps.reverse();
-        data[index]["breadcrumpsID"] = breadcrumpsID.reverse();
-      }
-      return (this.blogCategories = data);
-    });
+    this.$store.dispatch('fetchBlogCategories')
   }
 };
 </script>
