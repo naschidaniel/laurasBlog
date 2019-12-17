@@ -60,7 +60,9 @@ const store = new Vuex.Store({
       return state.loadingStatus;
     },
     getblogCategoryById: state => id => {
-      var rudi = state.blogCategory.find(blogCategory => blogCategory.parent === id);
+      var rudi = state.blogCategory.find(
+        blogCategory => blogCategory.parent === id
+      );
       console.log(rudi);
       return rudi;
     }
