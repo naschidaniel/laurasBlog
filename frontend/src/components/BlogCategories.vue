@@ -1,8 +1,9 @@
 <template>
   <div class="pt-4 px-4 pb-2">
     <h3 class="uppercase">Kategorien</h3>
+    {{ getblogCategoryById(1) }}
     <ul>
-      <li v-for="bC in blogCategories" :key="bC.category" class="pt-3">
+      <li v-for="bC in allBlogCateogries" :key="bC.category" class="pt-3">
         <span v-if="bC.breadcrumps.length == 1">{{ bC.breadcrumps[0] }}</span>
         <ul v-else>
           <li>
@@ -17,18 +18,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "blogCategory",
-  computed: {
-    loadingStatus () {
-      return this.$store.getters.getLoadingStatus
-    },
-    blogCategories () {
-      return this.$store.getters.allBlogCateogries
-    }
-  },
+  computed: mapGetters([
+    "getLoadingStatus",
+    "getblogCategoryById"
+  ]),
   mounted() {
-    this.$store.dispatch('fetchBlogCategories')
+    this.$store.dispatch("fetchBlogCategories");
   }
 };
 </script>

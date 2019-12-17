@@ -7,21 +7,25 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     loadingStatus: "notLoading",
-    blogCategory: null
+    blogCategory: null,
+    sort_by: "breadcrups",
+    sort_ascending: true,
+    items: null
   },
   mutations: {
-    SET_LOADING_STATUS(state, status) {
-      state.loadingStatus = status;
-    },
     SET_BLOG_CATEGORY(state, blogCategory) {
       state.blogCategory = blogCategory;
+    },
+    SET_LOADING_STATUS(state, status) {
+      state.loadingStatus = status;
     }
   },
   actions: {
-    fetchBlogCategories(entrys) {
-      entrys.commit("SET_LOADING_STATUS", "loading");
+    fetchBlogCategories({ commit }) {
+      commit("SET_LOADING_STATUS", "loading");
       axios.get("/api/blogcategories/?format=json").then(response => {
         var data = response.data;
+        typeof data;
         for (var index = 0; index < response.data.length; index++) {
           var breadcrumps = [data[index].category];
           var breadcrumpsID = [data[index].id];
@@ -32,26 +36,33 @@ const store = new Vuex.Store({
               breadcrumps.push(k.category);
               breadcrumpsID.push(k.id);
             } else {
-              var selectParent = data[index].parent - 1;
-              breadcrumps.push(data[selectParent].category);
-              breadcrumpsID.push(data[selectParent].id);
+              const parent = data[index].parent;
+              var DataParent = data.filter(data => data.id === parent);
+              breadcrumps.push(DataParent[0].category);
+              breadcrumpsID.push(DataParent[0].id);
             }
             k = k.parent;
           }
           data[index]["breadcrumps"] = breadcrumps.reverse();
           data[index]["breadcrumpsID"] = breadcrumpsID.reverse();
         }
-        entrys.commit("SET_LOADING_STATUS", "notLoading");
-        entrys.commit("SET_BLOG_CATEGORY", data);
+
+        commit("SET_LOADING_STATUS", "notLoading");
+        commit("SET_BLOG_CATEGORY", data);
       });
     }
   },
   getters: {
     allBlogCateogries: state => {
-      return state.blogCategory
+      return state.blogCategory;
     },
     getLoadingStatus: state => {
-      return state.loadingStatus
+      return state.loadingStatus;
+    },
+    getblogCategoryById: state => id => {
+      var rudi = state.blogCategory.find(blogCategory => blogCategory.parent === id);
+      console.log(rudi);
+      return rudi;
     }
   }
 });
