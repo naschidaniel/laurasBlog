@@ -1,50 +1,31 @@
 <template>
   <div>
-    <h1 v-if="apiData.title">
-      {{ apiData.title }}
+    <h1>
+      {{ getPage.title }}
     </h1>
     <div
-      v-if="apiData.content"
-      v-html="compileMarkdown(apiData.content)"
+      v-html="getPage.content"
       class="content"
     ></div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import marked from "marked";
+import { mapGetters } from "vuex";
 
 export default {
   props: {
     link: String
   },
-  data() {
-    return {
-      apiData: null
-    };
-  },
+  computed: mapGetters(["getPage"]),
   watch: {
     link: function() {
-      this.getContent();
-    }
-  },
-  methods: {
-    compileMarkdown: function(string) {
-      return marked(string);
-    },
-
-    getContent: function() {
-      var url = "/api/pages/" + this.link + "?format=json";
-      console.log("Page API URL: " + url);
-      axios
-        .get(url)
-        .then(response => (this.apiData = response.data))
-        .catch(error => console.log(error));
+      this.$store.dispatch("fetchPage", this.link);
     }
   },
   mounted() {
-    this.getContent();
+    console.log("link " +  this.link)
+    this.$store.dispatch("fetchPage");
   }
 };
 </script>

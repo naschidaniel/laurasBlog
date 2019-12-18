@@ -8,7 +8,8 @@ const store = new Vuex.Store({
   state: {
     loadingStatus: "notLoading",
     blogCategory: [],
-    blogPosts: []
+    blogPosts: [],
+    page: []
   },
   mutations: {
     SET_BLOG_CATEGORY(state, blogCategory) {
@@ -19,8 +20,12 @@ const store = new Vuex.Store({
     },
     SET_BLOG_POSTS(state, blogPosts) {
       state.blogPosts = blogPosts;
+    },
+    SET_PAGE(state, page) {
+      state.page = page;
     }
   },
+
   actions: {
     fetchBlogCategories({ commit }) {
       commit("SET_LOADING_STATUS", "loading");
@@ -54,8 +59,7 @@ const store = new Vuex.Store({
     fetchBlogPosts({ commit }) {
       commit("SET_LOADING_STATUS", "loading");
       axios.get("/api/blogposts/?format=json").then(response => {
-        var data = null;
-        data = response.data;
+        var data = response.data;
         for (var index = 0; index < data.length; index++) {
           if (data[index].content.length >= "200") {
             data[index]["truncate"] = true;
@@ -64,7 +68,16 @@ const store = new Vuex.Store({
         commit("SET_LOADING_STATUS", "notLoading");
         commit("SET_BLOG_POSTS", data);
       });
-    }
+    },
+    fetchPage({ commit }, link) {
+      commit("SET_LOADING_STATUS", "loading");
+      console.log("Page API URL: " + link);
+      axios.get("api/pages/" + link + "?format=json")
+        .then(response => {
+          var data = response.data;
+          commit("SET_PAGE", data)
+        })
+    },
   },
   getters: {
     allBlogCateogries: state => {
@@ -78,8 +91,10 @@ const store = new Vuex.Store({
     },
     allBlogPosts: state => {
       return state.blogPosts;
+    },
+    getPage: state => {
+      return state.page;
     }
   }
 });
-
 export default store;

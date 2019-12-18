@@ -22,7 +22,11 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogCategory",
-  computed: mapGetters(["allBlogCateogries", "getLoadingStatus", "getblogCategoryById"]),
+  computed: mapGetters([
+    "allBlogCateogries",
+    "getLoadingStatus",
+    "getblogCategoryById"
+  ]),
   mounted() {
     this.$store.dispatch("fetchBlogCategories");
   }
