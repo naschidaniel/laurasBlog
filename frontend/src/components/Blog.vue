@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-wrap">
       <div
-        v-for="bp in blogposts"
+        v-for="bp in allBlogPosts"
         :key="bp.title"
         class="w-full px-2 mt-3 md:w-1/2 "
       >
@@ -38,31 +38,18 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
-  name: "Navbar",
-  data() {
-    return {
-      blogposts: null
-    };
-  },
+  name: "blogPosts",
+  computed: mapGetters(["allBlogPosts"]),
   filters: {
     substring: function(string) {
       return string.substring(0, 200);
     }
   },
   mounted() {
-    axios.get("/api/blogposts/?format=json").then(response => {
-      var data = null;
-      data = response.data;
-      for (var index = 0; index < data.length; index++) {
-        if (data[index].content.length >= "200") {
-          data[index]["truncate"] = true;
-        }
-      }
-      return (this.blogposts = data);
-    });
+    this.$store.dispatch("fetchBlogPosts");
   }
 };
 </script>

@@ -8,9 +8,7 @@ const store = new Vuex.Store({
   state: {
     loadingStatus: "notLoading",
     blogCategory: [],
-    sort_by: "breadcrups",
-    sort_ascending: true,
-    items: null
+    blogPosts: []
   },
   mutations: {
     SET_BLOG_CATEGORY(state, blogCategory) {
@@ -18,6 +16,9 @@ const store = new Vuex.Store({
     },
     SET_LOADING_STATUS(state, status) {
       state.loadingStatus = status;
+    },
+    SET_BLOG_POSTS(state, blogPosts) {
+      state.blogPosts = blogPosts;
     }
   },
   actions: {
@@ -25,7 +26,6 @@ const store = new Vuex.Store({
       commit("SET_LOADING_STATUS", "loading");
       axios.get("/api/blogcategories/?format=json").then(response => {
         var data = response.data;
-        typeof data;
         for (var index = 0; index < response.data.length; index++) {
           var breadcrumps = [data[index].category];
           var breadcrumpsID = [data[index].id];
@@ -50,6 +50,20 @@ const store = new Vuex.Store({
         commit("SET_LOADING_STATUS", "notLoading");
         commit("SET_BLOG_CATEGORY", data);
       });
+    },
+    fetchBlogPosts({ commit }) {
+      commit("SET_LOADING_STATUS", "loading");
+      axios.get("/api/blogposts/?format=json").then(response => {
+        var data = null;
+        data = response.data;
+        for (var index = 0; index < data.length; index++) {
+          if (data[index].content.length >= "200") {
+            data[index]["truncate"] = true;
+          }
+        }
+        commit("SET_LOADING_STATUS", "notLoading");
+        commit("SET_BLOG_POSTS", data);
+      });
     }
   },
   getters: {
@@ -61,6 +75,9 @@ const store = new Vuex.Store({
     },
     getblogCategoryById: (state) => (id) => {
       return state.blogCategory.find(blogCategory => blogCategory.parent === id);
+    },
+    allBlogPosts: state => {
+      return state.blogPosts;
     }
   }
 });
