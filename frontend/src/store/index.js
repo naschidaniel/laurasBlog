@@ -7,7 +7,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     loadingStatus: "notLoading",
-    blogCategory: null,
+    blogCategory: [],
     sort_by: "breadcrups",
     sort_ascending: true,
     items: null
@@ -59,10 +59,9 @@ const store = new Vuex.Store({
     getLoadingStatus: state => {
       return state.loadingStatus;
     },
-    getblogCategoryById: state => id => {
-      var rudi = state.blogCategory.find(
-        blogCategory => blogCategory.parent === id
-      );
+    getblogCategoryById: (state) => () => {
+      console.log(state.blogCategory);
+      var rudi = state.blogCategory.find(blogCategory => blogCategory.parent === 1);
       console.log(rudi);
       return rudi;
     }
