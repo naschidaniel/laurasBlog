@@ -14,6 +14,7 @@ const routes = [
   {
     path: "/:link",
     name: "page",
+    props: true,
     component: Pages
   }
 ];

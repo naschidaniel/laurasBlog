@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Pages v-bind:link="$route.params.link" />
+    <Pages v-bind:link="this.link" />
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import Pages from "@/components/Pages.vue";
 
 export default {
   name: "pages",
+  props: ["link"],
   components: {
     Pages
   }
