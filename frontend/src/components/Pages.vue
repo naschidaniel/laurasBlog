@@ -3,10 +3,7 @@
     <h1>
       {{ getPage.title }}
     </h1>
-    <div
-      v-html="getPage.content"
-      class="content"
-    ></div>
+    <div v-html="getPage.content" class="content"></div>
   </div>
 </template>
 
@@ -24,7 +21,7 @@ export default {
     }
   },
   mounted() {
-    console.log("link " +  this.link)
+    console.log("link " + this.link);
     this.$store.dispatch("fetchPage");
   }
 };
