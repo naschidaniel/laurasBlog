@@ -1,5 +1,5 @@
 {
-		"python.pythonPath": "/home/daniel/anaconda3/envs/laurasBlog/bin/python",
+		"python.pythonPath": "C:\\tools\\Anaconda3\\envs\\laurasBlog\\python.exe",
 		"editor.tabSize": 2,
 		"editor.insertSpaces": true,
 		"editor.detectIndentation": true,
