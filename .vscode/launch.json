@@ -10,6 +10,7 @@
       "name": "VueJS",
       "runtimeExecutable": "${workspaceFolder}/frontend/",
       "runtimeArgs": [
+        "yarn",
         "serve"
       ],
       "port": 8080,
