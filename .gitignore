@@ -20,4 +20,6 @@ __pycache__
 
 # Django 
 */migrations/*_initial.py
+*/migrations/*_auto_*.py
+
 db.sqlite3
