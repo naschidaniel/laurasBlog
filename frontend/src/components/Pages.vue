@@ -1,5 +1,6 @@
 <template>
   <div>
+    LINK: {{ getLink }}
     <h1>
       {{ getPage.title }}
     </h1>
@@ -14,15 +15,15 @@ export default {
   props: {
     link: String
   },
-  computed: mapGetters(["getPage"]),
   watch: {
     link: function() {
-      this.$store.dispatch("fetchPage", this.link);
-    }
+      this.$store.dispatch("fetchLink", this.link);
+    },
   },
-  mounted() {
+  computed: mapGetters(["getPage", "getLink"]),
+  created() {
     console.log("link " + this.link);
-    this.$store.dispatch("fetchPage");
+    this.$store.dispatch("fetchLink", this.link)
   }
 };
 </script>

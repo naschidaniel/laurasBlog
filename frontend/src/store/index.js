@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     loadingStatus: "notLoading",
     blogCategory: [],
     blogPosts: [],
+    link: "",
     page: []
   },
   mutations: {
@@ -23,6 +24,9 @@ const store = new Vuex.Store({
     },
     SET_PAGE(state, page) {
       state.page = page;
+    },
+    SET_LINK(state, link) {
+      state.link = link;
     }
   },
 
@@ -71,12 +75,19 @@ const store = new Vuex.Store({
     },
     fetchPage({ commit }, link) {
       commit("SET_LOADING_STATUS", "loading");
+      commit("SET_LINK", link);
       console.log("Page API URL: " + link);
+      console.log("api/pages/" + link + "?format=json")
       axios.get("api/pages/" + link + "?format=json").then(response => {
         var data = response.data;
         commit("SET_PAGE", data);
       });
+    },
+    fetchLink({ commit }, link) {
+      commit("SET_LINK", link);
+      console.log("LINK SET " + link)
     }
+
   },
   getters: {
     allBlogCateogries: state => {
@@ -95,6 +106,9 @@ const store = new Vuex.Store({
     },
     getPage: state => {
       return state.page;
+    },
+    getLink: state => {
+      return state.link;
     }
   }
 });
