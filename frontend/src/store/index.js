@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import _ from "lodash";
 
 Vue.use(Vuex);
 
@@ -72,22 +73,25 @@ const store = new Vuex.Store({
     fetchPage({ commit }, link) {
       commit("SET_LOADING_STATUS", "loading");
       console.log("Page API URL: " + link);
-      axios.get("api/pages/" + link + "?format=json")
-        .then(response => {
-          var data = response.data;
-          commit("SET_PAGE", data)
-        })
-    },
+      axios.get("api/pages/" + link + "?format=json").then(response => {
+        var data = response.data;
+        commit("SET_PAGE", data);
+      });
+    }
   },
   getters: {
     allBlogCateogries: state => {
-      return state.blogCategory;
+      let blogCategory = state.blogCategory;
+      console.log(_.groupBy(blogCategory, "blogCategory.parent"));
+      return blogCategory;
     },
     getLoadingStatus: state => {
       return state.loadingStatus;
     },
-    getblogCategoryById: (state) => (id) => {
-      return state.blogCategory.find(blogCategory => blogCategory.parent === id);
+    getblogCategoryById: state => id => {
+      return state.blogCategory.find(
+        blogCategory => blogCategory.parent === id
+      );
     },
     allBlogPosts: state => {
       return state.blogPosts;
