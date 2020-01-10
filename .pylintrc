@@ -1,0 +1,9 @@
+[BASIC]
+
+const-naming-style=camelCase
+module-naming-style=camelCase
+variable-naming-style=camelCase
+function-naming-style=camelCase
+argument-naming-style=camelCase
+
+good-names=df, i, j, k, f

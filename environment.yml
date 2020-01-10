@@ -1,0 +1,12 @@
+name: laurasBlog
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pylint
+  - django
+  - djangorestframework
+  - nodejs
+  - yarn
+  - pip:
+    - django-webpack-loader

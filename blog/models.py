@@ -7,7 +7,7 @@ class BlogPost(models.Model):
     content = models.TextField()
     datePosted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=False)
+    category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=models.CASCADE)
     slug = models.SlugField()
     
     def __str__(self):
@@ -19,7 +19,7 @@ class BlogPost(models.Model):
 class BlogCategory(models.Model):
     category = models.CharField(max_length=300)
     slug = models.SlugField()
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=True)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('slug', 'parent')    
