@@ -4,7 +4,6 @@ npm-debug.log
 yarn-error.log
 */webpack-stats.json
 
-
 # Editor directories and files
 .vscode/settings.json
 .vscode/tags
@@ -15,6 +14,10 @@ yarn-error.log
 *.sln
 .DS_Store
 
-#python
+# Python
 *.pyc
+__pycache__
+
+# Django 
+*/migrations/*_initial.py
 db.sqlite3
