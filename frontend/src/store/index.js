@@ -84,11 +84,10 @@ const store = new Vuex.Store({
         var data = response.data;
         commit("SET_PAGE", data);
       });
-
     },
     fetchLink({ commit }, link) {
       commit("SET_LINK", link);
-      console.log("LINK SET " + link)
+      console.log("LINK SET " + link);
     }
   },
   getters: {

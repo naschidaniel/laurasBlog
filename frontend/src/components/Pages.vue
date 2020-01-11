@@ -18,12 +18,12 @@ export default {
   watch: {
     link: function() {
       this.$store.dispatch("fetchLink", this.link);
-    },
+    }
   },
   computed: mapGetters(["getPage", "getLink"]),
   created() {
     console.log("link " + this.link);
-    this.$store.dispatch("fetchLink", this.link)
+    this.$store.dispatch("fetchLink", this.link);
   }
 };
 </script>
