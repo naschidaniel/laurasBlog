@@ -32,40 +32,31 @@ const store = new Vuex.Store({
       commit("SET_LOADING_STATUS", "loading");
       axios.get("/api/blogcategories/?format=json").then(response => {
         let data = response.data;
-        
-        var object = { 'a': 3 };
- 
-        _.set(object, 'a', 4);
-        console.log(object.a);
-        
-        let filter = _.filter(data, function(o) {return o.parent === null});
-        _.forEach(filter, value).set('parent', 0);
-        console.log(data)
-        console.log(filter)
-        console.log(filter[0].parent)
-        // for (var index = 0; index < response.data.length; index++) {
-        //   var breadcrumps = [data[index].category];
-        //   var breadcrumpsID = [data[index].id];
-        //   var k = data[index].parent;
+        for (let index = 0; index < response.data.length; index++) {
+          let breadcrumps = [data[index].category];
+          let breadcrumpsID = [data[index].id];
+          let k = data[index].parent;
+          while (k != null) {
+            if (k.parent != null) {
+              breadcrumps.push(k.category);
+              breadcrumpsID.push(k.id);
+            } else {
+              const parent = data[index].parent;
+              let DataParent = data.filter(data => data.id === parent);
+              breadcrumps.push(DataParent[0].category);
+              breadcrumpsID.push(DataParent[0].id);
+            }
+            k = k.parent;
+          }
+          data[index]["breadcrumps"] = breadcrumps.reverse();
+          data[index]["breadcrumpsID"] = breadcrumpsID.reverse();
+        }
 
-        //   while (k != null) {
-        //     if (k.parent != null) {
-        //       breadcrumps.push(k.category);
-        //       breadcrumpsID.push(k.id);
-        //     } else {
-        //       const parent = data[index].parent;
-        //       var DataParent = data.filter(data => data.id === parent);
-        //       breadcrumps.push(DataParent[0].category);
-        //       breadcrumpsID.push(DataParent[0].id);
-        //     }
-        //     k = k.parent;
-        //   }
-        //   data[index]["breadcrumps"] = breadcrumps.reverse();
-        //   data[index]["breadcrumpsID"] = breadcrumpsID.reverse();
-        // }
-
+        let orderData = _.orderBy(data, function(o) {
+          return o.breadcrumps.join(" ");
+        });
         commit("SET_LOADING_STATUS", "notLoading");
-        commit("SET_BLOG_CATEGORY", data);
+        commit("SET_BLOG_CATEGORY", orderData);
       });
     },
     fetchBlogPosts({ commit }) {
@@ -92,13 +83,7 @@ const store = new Vuex.Store({
   },
   getters: {
     allBlogCateogries: state => {
-      let blogCategory = state.blogCategory;
-      blogCategory = _.chain(blogCategory).set("parent", 0).value()
-      // blogCategory = _.filter(blogCategory, function(o) { return o.parent === null; })
-      //.set("parent", 0)
-      //blogCategory = _.chain(blogCategory).groupBy("parent").value();
-      //blogCategory = (_.groupBy(blogCategory, "blogCategory.parent"));
-      return blogCategory;
+      return state.blogCategory;
     },
     getLoadingStatus: state => {
       return state.loadingStatus;
