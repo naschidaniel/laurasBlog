@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import _ from "lodash";
 
 Vue.use(Vuex);
 
@@ -34,19 +35,18 @@ const store = new Vuex.Store({
     fetchBlogCategories({ commit }) {
       commit("SET_LOADING_STATUS", "loading");
       axios.get("/api/blogcategories/?format=json").then(response => {
-        var data = response.data;
-        for (var index = 0; index < response.data.length; index++) {
-          var breadcrumps = [data[index].category];
-          var breadcrumpsID = [data[index].id];
-          var k = data[index].parent;
-
+        let data = response.data;
+        for (let index = 0; index < response.data.length; index++) {
+          let breadcrumps = [data[index].category];
+          let breadcrumpsID = [data[index].id];
+          let k = data[index].parent;
           while (k != null) {
             if (k.parent != null) {
               breadcrumps.push(k.category);
               breadcrumpsID.push(k.id);
             } else {
               const parent = data[index].parent;
-              var DataParent = data.filter(data => data.id === parent);
+              let DataParent = data.filter(data => data.id === parent);
               breadcrumps.push(DataParent[0].category);
               breadcrumpsID.push(DataParent[0].id);
             }
@@ -56,8 +56,11 @@ const store = new Vuex.Store({
           data[index]["breadcrumpsID"] = breadcrumpsID.reverse();
         }
 
+        let orderData = _.orderBy(data, function(o) {
+          return o.breadcrumps.join(" ");
+        });
         commit("SET_LOADING_STATUS", "notLoading");
-        commit("SET_BLOG_CATEGORY", data);
+        commit("SET_BLOG_CATEGORY", orderData);
       });
     },
     fetchBlogPosts({ commit }) {
@@ -77,17 +80,16 @@ const store = new Vuex.Store({
       commit("SET_LOADING_STATUS", "loading");
       commit("SET_LINK", link);
       console.log("Page API URL: " + link);
-      console.log("api/pages/" + link + "?format=json")
       axios.get("api/pages/" + link + "?format=json").then(response => {
         var data = response.data;
         commit("SET_PAGE", data);
       });
+
     },
     fetchLink({ commit }, link) {
       commit("SET_LINK", link);
       console.log("LINK SET " + link)
     }
-
   },
   getters: {
     allBlogCateogries: state => {
