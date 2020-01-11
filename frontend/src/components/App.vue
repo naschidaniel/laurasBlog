@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <div class="antialiased flex flex-col min-h-screen">
-      <BlogCategories class="mx-auto w-full px-3 lg:max-w-6xl"></BlogCategories>
       <app-top />
       <navbar></navbar>
       <main class=" mx-auto flex-grow w-full px-3 lg:max-w-6xl">
         <router-view />
       </main>
+      <BlogCategories class="mx-auto w-full px-3 lg:max-w-6xl"></BlogCategories>
       <app-Footer />
     </div>
   </div>
