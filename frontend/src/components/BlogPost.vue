@@ -12,6 +12,6 @@ export default {
   props: {
     blogID: Number
   },
-  computed: mapGetters(["getBlogById"]),
+  computed: mapGetters(["getBlogById"])
 };
 </script>

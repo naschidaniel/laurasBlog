@@ -17,11 +17,11 @@
           <div class="pt-3 py-2 px-2">
             <h3 class="text-xl text-lauraOrange">
               <router-link
-          :to="{ name: 'blogpost', params: { blogID: bp.id } }"
-        >
-          {{ bp.title }}
-        </router-link>
-              </h3>
+                :to="{ name: 'blogpost', params: { blogID: bp.id } }"
+              >
+                {{ bp.title }}
+              </router-link>
+            </h3>
             <div class="pt-3 text-gray-900">
               <p class="h-20 break-words overflow-hidden whitespace-normal">
                 {{ bp.content | substring }}
