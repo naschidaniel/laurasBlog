@@ -4,6 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import { getBlogPosts } from "../../api/blogPosts";
+import { getBlogCategories } from "../../api/blogCategories";
 
 Vue.use(Vuex);
 
@@ -35,35 +36,37 @@ const store = new Vuex.Store({
 
   actions: {
     fetchBlogCategories({ commit }) {
-      commit("SET_LOADING_STATUS", "loading");
-      axios.get("/api/blogcategories/?format=json").then(response => {
-        let data = response.data;
-        for (let index = 0; index < response.data.length; index++) {
-          let breadcrumps = [data[index].category];
-          let breadcrumpsID = [data[index].id];
-          let k = data[index].parent;
+      async function setBlogCategories() {
+        commit("SET_LOADING_STATUS", "loading");
+        let res = await getBlogCategories();
+
+        for (let index = 0; index < res.length; index++) {
+          let breadcrumps = [res[index].category];
+          let breadcrumpsID = [res[index].id];
+          let k = res[index].parent;
           while (k != null) {
             if (k.parent != null) {
               breadcrumps.push(k.category);
               breadcrumpsID.push(k.id);
             } else {
-              const parent = data[index].parent;
-              let DataParent = data.filter(data => data.id === parent);
+              const parent = res[index].parent;
+              let DataParent = res.filter(res => res.id === parent);
               breadcrumps.push(DataParent[0].category);
               breadcrumpsID.push(DataParent[0].id);
             }
             k = k.parent;
           }
-          data[index]["breadcrumps"] = breadcrumps.reverse();
-          data[index]["breadcrumpsID"] = breadcrumpsID.reverse();
+          res[index]["breadcrumps"] = breadcrumps.reverse();
+          res[index]["breadcrumpsID"] = breadcrumpsID.reverse();
         }
-
-        let orderData = _.orderBy(data, function(o) {
+        
+        _.orderBy(res, function(o) {
           return o.breadcrumps.join(" ");
         });
         commit("SET_LOADING_STATUS", "notLoading");
-        commit("SET_BLOG_CATEGORY", orderData);
-      });
+        commit("SET_BLOG_CATEGORY", res);
+      }
+      setBlogCategories();
     },
     fetchBlogPosts({ commit }) {
       commit("SET_LOADING_STATUS", "loading");
