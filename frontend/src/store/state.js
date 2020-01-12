@@ -1,6 +1,6 @@
 export const state = {
   loadingStatus: "notLoading",
-  blogCategory: [],
+  blogCategory: "",
   blogPosts: [],
   link: "",
   page: []

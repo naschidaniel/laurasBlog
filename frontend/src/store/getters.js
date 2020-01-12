@@ -6,7 +6,12 @@ export const getters = {
     return state.loadingStatus;
   },
   getblogCategoryById: state => id => {
-    return state.blogCategory.find(blogCategory => blogCategory.id === id);
+    if (state.blogCategory === "") {
+      console.log("state.blogCategory = ", state.blogCategory)
+      return ""
+    } else {
+      return state.blogCategory.find(blogCategory => blogCategory.id === id);
+    }
   },
   allBlogPosts: state => {
     return state.blogPosts;

@@ -25,12 +25,11 @@
               </p>
             </div>
             <div class="pt-3 pb-3 font-semibold">
-              {{ bp.category }}
               Kategorien:
               <span
                 v-for="c in getblogCategoryById(bp.category).breadcrumps"
                 :key="c"
-                >{{ c }}</span
+                >{{ c }} </span
               >
               <span class="invisible md:visible"> | </span>
               <br class="md:hidden" />
