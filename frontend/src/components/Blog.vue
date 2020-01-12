@@ -25,7 +25,12 @@
               </p>
             </div>
             <div class="pt-3 pb-3 font-semibold">
-              Kategorien: Stricken, Hude, Rudi
+              Kategorien:
+              <span
+                v-for="c in getblogCategoryById(bp.category).breadcrumps"
+                :key="c"
+                >{{ c }}
+              </span>
               <span class="invisible md:visible"> | </span>
               <br class="md:hidden" />
               www.naschi.info
@@ -42,14 +47,14 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogPosts",
-  computed: mapGetters(["allBlogPosts"]),
+  computed: mapGetters(["allBlogPosts", "getblogCategoryById"]),
   filters: {
     substring: function(string) {
       return string.substring(0, 200);
     }
   },
   mounted() {
-    this.$store.dispatch("fetchBlogPosts");
+    this.$store.dispatch("fetchBlogPosts", "fetchBlogCategories");
   }
 };
 </script>
