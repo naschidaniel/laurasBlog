@@ -59,7 +59,7 @@ const store = new Vuex.Store({
           res[index]["breadcrumps"] = breadcrumps.reverse();
           res[index]["breadcrumpsID"] = breadcrumpsID.reverse();
         }
-        
+
         _.orderBy(res, function(o) {
           return o.breadcrumps.join(" ");
         });
