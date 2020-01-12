@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import axios from "axios";
 import _ from "lodash";
 
+import { getBlogPosts } from "../../api/blogPosts";
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -65,16 +67,17 @@ const store = new Vuex.Store({
     },
     fetchBlogPosts({ commit }) {
       commit("SET_LOADING_STATUS", "loading");
-      axios.get("/api/blogposts/?format=json").then(response => {
-        var data = response.data;
-        for (var index = 0; index < data.length; index++) {
-          if (data[index].content.length >= "200") {
-            data[index]["truncate"] = true;
+      async function setBlogPosts() {
+        let res = await getBlogPosts();
+        _.forEach(res, function(value) {
+          if (value.content.length >= 200) {
+            value["truncate"] = true;
           }
-        }
+        });
         commit("SET_LOADING_STATUS", "notLoading");
-        commit("SET_BLOG_POSTS", data);
-      });
+        commit("SET_BLOG_POSTS", res);
+      }
+      setBlogPosts();
     },
     fetchPage({ commit }, link) {
       commit("SET_LOADING_STATUS", "loading");
