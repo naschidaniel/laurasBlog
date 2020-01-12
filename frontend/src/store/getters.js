@@ -6,7 +6,7 @@ export const getters = {
     return state.loadingStatus;
   },
   getblogCategoryById: state => id => {
-    return state.blogCategory.find(blogCategory => blogCategory.parent === id);
+    return state.blogCategory.find(blogCategory => blogCategory.id === id);
   },
   allBlogPosts: state => {
     return state.blogPosts;
