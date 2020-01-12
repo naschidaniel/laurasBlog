@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Blog from "../views/Blog.vue";
+import BlogPost from "../views/BlogPost.vue";
 import Pages from "../views/Pages.vue";
 
 Vue.use(VueRouter);
@@ -10,6 +11,12 @@ const routes = [
     path: "/",
     name: "blog",
     component: Blog
+  },
+  {
+    path: "/post/:blogID",
+    name: "blogpost",
+    props: true,
+    component: BlogPost
   },
   {
     path: "/:link",
