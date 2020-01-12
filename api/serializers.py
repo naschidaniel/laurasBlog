@@ -5,11 +5,10 @@ from pages.models import Pages
 ## Blog
 class BlogPostSerializer(serializers.ModelSerializer):
     datePosted = serializers.DateTimeField(format='%Y-%m-%d %H:%M', input_formats=None)
-    param = 'djfaödsj'
     class Meta:
         model = BlogPost
         many = True
-        fields = ['title', 'content', 'datePosted', 'author', 'category']
+        fields = ['id', 'title', 'content', 'datePosted', 'author', 'category']
 
 class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,4 +19,4 @@ class BlogCategorySerializer(serializers.ModelSerializer):
 class PagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pages
-        fields = ['title', 'content', 'datePosted']
+        fields = ['id', 'title', 'content', 'datePosted']
