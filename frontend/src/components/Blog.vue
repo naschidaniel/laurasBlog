@@ -29,8 +29,8 @@
               <span
                 v-for="c in getblogCategoryById(bp.category).breadcrumps"
                 :key="c"
-                >{{ c }} </span
-              >
+                >{{ c }}
+              </span>
               <span class="invisible md:visible"> | </span>
               <br class="md:hidden" />
               www.naschi.info

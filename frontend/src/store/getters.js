@@ -7,8 +7,8 @@ export const getters = {
   },
   getblogCategoryById: state => id => {
     if (state.blogCategory === "") {
-      console.log("state.blogCategory = ", state.blogCategory)
-      return ""
+      console.log("state.blogCategory = ", state.blogCategory);
+      return "";
     } else {
       return state.blogCategory.find(blogCategory => blogCategory.id === id);
     }
