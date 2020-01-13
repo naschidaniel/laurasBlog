@@ -32,6 +32,12 @@ yarn install
 python manage.py runserver
 ```
 
+## Importand Links
+```
+http://localhost:8000/api/
+http://localhost:8000/admin/
+```
+
 ## VueJs-Frontend
 
 #### Compiles and hot-reloads for development
