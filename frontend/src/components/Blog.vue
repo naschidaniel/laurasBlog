@@ -59,7 +59,7 @@ export default {
       return string.substring(0, 200);
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch("fetchBlogPosts", "fetchBlogCategories");
   }
 };
