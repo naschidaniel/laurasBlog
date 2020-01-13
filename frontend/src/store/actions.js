@@ -1,5 +1,5 @@
 import _ from "lodash";
-import marked from "marked"
+import marked from "marked";
 
 import { getBlogPosts } from "../../api/blogPosts";
 import { getBlogCategories } from "../../api/blogCategories";
@@ -59,8 +59,8 @@ export const actions = {
       let res = await getPages(link);
       res["content"] = marked(res.content);
       commit("SET_PAGE", res);
-    };
+    }
     setPages();
-    commit("SET_LOADING_STATUS", "notloading")
+    commit("SET_LOADING_STATUS", "notloading");
   }
 };

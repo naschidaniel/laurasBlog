@@ -16,12 +16,12 @@ export default {
   },
   watch: {
     link: function() {
-      this.$store.dispatch("fetchPages", this.link)
+      this.$store.dispatch("fetchPages", this.link);
     }
   },
   computed: mapGetters(["getPage"]),
   created() {
-    this.$store.dispatch("fetchPages", this.link)
+    this.$store.dispatch("fetchPages", this.link);
   }
 };
 </script>
