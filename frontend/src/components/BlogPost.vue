@@ -1,7 +1,6 @@
 <template>
   <div>
     {{ getBlogById(blogID) }}
-    BlogID: {{ blogID }}
   </div>
 </template>
 
@@ -13,10 +12,8 @@ export default {
     blogID: String
   },
   computed: mapGetters(["getBlogById"]),
-  mounted() {
+  created() {
     this.$store.dispatch("fetchBlogPosts", "fetchBlogCategories");
   }
 };
 </script>
-
-<style scoped src="./markdown.css"></style>
