@@ -1,6 +1,6 @@
 # laurasBlog
 
-# Installation of Conda Env laurasBlog
+# Conda Env for laurasBlog
 ```
 conda env create -f environment.yml
 ```
