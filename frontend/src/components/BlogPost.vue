@@ -1,7 +1,6 @@
 <template>
   <div>
     {{ getBlogById(blogID) }}
-    BlogID: {{ blogID }}
   </div>
 </template>
 
