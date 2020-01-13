@@ -1,15 +1,13 @@
 import _ from "lodash";
 import marked from "marked";
 
-import { getBlogPosts } from "../../api/blogPosts";
-import { getBlogCategories } from "../../api/blogCategories";
-import { getPages } from "../../api/pages";
+import { api } from "../../api/api";
 
 export const actions = {
   fetchBlogCategories({ commit }) {
     async function setBlogCategories() {
       commit("SET_LOADING_STATUS", "loading");
-      let res = await getBlogCategories();
+      let res = await api("/api/blogcategories/?format=json");
 
       for (let index = 0; index < res.length; index++) {
         let breadcrumps = [res[index].category];
@@ -42,7 +40,7 @@ export const actions = {
   fetchBlogPosts({ commit }) {
     commit("SET_LOADING_STATUS", "loading");
     async function setBlogPosts() {
-      let res = await getBlogPosts();
+      let res = await api("/api/blogposts/?format=json");
       _.forEach(res, function(value) {
         if (value.content.length >= 200) {
           value["truncate"] = true;
@@ -56,7 +54,8 @@ export const actions = {
   fetchPages({ commit }, link) {
     commit("SET_LOADING_STATUS", "loading");
     async function setPages() {
-      let res = await getPages(link);
+      let apiLink = "/api/pages/" + link + "/?format=json";
+      let res = await api(apiLink);
       res["content"] = marked(res.content);
       commit("SET_PAGE", res);
     }
