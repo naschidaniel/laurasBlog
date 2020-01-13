@@ -1,5 +1,5 @@
 <template>
-  <BlogPost v-bind:blogID="this.blogID" />
+  <BlogPost v-bind:blogID="String(this.blogID)" />
 </template>
 
 <script>

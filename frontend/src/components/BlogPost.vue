@@ -1,7 +1,7 @@
 <template>
   <div>
-    harr: {{ blogID }}
     {{ getBlogById(blogID) }}
+    BlogID: {{ blogID }}
   </div>
 </template>
 
@@ -10,8 +10,11 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    blogID: Number
+    blogID: String
   },
-  computed: mapGetters(["getBlogById"])
+  computed: mapGetters(["getBlogById"]),
+  mounted() {
+    this.$store.dispatch("fetchBlogPosts", "fetchBlogCategories");
+  }
 };
 </script>

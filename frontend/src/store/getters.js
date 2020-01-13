@@ -7,15 +7,13 @@ export const getters = {
   },
   getBlogById: state => id => {
     if (state.blogPosts === "") {
-      console.log("state.blogPosts = ", state.blogPosts);
       return "";
     } else {
-      return state.blogPosts.find(blogPosts => blogPosts.id === id);
+      return state.blogPosts.find(blogPosts => blogPosts.id === Number(id));
     }
   },
   getblogCategoryById: state => id => {
     if (state.blogCategory === "") {
-      console.log("state.blogCategory = ", state.blogCategory);
       return "";
     } else {
       return state.blogCategory.find(blogCategory => blogCategory.id === id);
