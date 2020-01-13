@@ -64,3 +64,5 @@ export default {
   }
 };
 </script>
+
+<style scoped src="./markdown.css"></style>

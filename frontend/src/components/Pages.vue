@@ -26,19 +26,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.content >>> h2 {
-  @apply text-2xl text-lauraOrange;
-}
-
-.content >>> h3 {
-  @apply text-xl text-lauraOrange;
-}
-
-.content >>> ul {
-  @apply list-inside;
-}
-.content >>> li {
-  @apply list-disc;
-}
-</style>
+<style scoped src="./markdown.css"></style>
