@@ -1,8 +1,9 @@
-import axios from "axios";
 import _ from "lodash";
+import marked from "marked"
 
 import { getBlogPosts } from "../../api/blogPosts";
 import { getBlogCategories } from "../../api/blogCategories";
+import { getPages } from "../../api/pages";
 
 export const actions = {
   fetchBlogCategories({ commit }) {
@@ -47,22 +48,19 @@ export const actions = {
           value["truncate"] = true;
         }
       });
-      commit("SET_LOADING_STATUS", "notLoading");
       commit("SET_BLOG_POSTS", res);
+      commit("SET_LOADING_STATUS", "notLoading");
     }
     setBlogPosts();
   },
-  fetchPage({ commit }, link) {
+  fetchPages({ commit }, link) {
     commit("SET_LOADING_STATUS", "loading");
-    commit("SET_LINK", link);
-    console.log("Page API URL: " + link);
-    axios.get("api/pages/" + link + "?format=json").then(response => {
-      var data = response.data;
-      commit("SET_PAGE", data);
-    });
-  },
-  fetchLink({ commit }, link) {
-    commit("SET_LINK", link);
-    console.log("LINK SET " + link);
+    async function setPages() {
+      let res = await getPages(link);
+      res["content"] = marked(res.content);
+      commit("SET_PAGE", res);
+    };
+    setPages();
+    commit("SET_LOADING_STATUS", "notloading")
   }
 };

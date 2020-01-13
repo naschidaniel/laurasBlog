@@ -10,8 +10,5 @@ export const mutations = {
   },
   SET_PAGE(state, page) {
     state.page = page;
-  },
-  SET_LINK(state, link) {
-    state.link = link;
   }
 };
