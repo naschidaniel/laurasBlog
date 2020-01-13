@@ -32,7 +32,7 @@ yarn install
 python manage.py runserver
 ```
 
-## Importand Links
+### Importand Links
 ```
 http://localhost:8000/api/
 http://localhost:8000/admin/
