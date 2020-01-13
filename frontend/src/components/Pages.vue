@@ -1,6 +1,5 @@
 <template>
   <div>
-    LINK: {{ getLink }}
     <h1>
       {{ getPage.title }}
     </h1>
@@ -17,13 +16,12 @@ export default {
   },
   watch: {
     link: function() {
-      this.$store.dispatch("fetchLink", this.link);
+      this.$store.dispatch("fetchPage", this.link)
     }
   },
-  computed: mapGetters(["getPage", "getLink"]),
+  computed: mapGetters(["getPage"]),
   created() {
-    console.log("link " + this.link);
-    this.$store.dispatch("fetchLink", this.link);
+    this.$store.dispatch("fetchPage", this.link)
   }
 };
 </script>
