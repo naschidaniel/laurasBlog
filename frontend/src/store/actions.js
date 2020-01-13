@@ -1,4 +1,5 @@
 import _ from "lodash";
+import marked from "marked"
 
 import { getBlogPosts } from "../../api/blogPosts";
 import { getBlogCategories } from "../../api/blogCategories";
@@ -52,11 +53,12 @@ export const actions = {
     }
     setBlogPosts();
   },
-  fetchPage({ commit }, link) {
+  fetchPages({ commit }, link) {
     commit("SET_LOADING_STATUS", "loading");
     async function setPages() {
       let res = await getPages(link);
-      commit("SET_PAGE", res)
+      res["content"] = marked(res.content);
+      commit("SET_PAGE", res);
     };
     setPages();
     commit("SET_LOADING_STATUS", "notloading")
