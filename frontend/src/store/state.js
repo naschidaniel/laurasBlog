@@ -1,7 +1,9 @@
 export const state = {
-  loadingStatus: "notLoading",
-  blogCategory: "",
+  lodStatBlogCategories: "notLoading",
+  blogCategories: "",
+  lodStatBlogPosts: "notLoading",
   blogPosts: [],
-  link: "",
-  page: []
+  lodStatPage: [],
+  page: [],
+  link: ""
 };

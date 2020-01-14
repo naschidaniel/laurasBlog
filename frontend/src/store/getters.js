@@ -1,6 +1,6 @@
 export const getters = {
   allBlogCateogries: state => {
-    return state.blogCategory;
+    return state.blogCategories;
   },
   getLoadingStatus: state => {
     return state.loadingStatus;
@@ -12,11 +12,11 @@ export const getters = {
       return state.blogPosts.find(blogPosts => blogPosts.id === Number(id));
     }
   },
-  getblogCategoryById: state => id => {
-    if (state.blogCategory === "") {
+  getblogCategoriesById: state => id => {
+    if (state.blogCategories === "") {
       return "";
     } else {
-      return state.blogCategory.find(blogCategory => blogCategory.id === id);
+      return state.blogCategories.find(blogCategories => blogCategories.id === id);
     }
   },
   allBlogPosts: state => {

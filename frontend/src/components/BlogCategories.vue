@@ -4,7 +4,7 @@
     <ul v-for="bC in allBlogCateogries" :key="bC.id">
       <li class=" px-6">
         <span v-for="n in bC.breadcrumps.length" :key="n">-</span>
-        {{ bC.category }}
+        {{ bC.categories }}
       </li>
     </ul>
   </div>

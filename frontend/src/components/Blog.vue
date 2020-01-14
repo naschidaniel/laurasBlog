@@ -33,7 +33,7 @@
             <div class="pt-3 pb-3 font-semibold">
               Kategorien:
               <span
-                v-for="c in getblogCategoryById(bp.category).breadcrumps"
+                v-for="c in getblogCategoriesById(bp.category).breadcrumps"
                 :key="c"
                 >{{ c }}
               </span>
@@ -53,7 +53,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogPosts",
-  computed: mapGetters(["allBlogPosts", "getblogCategoryById"]),
+  computed: mapGetters(["allBlogPosts", "getblogCategoriesById"]),
   filters: {
     substring: function(string) {
       return string.substring(0, 200);
