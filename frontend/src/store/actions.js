@@ -6,7 +6,7 @@ import { api } from "../../api/api";
 export const actions = {
   fetchBlogCategories({ commit }) {
     async function setBlogCategories() {
-      commit("SET_LOADING_STATUS", "loading");
+      commit("SET_LOAD_STAT_BLOG_CATEGORIES", "loading");
       let res = await api("/api/blogcategories/?format=json");
 
       for (let index = 0; index < res.length; index++) {
@@ -32,27 +32,38 @@ export const actions = {
       let orderData = _.orderBy(res, function(o) {
         return o.breadcrumps.join(" ");
       });
-      commit("SET_LOADING_STATUS", "notLoading");
-      commit("SET_BLOG_CATEGORY", orderData);
+      commit("SET_BLOG_CATEGORIES", orderData);
+      commit("SET_LOAD_STAT_BLOG_CATEGORIES", "notLoading");
     }
     setBlogCategories();
   },
-  fetchBlogPosts({ commit }) {
-    commit("SET_LOADING_STATUS", "loading");
+  fetchBlogPosts({ state, dispatch, commit }) {
+    commit("SET_LOAD_STAT_BLOG_POSTS", "loading");
     async function setBlogPosts() {
       let res = await api("/api/blogposts/?format=json");
-      _.forEach(res, function(value) {
-        if (value.content.length >= 200) {
-          value["truncate"] = true;
-        }
-      });
+        _.forEach(res, function(value) {
+          if (value.content.length >= 200) {
+            value["truncate"] = true;
+          }
+        });
       commit("SET_BLOG_POSTS", res);
-      commit("SET_LOADING_STATUS", "notLoading");
+      commit("SET_LOAD_STAT_BLOG_POSTS", "notLoading");
     }
+
     setBlogPosts();
+    
+    console.log(state.lodStatBlogCategories)
+    console.log(state.blogCategories)
+
+    if (state.lodStatBlogCategories === "notloading") {
+      dispatch("fetchBlogCategories")
+      console.log("data loaded")
+    } else {
+      console.log("data allready Exists")
+    }
   },
   fetchPages({ commit }, link) {
-    commit("SET_LOADING_STATUS", "loading");
+    commit("SET_LOAD_STAT_PAGES", "loading");
     async function setPages() {
       let apiLink = "/api/pages/" + link + "/?format=json";
       let res = await api(apiLink);
@@ -60,6 +71,6 @@ export const actions = {
       commit("SET_PAGE", res);
     }
     setPages();
-    commit("SET_LOADING_STATUS", "notloading");
+    commit("SET_LOAD_STAT_PAGES", "notloading");
   }
 };
