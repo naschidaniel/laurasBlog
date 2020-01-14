@@ -15,7 +15,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogCategory",
-  computed: mapGetters(["allBlogCateogries", "getLoadingStatus"]),
+  computed: mapGetters(["allBlogCateogries"]),
   created() {
     this.$store.dispatch("fetchBlogCategories");
   }
