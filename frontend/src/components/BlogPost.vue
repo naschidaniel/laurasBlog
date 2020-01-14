@@ -13,7 +13,7 @@ export default {
   },
   computed: mapGetters(["getBlogById"]),
   created() {
-    this.$store.dispatch("fetchBlogPosts", "fetchBlogCategories");
+    this.$store.dispatch("fetchBlogPosts");
   }
 };
 </script>
