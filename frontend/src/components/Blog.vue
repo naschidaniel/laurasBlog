@@ -60,7 +60,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("fetchBlogPosts", "fetchBlogCategories");
+    this.$store.dispatch("fetchBlogPosts");
   }
 };
 </script>

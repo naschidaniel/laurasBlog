@@ -4,7 +4,7 @@
     <ul v-for="bC in allBlogCateogries" :key="bC.id">
       <li class=" px-6">
         <span v-for="n in bC.breadcrumps.length" :key="n">-</span>
-        {{ bC.categories }}
+        {{ bC.category }}
       </li>
     </ul>
   </div>
@@ -15,7 +15,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogCategory",
-  computed: mapGetters(["allBlogCateogries", "getLoadingStatus"]),
+  computed: mapGetters(["allBlogCateogries"]),
   created() {
     this.$store.dispatch("fetchBlogCategories");
   }

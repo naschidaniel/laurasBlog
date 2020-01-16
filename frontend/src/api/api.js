@@ -5,11 +5,11 @@ export async function api(apiLink) {
     const response = await axios.get(apiLink);
     if (response.status == 200) {
       const data = await response.data;
-      return data
+      return data;
     } else {
-      console.log("Api Status: " + response.status)
+      console.log("Api Status: " + response.status);
     }
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
 }
