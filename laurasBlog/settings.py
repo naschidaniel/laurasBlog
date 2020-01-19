@@ -127,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -137,10 +137,13 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+STATICFILES_DIRS = (os.path.join(FRONTEND_DIR, 'dist'),)
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': DEBUG,
-        'BUNDLE_DIR_NAME': '/bundles/',  # must end with slash
+        'BUNDLE_DIR_NAME': 'dist/',  # must end with slash
         'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
     }
 }
