@@ -137,10 +137,13 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+STATICFILES_DIRS = (os.path.join(FRONTEND_DIR, 'dist'),)
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': DEBUG,
-        'BUNDLE_DIR_NAME': '/bundles/',  # must end with slash
+        'BUNDLE_DIR_NAME': 'dist/',  # must end with slash
         'STATS_FILE': os.path.join(FRONTEND_DIR, 'webpack-stats.json'),
     }
 }
