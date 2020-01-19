@@ -1,9 +1,11 @@
 const BundleTracker = require("webpack-bundle-tracker");
 
 module.exports = {
-  publicPath: "http://0.0.0.0:8080/",
+  publicPath: process.env.NODE_ENV === 'production'
+  ? "/static/"
+  : "http://localhost:8080/",
   outputDir: "./dist/",
-
+  
   chainWebpack: config => {
     config.optimization.splitChunks(false);
 
