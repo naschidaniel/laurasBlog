@@ -8,5 +8,6 @@ dependencies:
   - djangorestframework
   - nodejs
   - yarn
+  - whitenoise
   - pip:
     - django-webpack-loader
