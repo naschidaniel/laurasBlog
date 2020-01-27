@@ -1,25 +1,14 @@
 version: '3'
 
 services:
-  nginx:
-    image: nginx:1.15-alpine
-    restart: unless-stopped
-    volumes:
-      - ./docker/nginx/${HOST}:/etc/nginx/conf.d
-      - ./:/web
-    depends_on:
-      - web
-    ports:
-      - "8000:8000"
-      - "80:80"
-
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
   web:
+    network_mode: bridge
     build: ./docker/web
     container_name: web
     command: bash -c "source activate laurasBlog && python manage.py collectstatic --no-input --settings=laurasBlog.settings_prod && python manage.py migrate --settings=laurasBlog.settings_prod && gunicorn laurasBlog.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./:/web/
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     restart: always
+    
