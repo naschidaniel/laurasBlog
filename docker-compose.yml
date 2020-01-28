@@ -2,13 +2,21 @@ version: '3'
 
 services:
   web:
-    network_mode: bridge
     build: ./docker/web
     container_name: web
     command: bash -c "source activate laurasBlog && python manage.py collectstatic --no-input --settings=laurasBlog.settings_prod && python manage.py migrate --settings=laurasBlog.settings_prod && gunicorn laurasBlog.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./:/web/
+    networks:
+      nginx_proxy:
+        ipv4_address: 10.5.0.12
     ports:
       - "8000:8000"
     restart: always
-    
+
+networks:
+  default:
+    external:
+      name: nginx_proxy
+  nginx_proxy:
+    external: true
