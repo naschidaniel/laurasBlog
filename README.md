@@ -11,7 +11,7 @@ conda activate laurasBlog
 ```
 
 ## Django-Backend
-### Install example Data
+### Installation of example Data
 ```
 python manage.py makemigrations
 python manage.py migrate
