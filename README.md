@@ -68,9 +68,14 @@ sh ./deploy/update_env_list.sh
 
 ## Set env Variables
 ### For testing on a local machine
-The nginx settings are different for `localhost` and `production`. Set the enviroment variables by using the following commands.
+Set the environ variables for `development` or `production` by using the following commands.
 ```
-echo "HOST=local" >> .env
+echo "SERVER_NAME=localhost" >> .env
+echo "ALLOWED_HOSTS=['localhost']" >> .env
+# generate a new SECRET_KEY
+./manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+echo "SECRET_KEY=%%%%STRING%%%%" >> .env
+
 ```
 
 ### For production on a server (TODO)
