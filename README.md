@@ -1,13 +1,13 @@
-# laurasBlog
+# djangoVue
 
-# Conda Env for laurasBlog
+# Conda Env for djangoVue
 ```
 conda env create -f environment.yml
 ```
 
 ### Activate Conda Env
 ```
-conda activate laurasBlog
+conda activate djangoVue
 ```
 
 ## Django-Backend
@@ -60,23 +60,36 @@ yarn lint
 
 
 # Docker
-## For testing on a local machine
-The nginx settings are different for `localhost` and the `server`. To ensure that nginx take the correct configuration, type one of the following commands.
-
-```
-echo "HOST=local" >> .env
-```
-
-## For production on a server (TODO)
-```
-echo "HOST=production" >> .env
-```
-
-
-# Export a list of current installed conda packages
-Set the current working directory in the shell script and run it. The process will ensure that the local and server packages are the same.
-
+## Export a list of the conda Env
+The shellscript will export the local install packages. It will be used for building the docker container.
 ```
 sh ./deploy/update_env_list.sh
 ```
 
+## Set env Variables
+### For testing on a local machine
+The nginx settings are different for `localhost` and `production`. Set the enviroment variables by using the following commands.
+```
+echo "HOST=local" >> .env
+```
+
+### For production on a server (TODO)
+```
+echo "HOST=production" >> .env
+```
+
+## Build Docker Containers
+```
+docker-compose build
+```
+
+## Start Docker Containers
+```
+docker-compose up
+```
+
+### Importand Links
+```
+http://localhost:3000/api/
+http://localhost:3000/admin/
+```

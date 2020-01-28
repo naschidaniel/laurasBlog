@@ -4,14 +4,14 @@ services:
   web:
     build: ./docker/web
     container_name: web
-    command: bash -c "source activate laurasBlog && python manage.py collectstatic --no-input --settings=laurasBlog.settings_prod && python manage.py migrate --settings=laurasBlog.settings_prod && gunicorn laurasBlog.wsgi -b 0.0.0.0:8000"
+    command: bash -c "source activate djangoVue && python manage.py collectstatic --no-input --settings=djangoVue.settings_prod && python manage.py migrate --settings=djangoVue.settings_prod && gunicorn djangoVue.wsgi -b 0.0.0.0:8000"
     volumes:
       - ./:/web/
     networks:
       nginx_proxy:
         ipv4_address: 10.5.0.12
     ports:
-      - "8000:8000"
+      - "3000:8000"
     restart: always
 
 networks:

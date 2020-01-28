@@ -5,10 +5,10 @@ RUN mkdir /web
 RUN mkdir /web/static
 
 WORKDIR /web
-ADD ./laurasBlog.yml ./laurasBlog.yml
+ADD ./djangoVue.yml ./djangoVue.yml
 
-RUN conda env create -f ./laurasBlog.yml
-RUN echo "source activate laurasBlog" > ~/.bashrc
+RUN conda env create -f ./djangoVue.yml
+RUN echo "source activate djangoVue" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
-CMD source activate laurasBlog
+CMD source activate djangoVue

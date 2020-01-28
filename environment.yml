@@ -1,4 +1,4 @@
-name: laurasBlog
+name: djangoVue
 channels:
   - conda-forge
 dependencies:
@@ -8,6 +8,7 @@ dependencies:
   - djangorestframework
   - nodejs
   - yarn
+  - gunicorn
   - whitenoise
   - pip:
     - django-webpack-loader

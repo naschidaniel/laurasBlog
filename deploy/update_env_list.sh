@@ -5,10 +5,10 @@
 d=`date +%Y-%m-%d`
 
 # - Starting the job here
-cd ~/dev/laurasBlog/
+cd ~/dev/djangoVue/
 
 conda env list 
 
 echo "conda env export"
 
-conda env export > ~/dev/laurasBlog/docker/web/laurasBlog.yml --name laurasBlog
+conda env export > ~/dev/djangoVue/docker/web/djangoVue.yml --name djangoVue
