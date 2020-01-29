@@ -1,4 +1,6 @@
-import _ from "lodash";
+import { delay as _delay, forEach as _forEach, orderBy as _orderBy} from 'lodash';
+
+
 import { api } from "@/api/api";
 
 export const actions = {
@@ -27,7 +29,7 @@ export const actions = {
         res[index]["breadcrumpsID"] = breadcrumpsID.reverse();
       }
 
-      let orderData = _.orderBy(res, function(o) {
+      let orderData = _orderBy(res, function(o) {
         return o.breadcrumps.join(" ");
       });
       commit("SET_BLOG_CATEGORIES", orderData);
@@ -42,7 +44,7 @@ export const actions = {
     commit("SET_LOAD_STAT_BLOG_POSTS", "loading");
     async function setBlogPosts() {
       let res = await api("/api/blogposts/?format=json");
-      _.forEach(res, function(value) {
+      _forEach(res, function(value) {
         if (value.content.length >= 200) {
           value["truncate"] = true;
         }
@@ -55,7 +57,7 @@ export const actions = {
       setBlogPosts();
     }
 
-    _.delay(function() {
+    _delay(function() {
       if (
         state.lodStatBlogCategories === "notLoadingBlogCategories" &&
         state.blogCategories.length === 0
