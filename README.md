@@ -68,29 +68,35 @@ sh ./deploy/update_env_list.sh
 
 ## Set env Variables
 ### For testing on a local machine
-Set the environ variables for `development` or `production` by using the following commands.
+Set the environ variables in the `djangoVue` settings Folder for `development` or `production` by using the following commands.
 ```
-echo "SERVER_NAME=localhost" >> .env
-echo "ALLOWED_HOSTS=['localhost']" >> .env
+echo "SERVER_NAME=localhost" >> ./djangoVue/.env
+echo "ALLOWED_HOSTS=['localhost']" >> ./djangoVue/.env
 
 # generate a new SECRET_KEY
-./manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-echo "SECRET_KEY=%%%%STRING%%%%" >> .env
+../manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+echo "SECRET_KEY='%%%%STRING%%%%'" >> ./djangoVue/.env
 
 # POSTGRESQL-DB Settings
-echo "POSTGRESQL_NAME=postgres"
-echo "POSTGRESQL_USER=postgres"
-echo "POSTGRESQL_PASSWORD=postgres"
-echo "POSTGRESQL_PORT=5432"
+echo "POSTGRESQL_NAME=postgres" >> ./djangoVue/.env
+echo "POSTGRESQL_USER=postgres" >> ./djangoVue/.env
+echo "POSTGRESQL_PASSWORD=postgres" >> ./djangoVue/.env
+echo "POSTGRESQL_PORT=5432" >> ./djangoVue/.env
 ```
 
 ### For production on a server (TODO)
 ```
-echo "SERVER_NAME=%%%%SERVER_NAME%%%%" >> .env
-echo "ALLOWED_HOSTS=[%%%%SERVER_URL%%%%]" >> .env
+echo "SERVER_NAME=%%%%SERVER_NAME%%%%" >> ./djangoVue/.env
+echo "ALLOWED_HOSTS=[%%%%SERVER_URL%%%%]" >> ./djangoVue/.env
 
 ....
 ```
+
+## Start Docker Containers
+```
+docker-compose up
+```
+
 
 ## Build Docker Containers
 ```
@@ -100,6 +106,8 @@ docker-compose build
 ## POSTGRES-DB DATA Init
 ```
 ## Migrate DATA
+docker-compose run web -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+
 docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py migrate --settings=djangoVue.settings_prod"
 
 ## Create Superuser
@@ -107,11 +115,6 @@ docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage
 
 ## Import Test-Data 
 docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py loaddata ./db.json --settings=djangoVue.settings_prod"
-```
-
-## Start Docker Containers
-```
-docker-compose up
 ```
 
 ### Important links for development

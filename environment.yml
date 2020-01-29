@@ -5,7 +5,9 @@ dependencies:
   - python
   - pylint
   - django
+  - django-environ
   - djangorestframework
+  - psycopg2
   - nodejs
   - yarn
   - gunicorn

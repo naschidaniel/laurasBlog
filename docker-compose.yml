@@ -17,7 +17,7 @@ services:
     restart: always
 
   db:
-    image: postgres:alpine
+    image: postgres  
     container_name: db
     volumes:
       - djangoVue_postgres:/var/lib/postgresql/data

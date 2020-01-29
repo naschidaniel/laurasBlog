@@ -1,19 +1,32 @@
 import os
 from djangoVue.settings import *
+import environ
 
-DEBUG = False
+env = environ.Env()
+environ.Env.read_env()
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['POSTGRESQL_NAME'],
-        'USER': os.environ['POSTGRESQL_USER'],
-        'PASSWORD': os.environ['POSTGRESQL_PASSWORD'],
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'db',
-        'PORT': os.environ['POSTGRESQL_PORT'],
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env('POSTGRESQL_NAME'),
+#         'USER': env('POSTGRESQL_USER'),
+#         'PASSWORD': env('POSTGRESQL_PASSWORD'),
+#         'HOST': 'db',
+#         'PORT': env('POSTGRESQL_PORT'),
+#     }
+# }
