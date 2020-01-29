@@ -1,5 +1,8 @@
-import { delay as _delay, forEach as _forEach, orderBy as _orderBy} from 'lodash';
-
+import {
+  delay as _delay,
+  forEach as _forEach,
+  orderBy as _orderBy
+} from "lodash";
 
 import { api } from "@/api/api";
 
