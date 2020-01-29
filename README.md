@@ -72,15 +72,24 @@ Set the environ variables for `development` or `production` by using the followi
 ```
 echo "SERVER_NAME=localhost" >> .env
 echo "ALLOWED_HOSTS=['localhost']" >> .env
+
 # generate a new SECRET_KEY
 ./manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 echo "SECRET_KEY=%%%%STRING%%%%" >> .env
 
+# POSTGRESQL-DB Settings
+echo "POSTGRESQL_NAME=postgres"
+echo "POSTGRESQL_USER=postgres"
+echo "POSTGRESQL_PASSWORD=postgres"
+echo "POSTGRESQL_PORT=5432"
 ```
 
 ### For production on a server (TODO)
 ```
-echo "HOST=production" >> .env
+echo "SERVER_NAME=%%%%SERVER_NAME%%%%" >> .env
+echo "ALLOWED_HOSTS=[%%%%SERVER_URL%%%%]" >> .env
+
+....
 ```
 
 ## Build Docker Containers
@@ -88,12 +97,24 @@ echo "HOST=production" >> .env
 docker-compose build
 ```
 
+## POSTGRES-DB DATA Init
+```
+## Migrate DATA
+docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py migrate --settings=djangoVue.settings_prod"
+
+## Create Superuser
+docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py createsuperuser --settings=djangoVue.settings_prod"
+
+## Import Test-Data 
+docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py loaddata ./db.json --settings=djangoVue.settings_prod"
+```
+
 ## Start Docker Containers
 ```
 docker-compose up
 ```
 
-### Importand Links
+### Important links for development
 ```
 http://localhost:3000/api/
 http://localhost:3000/admin/
