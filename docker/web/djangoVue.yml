@@ -17,7 +17,7 @@ dependencies:
   - isort=4.3.21=py38_0
   - krb5=1.16.4=h2fd8d38_0
   - lazy-object-proxy=1.4.3=py38h516909a_1
-  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - ld_impl_linux-64=2.33.1=h53a641e_8
   - libedit=3.1.20170329=hf8c457e_1001
   - libffi=3.2.1=he1b5a44_1006
   - libgcc-ng=9.2.0=h24d8f2e_2
@@ -29,10 +29,10 @@ dependencies:
   - ncurses=6.1=hf484d3e_1002
   - nodejs=13.7.0=h10a4023_0
   - openssl=1.1.1d=h516909a_0
-  - pip=20.0.2=py38_0
+  - pip=20.0.2=py38_1
   - psycopg2=2.8.4=py38h72c5cf5_0
   - pylint=2.4.4=py38_0
-  - python=3.8.1=h357f687_1
+  - python=3.8.1=h357f687_2
   - pytz=2019.3=py_0
   - readline=8.0=hf8c457e_0
   - setuptools=45.1.0=py38_0

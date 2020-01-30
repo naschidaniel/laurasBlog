@@ -12,6 +12,17 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.utils.translation import gettext_lazy as _
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    ALLOWED_HOST=(str, '["localhost"]'),
+    DEBUG=(bool, False),
+    DB=(str, 'sqlite3'),
+    SECRET_KEY=(str, 'v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw')
+)
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,12 +35,13 @@ FRONTEND_DIR = os.path.join(BASE_DIR, 'frontend')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw'
+SECRET_KEY = env('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOST = env('ALLOWED_HOST')
 
 
 # Application definition
@@ -89,6 +101,25 @@ WSGI_APPLICATION = 'djangoVue.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+if env('DB') == 'postgres':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': env('POSTGRES_USER'),
+            'PASSWORD': env('POSTGRES_PASSWORD'),
+            'HOST': 'db',
+            'PORT': 5432,
+        }
+    }
+elif env('DB') == 'sqlite3':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
