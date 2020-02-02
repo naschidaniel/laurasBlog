@@ -4,33 +4,14 @@ services:
   web:
     build: ./docker/web
     container_name: web
-    command: bash -c "source activate djangoVue && python manage.py collectstatic --no-input --settings=djangoVue.settings && python manage.py migrate --settings=djangoVue.settings && gunicorn djangoVue.wsgi -b 0.0.0.0:8000"
-    depends_on:
-      - db
+    command: bash -c "source activate djangoVue && python manage.py collectstatic --no-input --settings=djangoVue.settings && python manage.py migrate --settings=djangoVue.settings && gunicorn djangoVue.wsgi -b 0.0.0.0:3000"
     volumes:
       - ./:/web/
     networks:
       nginx_proxy:
         ipv4_address: 10.5.0.12
     ports:
-      - "3000:8000"
-    restart: always
-
-  db:
-    image: postgres  
-    container_name: db
-    volumes:
-      - djangoVue_postgres:/var/lib/postgresql/data
-    networks:
-      nginx_proxy:
-        ipv4_address: 10.5.0.13
-    ports:
-      - '5432:5432'
-    env_file:
-      - ./djangoVue/.env
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
+      - "3000:3000"
     restart: always
 
 networks:
@@ -39,6 +20,3 @@ networks:
       name: nginx_proxy
   nginx_proxy:
     external: true
-
-volumes:
-  djangoVue_postgres:
