@@ -16,7 +16,7 @@ import environ
 
 env = environ.Env(
     # set casting, default value
-    ALLOWED_HOST=(str, '["localhost"]'),
+    ALLOWED_HOSTS=(str, '["localhost"]'),
     DEBUG=(bool, False),
     DB=(str, 'sqlite3'),
     SECRET_KEY=(str, 'v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw')
@@ -41,7 +41,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOST = env('ALLOWED_HOST')
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # Application definition
