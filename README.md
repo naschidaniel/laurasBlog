@@ -80,15 +80,8 @@ Set the environ variables in the `djangoVue` settings Folder for `development` o
 cp djangoVue/.env.example djangoVue/.env
 ```
 
-Edit the `djangoVue/.env` the way you like. Generate a `SECRET_KEY` for your production server.
-```
-# generate a new SECRET_KEY
-./manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-```
-
 ### For production on a server (TODO)
 ```
-echo "SERVER_NAME=%%%%SERVER_NAME%%%%" >> ./djangoVue/.env
 echo "ALLOWED_HOSTS=[%%%%SERVER_URL%%%%]" >> ./djangoVue/.env
 ....
 ```
@@ -103,10 +96,21 @@ docker network create --driver bridge --subnet 10.5.0.0/16 nginx_proxy || true
 docker-compose build
 ```
 
+# Edit the `djangoVue/.env` the way you like. Generate a `SECRET_KEY` for your production server.
+```
+docker-compose run web /bin/bash
+/opt/conda/envs/djangoVue/bin/python /web/manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+vim /web/djangoVue/.env
+#SET the new SECRET_KEY
+exit
+```
+
+
 ## Yarn Build inside the Docker Container
 ```
 docker-compose run web /bin/bash
 cd /web/frontend/
+/opt/conda/envs/djangoVue/bin/yarn install
 /opt/conda/envs/djangoVue/bin/yarn build
 exit
 ```
