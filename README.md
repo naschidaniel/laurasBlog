@@ -83,7 +83,7 @@ cp djangoVue/.env.example djangoVue/.env
 Edit the `djangoVue/.env` the way you like. Generate a `SECRET_KEY` for your production server.
 ```
 # generate a new SECRET_KEY
-../manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+./manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 ```
 
 ### For production on a server (TODO)
