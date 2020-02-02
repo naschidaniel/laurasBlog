@@ -100,7 +100,6 @@ docker network create --driver bridge --subnet 10.5.0.0/16 nginx_proxy || true
 
 ## Build Docker Containers
 ```
-cd djangoVue
 docker-compose build
 ```
 
@@ -126,7 +125,6 @@ docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage
 
 ## Start Docker Containers
 ```
-cd djangoVue
 docker-compose up
 ```
 
