@@ -2,7 +2,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        title: ["Pacifico"]
+        title: ["Fredericka+the+Great"],
+        blogTitle: ["Vidaloka"]
       },
       textColor: {
         lauraOrange: "#f39200",

@@ -7,21 +7,31 @@
         class="w-full px-2 mt-3 md:w-1/2 "
       >
         <div
-          class="border border-lauraOrange rounded-lg shadow-md overflow-hidden"
+          class="shadow-md overflow-hidden"
         >
-          <img
-            class="flex1"
-            src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80"
-            alt="Woman paying for a purchase"
-          />
+          <div class="bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80')">
+            <router-link
+              :to="{ name: 'blogpost', params: { blogID: bp.id } }"
+            > 
+              <div class="flex content-center flex-wrap font-blogTitle bg-center h-64">
+                <div class=" bg-gray-200 text-center w-1/2">
+                  <span
+                    v-for="c in getblogCategoriesById(bp.category).breadcrumps"
+                    :key="c"
+                    class="text-l text-red-600 uppercase"
+                    >{{ c }}
+                  </span> <br>
+                  <h3 class="text-2XL text-gray-900">
+                    {{ bp.title }}
+                  </h3>
+                  <span class="text-l">
+                    Biwaktour
+                  </span>
+                </div>
+              </div>
+            </router-link>
+          </div>
           <div class="pt-3 py-2 px-2">
-            <h3 class="text-xl text-lauraOrange">
-              <router-link
-                :to="{ name: 'blogpost', params: { blogID: bp.id } }"
-              >
-                {{ bp.title }}
-              </router-link>
-            </h3>
             <div class="pt-3 text-gray-900">
               <p class="h-20 break-words overflow-hidden whitespace-normal">
                 {{ bp.content | substring }}
@@ -32,11 +42,6 @@
             </div>
             <div class="pt-3 pb-3 font-semibold">
               Kategorien:
-              <span
-                v-for="c in getblogCategoriesById(bp.category).breadcrumps"
-                :key="c"
-                >{{ c }}
-              </span>
               <span class="invisible md:visible"> | </span>
               <br class="md:hidden" />
               www.naschi.info
