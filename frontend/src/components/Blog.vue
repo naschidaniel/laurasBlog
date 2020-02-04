@@ -23,7 +23,9 @@
                     >{{ c }}
                   </span>
                   <br />
-                  <h3 class="text-2XL text-gray-900 opacity-100 leading-none text-content">
+                  <h3
+                    class="text-2XL text-gray-900 opacity-100 leading-none text-content"
+                  >
                     {{ bp.title }}
                   </h3>
                   <span class="text-l">
@@ -38,7 +40,9 @@
               <p class="h-28 break-words overflow-hidden whitespace-normal">
                 {{ bp.content | substring }}
                 <span v-if="bp.truncate">
-                  <router-link :to="{ name: 'blogpost', params: { blogID: bp.id } }">
+                  <router-link
+                    :to="{ name: 'blogpost', params: { blogID: bp.id } }"
+                  >
                     ...
                   </router-link>
                 </span>
