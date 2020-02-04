@@ -3,7 +3,9 @@ module.exports = {
     extend: {
       fontFamily: {
         title: ["Fredericka+the+Great"],
-        blogTitle: ["Vidaloka"]
+        blogCard: ["Vidaloka"],
+        content: ["Open+Sans"],
+        cite: ["Open+Sans+Condensed:300"]
       },
       textColor: {
         lauraOrange: "#f39200",

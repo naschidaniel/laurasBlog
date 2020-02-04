@@ -13,21 +13,21 @@
           >
             <router-link :to="{ name: 'blogpost', params: { blogID: bp.id } }">
               <div
-                class="flex content-center flex-wrap font-blogTitle bg-center h-64"
+                class="flex content-center flex-wrap font-blogCard bg-center h-64"
               >
-                <div class=" bg-gray-200 text-center w-1/2">
+                <div class="bg-gray-200 mx-auto text-center opacity-75 w-4/5">
                   <span
                     v-for="c in getblogCategoriesById(bp.category).breadcrumps"
                     :key="c"
-                    class="text-l text-red-600 uppercase"
+                    class="text-l text-red-600 uppercase opacity-100"
                     >{{ c }}
                   </span>
                   <br />
-                  <h3 class="text-2XL text-gray-900">
+                  <h3 class="text-2XL text-gray-900 opacity-100 leading-none text-content">
                     {{ bp.title }}
                   </h3>
                   <span class="text-l">
-                    Biwaktour
+                    Untertitel
                   </span>
                 </div>
               </div>
@@ -35,18 +35,14 @@
           </div>
           <div class="pt-3 py-2 px-2">
             <div class="pt-3 text-gray-900">
-              <p class="h-20 break-words overflow-hidden whitespace-normal">
+              <p class="h-28 break-words overflow-hidden whitespace-normal">
                 {{ bp.content | substring }}
                 <span v-if="bp.truncate">
-                  ...
+                  <router-link :to="{ name: 'blogpost', params: { blogID: bp.id } }">
+                    ...
+                  </router-link>
                 </span>
               </p>
-            </div>
-            <div class="pt-3 pb-3 font-semibold">
-              Kategorien:
-              <span class="invisible md:visible"> | </span>
-              <br class="md:hidden" />
-              www.naschi.info
             </div>
           </div>
         </div>
