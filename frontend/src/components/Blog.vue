@@ -15,16 +15,16 @@
               <div
                 class="flex content-center flex-wrap font-blogCard bg-center h-64"
               >
-                <div class="bg-gray-200 mx-auto text-center opacity-75 w-4/5">
+                <div class="w-4/5 bg-gray-200 mx-auto text-center  opacity-50">
                   <span
                     v-for="c in getblogCategoriesById(bp.category).breadcrumps"
                     :key="c"
-                    class="text-l text-red-600 uppercase opacity-100"
+                    class="text-l text-red-600 uppercase"
                     >{{ c }}
                   </span>
                   <br />
                   <h3
-                    class="text-2XL text-gray-900 opacity-100 leading-none text-content"
+                    class="text-2XL text-gray-900 leading-none text-content"
                   >
                     {{ bp.title }}
                   </h3>
