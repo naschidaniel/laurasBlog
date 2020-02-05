@@ -20,9 +20,8 @@ module.exports = {
       .public("http://0.0.0.0:8080")
       .host("0.0.0.0")
       .port(8080)
-      .hotOnly(true)
-      .watchOptions({ poll: 1000 })
+      .hot(true)
       .https(false)
-      .headers({ "Access-Control-Allow-Origin": ["/*"] });
+      .headers({ "Access-Control-Allow-Origin": ["*"] });
   }
 };
