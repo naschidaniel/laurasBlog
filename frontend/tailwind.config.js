@@ -7,18 +7,6 @@ module.exports = {
         content: ["Open+Sans"],
         cite: ["Open+Sans+Condensed:300"]
       },
-      textColor: {
-        lauraOrange: "#f39200",
-        lauraBlau: "#009fe3"
-      },
-      borderColor: {
-        lauraOrange: "#f39200",
-        lauraBlau: "#009fe3"
-      },
-      backgroundColor: {
-        lauraOrange: "#f39200",
-        lauraBlau: "#009fe3"
-      },
       height: {
         "128": "32rem"
       },
