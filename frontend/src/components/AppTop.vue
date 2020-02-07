@@ -3,7 +3,7 @@
     <div
       class="font-title truncate text-center h-18 md:h-44 mt-2 md:mt-8 align-middle px-3"
     >
-      <div class="text-3xl md:text-6xl ml-3 mr-3 truncate">
+      <div class="text-3xl md:text-5xl ml-3 mr-3 truncate">
         <span class="text-gray-900">Milena </span>
         <span class="text-red-600"> & </span>
         <span class="text-gray-900"> her dog</span>

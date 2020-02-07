@@ -4,7 +4,7 @@
       <div
         v-for="bp in allBlogPosts"
         :key="bp.title"
-        class="w-full px-2 mt-3 md:w-1/2 "
+        class="w-full px-2 mt-3"
       >
         <div class="shadow-md overflow-hidden">
           <div
@@ -13,22 +13,22 @@
           >
             <router-link :to="{ name: 'blogpost', params: { blogID: bp.id } }">
               <div
-                class="flex content-center flex-wrap font-blogCard bg-center h-64"
+                class="flex content-center flex-wrap font-blogCard bg-center h-64 md:h-128"
               >
-                <div class="w-4/5 bg-gray-200 mx-auto text-center  opacity-50">
+                <div class="w-4/5 bg-gray-200 mx-auto text-center  opacity-75 z-30">
                   <span
                     v-for="c in getblogCategoriesById(bp.category).breadcrumps"
                     :key="c"
-                    class="text-l text-red-600 uppercase"
+                    class="text-l md:text-2xl text-red-600 uppercase"
                     >{{ c }}
                   </span>
                   <br />
                   <h3
-                    class="text-2XL text-gray-900 leading-none text-content"
+                    class="text-2XL md:text-4xl text-gray-900 leading-none text-content"
                   >
                     {{ bp.title }}
                   </h3>
-                  <span class="text-l">
+                  <span class="text-l md:text-2xl">
                     Untertitel
                   </span>
                 </div>
@@ -37,7 +37,7 @@
           </div>
           <div class="pt-3 py-2 px-2">
             <div class="pt-3 text-gray-900">
-              <p class="h-28 break-words overflow-hidden whitespace-normal">
+              <p class="h-28 break-words overflow-hidden whitespace-normal text-lg">
                 {{ bp.content | substring }}
                 <span v-if="bp.truncate">
                   <router-link

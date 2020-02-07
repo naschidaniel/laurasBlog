@@ -1,11 +1,11 @@
 <template>
   <div
-    class="bg-white border-b border-gray-200 shadow-sm sticky top-0 h-16 items-center"
+    class="bg-white border-b border-gray-200 shadow-sm sticky top-0 h-16 md:h-18 items-center z-50"
   >
     <header
       class="h-12 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
     >
-      <div class="flex items-center justify-between px-4 py-3 sm:p-0">
+      <div class="flex items-center justify-between px-4 py-3 sm:p-0 md:text-2xl">
         <div>
           Logo
         </div>
@@ -36,19 +36,19 @@
       >
         <router-link
           to="/"
-          class="block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100"
+          class="block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 md:text-2xl"
         >
           Blog
         </router-link>
         <router-link
           :to="{ name: 'page', params: { link: 'about' } }"
-          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2"
+          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 md:text-2xl"
         >
           About
         </router-link>
         <router-link
           :to="{ name: 'page', params: { link: 'kontakt' } }"
-          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2"
+          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 md:text-2xl"
         >
           Kontakt
         </router-link>

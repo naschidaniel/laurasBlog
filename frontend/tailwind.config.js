@@ -19,6 +19,9 @@ module.exports = {
         lauraOrange: "#f39200",
         lauraBlau: "#009fe3"
       },
+      height: {
+        "128": "32rem"
+      },
       spacing: {
         "1/2": "50%",
         "1/3": "33.333333%",
