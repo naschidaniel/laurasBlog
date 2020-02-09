@@ -4,6 +4,7 @@ import {
   orderBy as _orderBy
 } from "lodash";
 
+import marked from "marked";
 import { api } from "@/api/api";
 
 export const actions = {
@@ -47,10 +48,11 @@ export const actions = {
     commit("SET_LOAD_STAT_BLOG_POSTS", "loading");
     async function setBlogPosts() {
       let res = await api("/api/blogposts/?format=json");
-      _forEach(res, function(value) {
-        if (value.content.length >= 200) {
-          value["truncate"] = true;
+      _forEach(res, function(post) {
+        if (post.content.length >= 200) {
+          post["truncate"] = true;
         }
+        post["content"] = marked(post.content)
       });
       commit("SET_BLOG_POSTS", res);
       commit("SET_LOAD_STAT_BLOG_POSTS", "notLoading");

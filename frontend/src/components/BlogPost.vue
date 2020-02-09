@@ -1,6 +1,9 @@
 <template>
   <div>
-    {{ getBlogById(blogID) }}
+    <h1>
+      {{ getBlogById(blogID).title }}
+    </h1>
+    <div v-html="getBlogById(blogID).content" class="content"></div>
   </div>
 </template>
 
@@ -17,3 +20,5 @@ export default {
   }
 };
 </script>
+
+<style scoped src="./markdown.css"></style>
