@@ -5,7 +5,9 @@
     <header
       class="h-12 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
     >
-      <div class="flex items-center justify-between px-4 py-3 sm:p-0 md:text-2xl">
+      <div
+        class="flex items-center justify-between px-4 py-3 sm:p-0 md:text-2xl"
+      >
         <div>
           Logo
         </div>

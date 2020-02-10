@@ -52,7 +52,7 @@ export const actions = {
         if (post.content.length >= 200) {
           post["truncate"] = true;
         }
-        post["content"] = marked(post.content)
+        post["content"] = marked(post.content);
       });
       commit("SET_BLOG_POSTS", res);
       commit("SET_LOAD_STAT_BLOG_POSTS", "notLoading");
