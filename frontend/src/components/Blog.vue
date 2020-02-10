@@ -5,7 +5,7 @@
         <div class="shadow-md overflow-hidden">
           <div
             class="bg-cover bg-center"
-            style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80')"
+            v-bind:style="{ backgroundImage: 'url(' + bp.mainImage_url + ')' }"
           >
             <router-link :to="{ name: 'blogpost', params: { blogID: bp.id } }">
               <div
@@ -38,14 +38,7 @@
               <p
                 class="h-28 break-words overflow-hidden whitespace-normal text-lg"
               >
-                {{ bp.content | substring }}
-                <span v-if="bp.truncate">
-                  <router-link
-                    :to="{ name: 'blogpost', params: { blogID: bp.id } }"
-                  >
-                    ...
-                  </router-link>
-                </span>
+                {{ bp.abstract }}
               </p>
             </div>
           </div>
@@ -61,11 +54,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "blogPosts",
   computed: mapGetters(["allBlogPosts", "getblogCategoriesById"]),
-  filters: {
-    substring: function(string) {
-      return string.substring(0, 200);
-    }
-  },
   created() {
     this.$store.dispatch("fetchBlogPosts");
   }
