@@ -5,11 +5,18 @@ from pages.models import Pages
 ## Blog
 class BlogPostSerializer(serializers.ModelSerializer):
     datePosted = serializers.DateTimeField(format='%Y-%m-%d %H:%M', input_formats=None)
+    mainImage_url = serializers.SerializerMethodField()
+
     class Meta:
         model = BlogPost
         many = True
-        fields = ['id', 'title', 'content', 'datePosted', 'author', 'category']
+        fields = ['id', 'title', 'content', 'abstract', 'datePosted', 'author', 'category', 'mainImage_url']
 
+    def get_mainImage_url(self, blogPost):
+        request = self.context.get('request')
+        mainImage_url = blogPost.mainImage.url
+        return request.build_absolute_uri(mainImage_url)
+    
 class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogCategory
