@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import url
 from django.views.generic import TemplateView
+from django.views.static import serve
+from django.conf import settings
 
 urlpatterns = [
-    path('',TemplateView.as_view(template_name="application.html"), name="app", ),
+    path('', TemplateView.as_view(template_name="application.html"), name="app", ),
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
-    url(r'^(?P<url>.*)/$',TemplateView.as_view(template_name="application.html"), name="app", )
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
+    url(r'^(?P<url>.*)/$', TemplateView.as_view(template_name="application.html"), name="app", )
 ]
