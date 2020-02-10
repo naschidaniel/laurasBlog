@@ -10,7 +10,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         many = True
-        fields = ['id', 'title', 'content', 'abstract', 'datePosted', 'author', 'category', 'mainImage_url']
+        fields = ['id', 'title', 'subtitle', 'slug', 'datePosted', 'category', 'abstract', 'content', 'author', 'mainImage_url']
 
     def get_mainImage_url(self, blogPost):
         request = self.context.get('request')

@@ -6,6 +6,7 @@ from django.dispatch.dispatcher import receiver
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=250)
+    subtitle = models.CharField(max_length=250)
     slug = models.SlugField()
     abstract = models.TextField()
     content = models.TextField()
