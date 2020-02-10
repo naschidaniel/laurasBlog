@@ -12,5 +12,6 @@ dependencies:
   - yarn
   - gunicorn
   - whitenoise
+  - pilllow
   - pip:
     - django-webpack-loader
