@@ -27,7 +27,7 @@
                     {{ bp.title }}
                   </h3>
                   <span class="text-l md:text-2xl">
-                    Untertitel
+                    {{ bp.subTitle }}
                   </span>
                 </div>
               </div>
@@ -53,6 +53,9 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogPosts",
+  props: {
+    blogCategoryID: String
+  },
   computed: mapGetters(["allBlogPosts", "getblogCategoriesById"]),
   created() {
     this.$store.dispatch("fetchBlogPosts");
