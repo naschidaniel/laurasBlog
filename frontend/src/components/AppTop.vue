@@ -9,8 +9,25 @@
         <span class="text-gray-900"> her dog</span>
       </div>
       <div class="ml-3 mr-3">
-        Outdoor - Indoor - Dogstuff - Knitting
+        <span v-for="(bC, i) in allBlogCateogries" :key="bC.id">
+          <span class="px-2">
+            {{ bC.category }}
+          </span>
+          <span v-if="i != allBlogCateogries.length - 1"> - </span>
+        </span>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  name: "blogCategory",
+  computed: mapGetters(["allBlogCateogries"]),
+  created() {
+    this.$store.dispatch("fetchBlogCategories");
+  }
+};
+</script>
