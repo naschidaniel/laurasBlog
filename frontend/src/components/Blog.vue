@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <div v-for="bp in allBlogPosts" :key="bp.title" class="w-full px-2 mt-3">
+      <div
+        v-for="bp in filterBlogPostsByCategory(getBlogCategory)"
+        :key="bp.id"
+        class="w-full px-2 mt-3"
+      >
         <div class="shadow-md overflow-hidden">
           <div
             class="bg-cover bg-center"
@@ -15,7 +19,7 @@
                   class="w-4/5 bg-gray-200 mx-auto text-center  opacity-75 z-30"
                 >
                   <span
-                    v-for="c in getblogCategoriesById(bp.category).breadcrumps"
+                    v-for="c in getBlogCategoriesById(bp.category).breadcrumps"
                     :key="c"
                     class="text-l md:text-2xl text-red-600 uppercase"
                     >{{ c }}
@@ -56,7 +60,11 @@ export default {
   props: {
     blogCategoryID: String
   },
-  computed: mapGetters(["allBlogPosts", "getblogCategoriesById"]),
+  computed: mapGetters([
+    "getBlogCategoriesById",
+    "getBlogCategory",
+    "filterBlogPostsByCategory"
+  ]),
   created() {
     this.$store.dispatch("fetchBlogPosts");
   }

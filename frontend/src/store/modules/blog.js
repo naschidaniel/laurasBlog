@@ -4,12 +4,16 @@ export default {
   state: {
     lodStatBlogCategories: "notLoadingBlogCategories",
     blogCategories: "",
+    blogCategory: "",
     lodStatBlogPosts: "notLoading",
-    blogPosts: []
+    blogPosts: ""
   },
   mutations: {
     SET_BLOG_CATEGORIES(state, blogCategories) {
       state.blogCategories = blogCategories;
+    },
+    SET_BLOG_CATEGORY(state, id) {
+      state.blogCategory = id;
     },
     SET_LOAD_STAT_BLOG_CATEGORIES(state, status) {
       state.lodStatBlogCategories = status;
@@ -36,7 +40,7 @@ export default {
         return state.blogPosts.find(blogPosts => blogPosts.id === Number(id));
       }
     },
-    getblogCategoriesById: state => id => {
+    getBlogCategoriesById: state => id => {
       if (state.blogCategories === "") {
         return "";
       } else {
@@ -45,8 +49,19 @@ export default {
         );
       }
     },
-    allBlogPosts: state => {
-      return state.blogPosts;
+    getBlogCategory: state => {
+      return state.blogCategory;
+    },
+    filterBlogPostsByCategory: state => id => {
+      if (state.blogPosts === "") {
+        return "";
+      } else {
+        if (id !== "") {
+          return Array(state.blogPosts.find(blogPosts => blogPosts.id === id));
+        } else {
+          return state.blogPosts;
+        }
+      }
     }
   }
 };
