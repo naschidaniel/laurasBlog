@@ -57,7 +57,7 @@ export default {
         return "";
       } else {
         if (id !== "") {
-          return Array(state.blogPosts.find(blogPosts => blogPosts.id === id));
+          return state.blogPosts.filter(blogPosts => blogPosts.category === id);
         } else {
           return state.blogPosts;
         }
