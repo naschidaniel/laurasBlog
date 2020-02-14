@@ -57,7 +57,9 @@ export default {
         return "";
       } else {
         if (category !== "") {
-          return state.blogPosts.filter(blogPosts => blogPosts.category === category);
+          return state.blogPosts.filter(
+            blogPosts => blogPosts.category === category
+          );
         } else {
           return state.blogPosts;
         }

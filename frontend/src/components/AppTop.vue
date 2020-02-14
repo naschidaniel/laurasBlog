@@ -1,6 +1,8 @@
 <template>
   <div class="min-w-full mx-auto lg:max-w-6xl">
-    <div class="font-title truncate text-center h-18 md:h-44 mt-2 md:mt-8 align-middle px-3">
+    <div
+      class="font-title truncate text-center h-18 md:h-44 mt-2 md:mt-8 align-middle px-3"
+    >
       <div
         class="text-3xl md:text-5xl ml-3 mr-3 truncate cursor-pointer"
         v-on:click="$store.commit('SET_BLOG_CATEGORY', '')"
@@ -14,14 +16,18 @@
           class="cursor-pointer p-2 text-gray-700 font-semibold rounded md:text-l"
           v-on:click="$store.commit('SET_BLOG_CATEGORY', '')"
           v-bind:class="selectCategory('')"
-        >All ({{ filterBlogPostsByCategory("").length }})</span>
+          >All ({{ filterBlogPostsByCategory("").length }})</span
+        >
         <span class="p-2">-</span>
         <span v-for="(bC, i) in allBlogCateogries" :key="bC.id">
           <span
             class="cursor-pointer p-2 text-gray-700 font-semibold rounded md:text-l"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', bC.id)"
             v-bind:class="selectCategory(bC.id)"
-          >{{ bC.category }} ({{ filterBlogPostsByCategory(bC.id).length }})</span>
+            >{{ bC.category }} ({{
+              filterBlogPostsByCategory(bC.id).length
+            }})</span
+          >
           <span v-if="i != allBlogCateogries.length - 1" class="p-2">-</span>
         </span>
       </div>
