@@ -9,16 +9,18 @@
         <span class="text-red-600">&</span>
         <span class="text-gray-900">her dog</span>
       </div>
-      <div class="ml-3 mr-3">
+      <div class="ml-3 mr-3 mt-2 mb-2">
         <span
-          class="cursor-pointer p-2 text-gray-700 font-semibold rounded hover:bg-gray-100 md:text-l"
-          v-on:click="$store.commit('SET_BLOG_CATEGORY', 1)"
+          class="cursor-pointer p-2 text-gray-700 font-semibold rounded md:text-l"
+          v-on:click="$store.commit('SET_BLOG_CATEGORY', '')"
+          v-bind:class="selectCategory('')"
         >All ({{ filterBlogPostsByCategory("").length }})</span>
-        <span class="p-2" > - </span>
+        <span class="p-2">-</span>
         <span v-for="(bC, i) in allBlogCateogries" :key="bC.id">
           <span
-            class="cursor-pointer p-2 text-gray-700 font-semibold rounded hover:bg-gray-100 md:text-l"
+            class="cursor-pointer p-2 text-gray-700 font-semibold rounded md:text-l"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', bC.id)"
+            v-bind:class="selectCategory(bC.id)"
           >{{ bC.category }} ({{ filterBlogPostsByCategory(bC.id).length }})</span>
           <span v-if="i != allBlogCateogries.length - 1" class="p-2">-</span>
         </span>
@@ -32,9 +34,26 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "blogCategory",
-  computed: mapGetters(["allBlogCateogries", "filterBlogPostsByCategory"]),
+  computed: mapGetters([
+    "allBlogCateogries",
+    "getBlogCategory",
+    "filterBlogPostsByCategory"
+  ]),
   created() {
     this.$store.dispatch("fetchBlogCategories");
+  },
+  methods: {
+    selectCategory(category) {
+      console.log(this.getBlogCategory);
+      console.log("afdafd");
+
+      console.log(category);
+      return {
+        "bg-gray-400": category === this.getBlogCategory,
+        "bg-gray-100": category !== this.getBlogCategory,
+        "hover:bg-gray-400": category !== this.getBlogCategory
+      };
+    }
   }
 };
 </script>

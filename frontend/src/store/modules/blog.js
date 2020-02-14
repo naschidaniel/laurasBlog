@@ -52,12 +52,12 @@ export default {
     getBlogCategory: state => {
       return state.blogCategory;
     },
-    filterBlogPostsByCategory: state => id => {
+    filterBlogPostsByCategory: state => category => {
       if (state.blogPosts === "") {
         return "";
       } else {
-        if (id !== "") {
-          return state.blogPosts.filter(blogPosts => blogPosts.category === id);
+        if (category !== "") {
+          return state.blogPosts.filter(blogPosts => blogPosts.category === category);
         } else {
           return state.blogPosts;
         }

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class=" mb-4 mt-4">
     <div class="flex flex-wrap">
       <div
         v-for="bp in filterBlogPostsByCategory(getBlogCategory)"
         :key="bp.id"
-        class="w-full px-2 mt-3"
+        class="w-full px-2 mt-3 mb-8"
       >
         <div class="shadow-md overflow-hidden">
           <div
