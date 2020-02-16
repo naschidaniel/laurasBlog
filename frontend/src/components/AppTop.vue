@@ -57,10 +57,6 @@ export default {
   },
   methods: {
     selectCategory(category) {
-      console.log(this.getBlogCategory);
-      console.log("afdafd");
-
-      console.log(category);
       return {
         "bg-gray-400": category === this.getBlogCategory,
         "bg-gray-100": category !== this.getBlogCategory,
