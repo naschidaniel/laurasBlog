@@ -13,13 +13,13 @@ const routes = [
     component: Blog
   },
   {
-    path: "/post/:blogID",
+    path: "/blog/:blogID",
     name: "blogpost",
     props: true,
     component: BlogPost
   },
   {
-    path: "/:link",
+    path: "/pages/:link",
     name: "page",
     props: true,
     component: Pages
