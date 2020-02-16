@@ -15,7 +15,6 @@
         class="flex flex-wrap justify-center ml-3 mr-3 mt-2 mb-2 font-semibold text-xs md:text-l"
       >
         <span v-for="(bC, i) in allBlogCateogries" :key="bC.id" class="m-1">
-          
           <span
             v-if="i == 0"
             class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2"
@@ -32,7 +31,9 @@
               filterBlogPostsByCategory(bC.id).length
             }})</span
           >
-          <span v-if="i != allBlogCateogries.length - 1" class="hidden md:inline"
+          <span
+            v-if="i != allBlogCateogries.length - 1"
+            class="hidden md:inline"
             >-</span
           >
         </span>
