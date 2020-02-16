@@ -28,7 +28,9 @@
               filterBlogPostsByCategory(bC.id).length
             }})</span
           >
-          <span v-if="i != allBlogCateogries.length - 1" class="p-1 md:p-2">-</span>
+          <span v-if="i != allBlogCateogries.length - 1" class="p-1 md:p-2"
+            >-</span
+          >
         </span>
       </div>
     </div>
