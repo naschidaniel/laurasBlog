@@ -1,5 +1,5 @@
 <template>
-  <div class=" mb-4 mt-4">
+  <div class="mt-2">
     <div class="flex flex-wrap">
       <div
         v-for="bp in filterBlogPostsByCategory(getBlogCategory)"
