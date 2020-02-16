@@ -14,24 +14,25 @@
       <div
         class="flex flex-wrap justify-center ml-3 mr-3 mt-2 mb-2 font-semibold text-xs md:text-l"
       >
-        <span v-for="(bC, i) in allBlogCateogries" :key="bC.id">
+        <span v-for="(bC, i) in allBlogCateogries" :key="bC.id" class="m-1">
+          
           <span
             v-if="i == 0"
-            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded"
+            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', '')"
             v-bind:class="selectCategory('')"
             >All ({{ filterBlogPostsByCategory("").length }})</span
           >
-          <span v-if="i == 0" class="p-1 md:p-2">-</span>
+          <span v-if="i == 0" class="hidden md:inline">-</span>
           <span
-            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded"
+            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', bC.id)"
             v-bind:class="selectCategory(bC.id)"
             >{{ bC.category }} ({{
               filterBlogPostsByCategory(bC.id).length
             }})</span
           >
-          <span v-if="i != allBlogCateogries.length - 1" class="p-1 md:p-2"
+          <span v-if="i != allBlogCateogries.length - 1" class="hidden md:inline"
             >-</span
           >
         </span>
