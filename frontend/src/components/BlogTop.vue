@@ -19,12 +19,16 @@
             class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', bC.id)"
             v-bind:class="selectCategory(bC.id)"
+            v-if="filterBlogPostsByCategory(bC.id).length != 0"
             >{{ bC.category }} ({{
               filterBlogPostsByCategory(bC.id).length
             }})</span
           >
           <span
-            v-if="i != allBlogCateogries.length - 1"
+            v-if="
+              i != allBlogCateogries.length - 1 &&
+                filterBlogPostsByCategory(bC.id).length != 0
+            "
             class="hidden md:inline"
             >-</span
           >
