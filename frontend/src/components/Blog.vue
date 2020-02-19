@@ -6,7 +6,7 @@
         :key="bp.id"
         class="w-full px-2 mt-3 mb-8"
       >
-        <div class="shadow-md overflow-hidden">
+        <div class="shadow-md rounded overflow-hidden">
           <div
             class="bg-cover bg-center"
             v-bind:style="{ backgroundImage: 'url(' + bp.mainImage_url + ')' }"

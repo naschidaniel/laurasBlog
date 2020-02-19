@@ -5,7 +5,7 @@
     </h1>
     <img
       :src="getBlogById(blogID).mainImage_url"
-      class=" m-3 rounded-lg shadow-2xl"
+      class="rounded shadow-2xl"
     />
     <div v-html="getBlogById(blogID).content" class="content mt-5"></div>
     <div class=" mx-auto mt-5 font-semibold text-xs md:text-l">
