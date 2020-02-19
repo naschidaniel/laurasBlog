@@ -9,7 +9,7 @@
         class="flex items-center justify-between px-4 py-3 sm:p-0 md:text-2xl"
       >
         <div>
-          Logo
+          LM
         </div>
         <div class="sm:hidden">
           <button
@@ -38,19 +38,19 @@
       >
         <router-link
           to="/"
-          class="block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 md:text-2xl"
+          class="block p-2 md:px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg md:text-3xl hover:bg-gray-400"
         >
           Blog
         </router-link>
         <router-link
           :to="{ name: 'page', params: { link: 'about' } }"
-          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 md:text-2xl"
+          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 text-lg md:text-3xl hover:bg-gray-400"
         >
           About
         </router-link>
         <router-link
           :to="{ name: 'page', params: { link: 'kontakt' } }"
-          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 md:text-2xl"
+          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 text-lg md:text-3xl hover:bg-gray-400"
         >
           Kontakt
         </router-link>
