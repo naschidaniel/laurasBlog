@@ -14,7 +14,7 @@
         v-if="blogPostNavigation.back != ''"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
       >
-        vorheriger Beitrag
+        nächster Beitrag
       </router-link>
       <span v-if="blogPostNavigation.back != ''">-</span>
       <router-link
@@ -28,7 +28,7 @@
         v-if="blogPostNavigation.next != ''"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
       >
-        nächster Beitrag
+        vorheriger Beitrag
       </router-link>
     </div>
   </div>
@@ -56,14 +56,13 @@ export default {
         let currentIndex = _findIndex(blogPosts, ["id", Number(this.blogID)]);
         let back = "";
         let next = "";
-        console.log(currentIndex);
-        if (currentIndex !== 0) {
-          back = blogPosts[currentIndex - 1].id;
+
+        if (currentIndex !== blogPosts.length - 1) {
+          back = blogPosts[currentIndex + 1].id;
         }
 
-        console.log(blogPosts.length);
-        if (currentIndex !== blogPosts.length - 1) {
-          next = blogPosts[currentIndex + 1].id;
+        if (currentIndex !== 0) {
+          next = blogPosts[currentIndex - 1].id;
         }
 
         navigation = {
