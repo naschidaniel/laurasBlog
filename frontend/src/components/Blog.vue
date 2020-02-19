@@ -40,7 +40,7 @@
           <div class="pt-3 py-2 px-2">
             <div class="pt-3 text-gray-900">
               <p
-                class="h-28 break-words overflow-hidden whitespace-normal text-lg"
+                class="h-28 break-words overflow-hidden whitespace-normal text-base"
               >
                 {{ bp.abstract }}
               </p>
