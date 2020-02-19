@@ -3,11 +3,11 @@
     <h1 class="content">
       {{ getBlogById(blogID).title }}
     </h1>
-    <img
-      :src="getBlogById(blogID).mainImage_url"
-      class="rounded shadow-2xl"
-    />
-    <div v-html="getBlogById(blogID).content" class="content mt-5 text-base"></div>
+    <img :src="getBlogById(blogID).mainImage_url" class="rounded shadow-2xl" />
+    <div
+      v-html="getBlogById(blogID).content"
+      class="content mt-5 text-base"
+    ></div>
     <div class=" mx-auto mt-5 font-semibold text-xs md:text-l">
       <router-link
         :to="{ name: 'blogpost', params: { blogID: blogPostNavigation.back } }"
