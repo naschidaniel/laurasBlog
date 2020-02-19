@@ -8,27 +8,25 @@
       v-html="getBlogById(blogID).content"
       class="content mt-5 text-base"
     ></div>
-    <div class=" mx-auto mt-5 font-semibold text-xs md:text-l">
+    <div class=" mx-auto mt-5 font-semibold text-lg md:text-2xl">
       <router-link
         :to="{ name: 'blogpost', params: { blogID: blogPostNavigation.back } }"
         v-if="blogPostNavigation.back != ''"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
       >
-        nächster Beitrag
+        vor 
       </router-link>
-      <span v-if="blogPostNavigation.back != ''">-</span>
       <router-link
         to="/"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
-        >zurück zur Übersicht
+        >Blog
       </router-link>
-      <span v-if="blogPostNavigation.next != ''">-</span>
       <router-link
         :to="{ name: 'blogpost', params: { blogID: blogPostNavigation.next } }"
         v-if="blogPostNavigation.next != ''"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
       >
-        vorheriger Beitrag
+        zurück
       </router-link>
     </div>
   </div>
