@@ -14,7 +14,7 @@
         v-if="blogPostNavigation.back != ''"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
       >
-        vor
+        zurück
       </router-link>
       <router-link
         to="/"
@@ -26,7 +26,7 @@
         v-if="blogPostNavigation.next != ''"
         class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
       >
-        zurück
+        vor
       </router-link>
     </div>
   </div>
