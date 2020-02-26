@@ -4,19 +4,19 @@
       class="font-title truncate text-center h-18 md:h-44 mt-2 align-middle px-3"
     >
       <div
-        class="flex flex-wrap justify-center ml-3 mr-3 mt-2 mb-2 font-semibold text-xs md:text-l"
+        class="flex flex-wrap justify-center ml-3 mr-3 mt-2 mb-2 font-semibold text-m md:text-lg"
       >
         <span v-for="(bC, i) in allBlogCateogries" :key="bC.id" class="m-1">
           <span
             v-if="i == 0"
-            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2"
+            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', '')"
             v-bind:class="selectCategory('')"
             >All ({{ filterBlogPostsByCategory("").length }})</span
           >
           <span v-if="i == 0" class="hidden md:inline">-</span>
           <span
-            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2"
+            class="cursor-pointer p-1 md:p-2 text-gray-700 rounded m-2 bg-gray-100 hover:bg-gray-400"
             v-on:click="$store.commit('SET_BLOG_CATEGORY', bC.id)"
             v-bind:class="selectCategory(bC.id)"
             v-if="filterBlogPostsByCategory(bC.id).length != 0"
