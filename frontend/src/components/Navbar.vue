@@ -8,9 +8,14 @@
       <div
         class="flex items-center justify-between px-4 py-3 sm:p-0 md:text-2xl"
       >
-        <div>
-          LM
-        </div>
+        <router-link
+          to="/"
+          class="text-2xl md:text-4xl truncate cursor-pointer"
+        >
+          <span class="text-gray-700">Milena</span>
+          <span class="text-red-600"> & </span>
+          <span class="text-gray-700">her dog</span>
+        </router-link>
         <div class="sm:hidden">
           <button
             @click="isOpen = !isOpen"
