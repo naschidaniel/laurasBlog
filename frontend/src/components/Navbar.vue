@@ -1,12 +1,12 @@
 <template>
   <div
-    class="bg-white border-b border-gray-200 shadow-sm sticky top-0 h-16 md:h-18 items-center z-50"
+    class="bg-white border-b border-gray-200 shadow-sm sticky top-0 h-16 md:h-24 items-center z-50"
   >
     <header
-      class="h-12 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
+      class="h-12 md:h-20 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
     >
       <div
-        class="flex items-center justify-between px-4 py-3 sm:p-0 md:text-2xl"
+        class="flex items-center justify-between px-4 py-3 sm:p-2 md:text-2xl"
       >
         <router-link
           to="/"
@@ -39,7 +39,7 @@
       </div>
       <nav
         :class="isOpen ? 'block' : 'hidden'"
-        class="px-2 pt-2 pb-4 sm:flex sm:p-0 bg-white rounded-b"
+        class="px-2 pt-2 pb-4 sm:flex sm:p-2 bg-white rounded-b"
       >
         <router-link
           to="/"
