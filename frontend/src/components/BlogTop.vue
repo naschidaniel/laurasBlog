@@ -4,7 +4,7 @@
       class="font-title truncate text-center h-18 md:h-44 mt-2 align-middle px-3"
     >
       <div
-        class="flex flex-wrap justify-center ml-3 mr-3 mt-2 mb-2 font-semibold text-m md:text-lg"
+        class="flex flex-wrap justify-center ml-3 mr-3 mt-2 font-semibold text-m md:text-lg"
       >
         <span v-for="(bC, i) in allBlogCateogries" :key="bC.id" class="m-1">
           <span
