@@ -10,7 +10,7 @@
       >
         <router-link
           to="/"
-          class="text-2xl md:text-4xl truncate cursor-pointer"
+          class="text-2xl md:text-4xl truncate cursor-pointer md:hidden"
         >
           <span class="text-gray-700">Milena</span>
           <span class="text-red-600"> & </span>
