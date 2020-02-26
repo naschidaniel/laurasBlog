@@ -2,20 +2,25 @@ from rest_framework import serializers
 from blog.models import BlogPost, BlogCategory
 from pages.models import Pages
 
-## Blog
 class BlogPostSerializer(serializers.ModelSerializer):
-    datePosted = serializers.DateTimeField(format='%Y-%m-%d %H:%M', input_formats=None)
+    datePosted = serializers.DateTimeField(
+        format='%Y-%m-%d %H:%M', input_formats=None)
     mainImage_url = serializers.SerializerMethodField()
     subImage1_url = serializers.SerializerMethodField()
     subImage2_url = serializers.SerializerMethodField()
     subImage3_url = serializers.SerializerMethodField()
     subImage4_url = serializers.SerializerMethodField()
-    subImage5_url = serializers.SerializerMethodField()
 
     class Meta:
         model = BlogPost
         many = True
-        fields = ['id', 'title', 'subtitle', 'slug', 'datePosted', 'category', 'abstract', 'content', 'author', 'mainImage_url', 'subImage1_url', 'subImage2_url', 'subImage3_url', 'subImage4_url', 'subImage5_url']
+        fields = ['id', 'title', 'subtitle', 'slug', 'datePosted', 'category', 'abstract', 'content', 'author',
+                  'mainImage_url', 'mainImageAlt',
+                  'subImage1_url', 'subImage1Alt',
+                  'subImage2_url', 'subImage2Alt',
+                  'subImage3_url', 'subImage3Alt',
+                  'subImage4_url', 'subImage4Alt'
+                  ]
 
     def get_mainImage_url(self, blogPost):
         request = self.context.get('request')
@@ -58,22 +63,15 @@ class BlogPostSerializer(serializers.ModelSerializer):
             return_value = ''
         return return_value
 
-    def get_subImage5_url(self, blogPost):
-        request = self.context.get('request')
-        if blogPost.subImage1 != '':
-            subImage1_url = blogPost.subImage1.url
-            return_value = request.build_absolute_uri(subImage1_url)
-        else:
-            return_value = ''
-        return return_value
 
-    
 class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogCategory
         fields = ['id', 'category', 'slug', 'parent']
 
-## Pages
+# Pages
+
+
 class PagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pages

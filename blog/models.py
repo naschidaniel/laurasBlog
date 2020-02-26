@@ -15,10 +15,15 @@ class BlogPost(models.Model):
     category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=models.CASCADE) 
 
     mainImage = models.ImageField(upload_to='')
+    mainImageAlt = models.CharField(max_length=1000)
     subImage1 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage1Alt = models.CharField(max_length=1000)
     subImage2 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage2Alt = models.CharField(max_length=1000)
     subImage3 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage3Alt = models.CharField(max_length=1000)
     subImage4 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage4Alt = models.CharField(max_length=1000)
 
     def __str__(self):
         return '{}'.format(self.title)
