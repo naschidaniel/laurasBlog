@@ -38,27 +38,27 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     def get_subImage2_url(self, blogPost):
         request = self.context.get('request')
-        if blogPost.subImage1 != '':
-            subImage1_url = blogPost.subImage1.url
-            return_value = request.build_absolute_uri(subImage1_url)
+        if blogPost.subImage2 != '':
+            subImage2_url = blogPost.subImage2.url
+            return_value = request.build_absolute_uri(subImage2_url)
         else:
             return_value = ''
         return return_value
 
     def get_subImage3_url(self, blogPost):
         request = self.context.get('request')
-        if blogPost.subImage1 != '':
-            subImage1_url = blogPost.subImage1.url
-            return_value = request.build_absolute_uri(subImage1_url)
+        if blogPost.subImage3 != '':
+            subImage3_url = blogPost.subImage3.url
+            return_value = request.build_absolute_uri(subImage3_url)
         else:
             return_value = ''
         return return_value
 
     def get_subImage4_url(self, blogPost):
         request = self.context.get('request')
-        if blogPost.subImage1 != '':
-            subImage1_url = blogPost.subImage1.url
-            return_value = request.build_absolute_uri(subImage1_url)
+        if blogPost.subImage4 != '':
+            subImage4_url = blogPost.subImage4.url
+            return_value = request.build_absolute_uri(subImage4_url)
         else:
             return_value = ''
         return return_value
