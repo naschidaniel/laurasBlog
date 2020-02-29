@@ -30,7 +30,9 @@ export default {
       if (state.socialLinks === "") {
         return "";
       } else {
-        return state.socialLinks.find(socialLinks => socialLinks.socialMediaPlatform === String(Platform));
+        return state.socialLinks.find(
+          socialLinks => socialLinks.socialMediaPlatform === String(Platform)
+        );
       }
     }
   }
