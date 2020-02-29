@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white border-b border-gray-200 shadow-sm sticky top-0 h-16 md:h-24 items-center z-50"
+    class="bg-white border-b border-gray-400 shadow-lg sticky top-0 h-20 md:h-24 items-center z-50"
   >
     <header
       class="h-12 md:h-20 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
@@ -39,23 +39,26 @@
       </div>
       <nav
         :class="isOpen ? 'block' : 'hidden'"
-        class="px-2 pt-2 pb-4 sm:flex sm:p-2 bg-white rounded-b"
+        class="px-2 pt-2 pb-4 sm:flex sm:p-2 bg-white border-b md:border-none border-gray-400 shadow-lg md:shadow-none"
       >
         <router-link
-          to="/"
+          :to="{ name: 'blog' }"
           class="block p-2 md:px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg md:text-3xl hover:bg-gray-400"
+          v-bind:class="selectBlogNavigation(['blog', 'blogpost'])"
         >
           Blog
         </router-link>
         <router-link
           :to="{ name: 'page', params: { link: 'about' } }"
           class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 text-lg md:text-3xl hover:bg-gray-400"
+          v-bind:class="selectPageNavigation('about')"
         >
           About
         </router-link>
         <router-link
           :to="{ name: 'page', params: { link: 'kontakt' } }"
           class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 text-lg md:text-3xl hover:bg-gray-400"
+          v-bind:class="selectPageNavigation('kontakt')"
         >
           Kontakt
         </router-link>
@@ -71,6 +74,18 @@ export default {
     return {
       isOpen: false
     };
+  },
+  methods: {
+    selectBlogNavigation(name) {
+      return {
+        "bg-gray-400": name.includes(this.$route.name)
+      };
+    },
+    selectPageNavigation(link) {
+      return {
+        "bg-gray-400": link === this.$route.params.link
+      };
+    }
   }
 };
 </script>
