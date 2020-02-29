@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from blog.models import BlogPost, BlogCategory
 from pages.models import Pages
+from sociallinks.models import SocialMediaLink
 
 class BlogPostSerializer(serializers.ModelSerializer):
     datePosted = serializers.DateTimeField(
@@ -70,9 +71,13 @@ class BlogCategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'category', 'slug', 'parent']
 
 # Pages
-
-
 class PagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pages
         fields = ['link', 'title', 'content', 'datePosted']
+
+# SocialLinks
+class SocialMediaLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMediaLink
+        fields = ['socialMediaPlatform', 'url']

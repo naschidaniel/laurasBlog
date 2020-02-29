@@ -1,7 +1,7 @@
 <template>
   <footer class=" content-center border-t px-2 pt-2 pb-2 text-center w-full">
     <div class=" mx-auto flex flex-row justify-center">
-      <a :href="instagram" :id="instagram" class=" pl-4 pr-4">
+      <a :href="getSocialLinkByPlatform('Instagram').url" :id="getSocialLinkByPlatform('Instagram').socialMediaPlatform" target="_blank" class=" pl-4 pr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 18 18"
@@ -12,7 +12,7 @@
           />
         </svg>
       </a>
-      <a :href="facebook" :id="facebook" class=" pl-4 pr-4">
+      <a :href="getSocialLinkByPlatform('Facebook').url" :id="getSocialLinkByPlatform('Instagram').socialMediaPlatform" target="_blank" class=" pl-4 pr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -23,7 +23,6 @@
           />
         </svg>
       </a>
-
       <router-link
         :to="{ name: 'page', params: { link: 'impressum' } }"
         class=" pl-4 pr-4"
@@ -57,13 +56,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "AppFooter",
-  data() {
-    return {
-      instagram: "#/instagramlink",
-      facebook: "#/facebook"
-    };
+  computed: mapGetters(["getSocialLinkByPlatform"]),
+  created() {
+    this.$store.dispatch("fetchSocialLinks");
   }
 };
 </script>

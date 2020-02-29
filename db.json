@@ -182,4 +182,20 @@
       "datePosted": "2019-12-09T17:52:04Z"
     }
   }
+  {
+    "model": "sociallinks.socialmedialink",
+    "pk": 1,
+    "fields": {
+      "socialMediaPlatform": "Instagram",
+      "url": "#"
+    }
+  },
+  {
+    "model": "sociallinks.socialmedialink",
+    "pk": 2,
+    "fields": {
+      "socialMediaPlatform": "Facebook",
+      "url": "#"
+    }
+  }
 ]
