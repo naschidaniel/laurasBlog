@@ -13,17 +13,16 @@ class BlogPost(models.Model):
     datePosted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=models.CASCADE) 
-
     mainImage = models.ImageField(upload_to='')
-    mainImageAlt = models.CharField(max_length=1000, default='')
+    mainImageAlt = models.CharField(blank=True)
     subImage1 = models.ImageField(upload_to='', null=True, blank=True)
-    subImage1Alt = models.CharField(max_length=1000, default='')
+    subImage1Alt = models.CharField(blank=True)
     subImage2 = models.ImageField(upload_to='', null=True, blank=True)
-    subImage2Alt = models.CharField(max_length=1000, default='')
+    subImage2Alt = models.CharField(blank=True)
     subImage3 = models.ImageField(upload_to='', null=True, blank=True)
-    subImage3Alt = models.CharField(max_length=1000, default='')
+    subImage3Alt = models.CharField(blank=True)
     subImage4 = models.ImageField(upload_to='', null=True, blank=True)
-    subImage4Alt = models.CharField(max_length=1000, default='')
+    subImage4Alt = models.CharField(blank=True)
 
     def __str__(self):
         return '{}'.format(self.title)
