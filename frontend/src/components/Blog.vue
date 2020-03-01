@@ -9,7 +9,8 @@
         <div class="shadow-md rounded overflow-hidden">
           <div
             class="bg-cover bg-center"
-            v-bind:style="{ backgroundImage: 'url(' + bp.mainImage_url + ')' }"
+            :style="{ backgroundImage: 'url(' + bp.mainImage_url + ')' }"
+            :title="bp.mainImageAlt"
           >
             <router-link :to="{ name: 'blogpost', params: { blogID: bp.id } }">
               <div
