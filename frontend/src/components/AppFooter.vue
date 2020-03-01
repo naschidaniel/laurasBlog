@@ -19,7 +19,7 @@
       </a>
       <a
         :href="getSocialLinkByPlatform('Facebook').url"
-        :id="getSocialLinkByPlatform('Instagram').socialMediaPlatform"
+        :id="getSocialLinkByPlatform('Facebook').socialMediaPlatform"
         target="_blank"
         class=" pl-4 pr-4"
       >
@@ -30,6 +30,22 @@
         >
           <path
             d="M17 1H3c-1.1 0-2 .9-2 2v14c0 1.101.9 2 2 2h7v-7H8V9.525h2v-2.05c0-2.164 1.212-3.684 3.766-3.684l1.803.002v2.605h-1.197c-.994 0-1.372.746-1.372 1.438v1.69h2.568L15 12h-2v7h4c1.1 0 2-.899 2-2V3c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+      </a>
+      <a
+        :href="getSocialLinkByPlatform('Pinterrest').url"
+        :id="getSocialLinkByPlatform('Pinterrest').socialMediaPlatform"
+        target="_blank"
+        class=" pl-4 pr-4"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          class=" w-10 h-10  fill-current text-gray-700"
+        >
+          <path
+            d="M8.62 13.23c-.53 2.75-1.17 5.4-3.07 6.77-.59-4.16.86-7.29 1.53-10.6-1.14-1.94.14-5.82 2.56-4.86 2.97 1.18-2.58 7.17 1.15 7.92 3.89.78 5.48-6.75 3.06-9.2-3.48-3.53-10.14-.08-9.32 4.98.2 1.24 1.48 1.62.5 3.33-2.22-.5-2.89-2.26-2.8-4.6C2.37 3.13 5.68.44 9 .07c4.2-.47 8.14 1.54 8.69 5.5.61 4.45-1.9 9.28-6.4 8.94-1.2-.1-1.72-.7-2.67-1.28z"
           />
         </svg>
       </a>
