@@ -17,7 +17,7 @@
                 class="flex content-center flex-wrap font-blogCard bg-center h-64 md:h-128"
               >
                 <div
-                  class="w-4/5 bg-gray-200 mx-auto text-center  opacity-75 z-30"
+                  class="w-4/5 bg-gray-200 mx-auto text-center opacity-75 z-30"
                 >
                   <span
                     v-for="c in getBlogCategoriesById(bp.category).breadcrumps"
@@ -41,7 +41,7 @@
           <div class="pt-3 py-2 px-2">
             <div class="pt-3 text-gray-900">
               <p
-                class="h-28 break-words overflow-hidden whitespace-normal text-base"
+                class="h-28 break-words overflow-hidden whitespace-normal text-2xl text-justify p-3"
               >
                 {{ bp.abstract }}
               </p>

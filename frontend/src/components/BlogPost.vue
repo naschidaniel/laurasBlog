@@ -6,11 +6,11 @@
     <img
       :src="getBlogById(blogID).mainImage_url"
       :alt="getBlogById(blogID).mainImageAlt"
-      class="rounded shadow-2xl"
+      class="rounded shadow-2xl mt-6"
     />
     <div
       v-html="getBlogById(blogID).content"
-      class="content mt-5 text-base"
+      class="content mt-5 text-base content-center"
     ></div>
     <div class=" mx-auto mt-5 font-semibold text-lg md:text-2xl">
       <router-link
