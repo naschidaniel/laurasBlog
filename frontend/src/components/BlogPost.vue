@@ -3,7 +3,7 @@
     <h1 class="content">
       {{ getBlogById(blogID).title }}
     </h1>
-    <img :src="getBlogById(blogID).mainImage_url" class="rounded shadow-2xl" />
+    <img :src="getBlogById(blogID).mainImage_url" :alt="getBlogById(blogID).mainImageAlt" class="rounded shadow-2xl" />
     <div
       v-html="getBlogById(blogID).content"
       class="content mt-5 text-base"
