@@ -2,8 +2,8 @@ import { api } from "@/api/api";
 
 export default {
   state: {
-    loadStatusSocialLinks: [],
-    socialLinks: []
+    loadStatusSocialLinks: "",
+    socialLinks: ""
   },
   mutations: {
     SET_LOAD_STATUS_SOCIAL_LINKS(state, loadStatusSocialLinks) {
