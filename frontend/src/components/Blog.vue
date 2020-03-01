@@ -32,7 +32,7 @@
                     {{ bp.title }}
                   </h3>
                   <span class="text-l md:text-2xl">
-                    {{ bp.subTitle }}
+                    {{ bp.subtitle }}
                   </span>
                 </div>
               </div>
