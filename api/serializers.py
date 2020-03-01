@@ -12,6 +12,11 @@ class BlogPostSerializer(serializers.ModelSerializer):
     subImage2_url = serializers.SerializerMethodField()
     subImage3_url = serializers.SerializerMethodField()
     subImage4_url = serializers.SerializerMethodField()
+    subImage5_url = serializers.SerializerMethodField()
+    subImage6_url = serializers.SerializerMethodField()
+    subImage7_url = serializers.SerializerMethodField()
+    subImage8_url = serializers.SerializerMethodField()
+    subImage9_url = serializers.SerializerMethodField()
 
     class Meta:
         model = BlogPost
