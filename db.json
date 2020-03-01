@@ -197,5 +197,13 @@
       "socialMediaPlatform": "Facebook",
       "url": "#"
     }
+  },
+  {
+    "model": "sociallinks.socialmedialink",
+    "pk": 3,
+    "fields": {
+      "socialMediaPlatform": "Pinterrest",
+      "url": "#"
+    }
   }
 ]
