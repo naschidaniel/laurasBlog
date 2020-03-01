@@ -23,7 +23,17 @@ class BlogPost(models.Model):
     subImage3Alt = models.CharField(blank=True)
     subImage4 = models.ImageField(upload_to='', null=True, blank=True)
     subImage4Alt = models.CharField(blank=True)
-
+    subImage5 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage5Alt = models.CharField(blank=True)
+    subImage6 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage6Alt = models.CharField(blank=True)
+    subImage7 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage7Alt = models.CharField(blank=True)
+    subImage8 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage8Alt = models.CharField(blank=True)
+    subImage9 = models.ImageField(upload_to='', null=True, blank=True)
+    subImage9Alt = models.CharField(blank=True)
+    
     def __str__(self):
         return '{}'.format(self.title)
 
@@ -73,5 +83,30 @@ def del_BlogPost(sender, instance, **kwargs):
 
     if instance.subImage4:
         instance.subImage4.delete(True)
+    else:
+        pass
+
+    if instance.subImage5:
+        instance.subImage5.delete(True)
+    else:
+        pass
+
+    if instance.subImage6:
+        instance.subImage6.delete(True)
+    else:
+        pass
+
+    if instance.subImage7:
+        instance.subImage7.delete(True)
+    else:
+        pass
+
+    if instance.subImage8:
+        instance.subImage8.delete(True)
+    else:
+        pass
+
+    if instance.subImage9:
+        instance.subImage9.delete(True)
     else:
         pass
