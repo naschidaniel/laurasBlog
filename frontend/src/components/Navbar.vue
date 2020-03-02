@@ -18,18 +18,18 @@
         </router-link>
         <div class="sm:hidden">
           <button
-            @click="isOpen = !isOpen"
+            @click="clickHandler(getIsOpen)"
             type="button"
             class="block text-gray-700 hover:text-gray-900 focus:text-gray-900 focus:outline-none"
           >
             <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
               <path
-                v-if="isOpen"
+                v-if="getIsOpen"
                 fill-rule="evenodd"
                 d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
               ></path>
               <path
-                v-if="!isOpen"
+                v-if="!getIsOpen"
                 fill-rule="evenodd"
                 d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
               ></path>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <nav
-        :class="isOpen ? 'block' : 'hidden'"
+        :class="getIsOpen ? 'block' : 'hidden'"
         class="px-2 pt-2 pb-4 sm:flex sm:p-2 bg-white border-b md:border-none border-gray-400 shadow-lg md:shadow-none"
       >
         <router-link
@@ -68,14 +68,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Navbar",
-  data() {
-    return {
-      isOpen: false
-    };
-  },
+  computed: mapGetters([
+    "getIsOpen"
+  ]),
   methods: {
+    clickHandler(isOpen) {
+      this.$store.commit('SET_IS_OPEN', !isOpen)
+      this.$store.dispatch('setAppClick', true)
+    },
     selectBlogNavigation(name) {
       return {
         "bg-gray-400": name.includes(this.$route.name)
