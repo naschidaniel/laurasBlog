@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white border-b border-gray-400 shadow-lg sticky top-0 h-20 md:h-24 items-center z-50"
+    class="bg-white border-b border-gray-400 shadow-lg sticky top-0 h-20 md:h-24 items-center z-10"
   >
     <header
       class="h-12 md:h-20 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"
@@ -18,7 +18,7 @@
         </router-link>
         <div class="sm:hidden">
           <button
-            @click="clickHandler(getIsOpen)"
+            @click="clickHandler(getIsOpen, getAppClick)"
             type="button"
             class="block text-gray-700 hover:text-gray-900 focus:text-gray-900 focus:outline-none"
           >
@@ -37,31 +37,60 @@
           </button>
         </div>
       </div>
-      <nav
-        :class="getIsOpen ? 'block' : 'hidden'"
-        class="px-2 pt-2 pb-4 sm:flex sm:p-2 bg-white border-b md:border-none border-gray-400 shadow-lg md:shadow-none"
-      >
-        <router-link
-          :to="{ name: 'blog' }"
-          class="block p-2 md:px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg md:text-3xl hover:bg-gray-400"
-          v-bind:class="selectBlogNavigation(['blog', 'blogpost'])"
+      <nav>
+        <transition name="slide-fade">
+          <div
+            v-if="getIsOpen"
+            class="px-2 pt-2 pb-4 bg-white border-b border-gray-400"
+          >
+            <router-link
+              :to="{ name: 'blog' }"
+              class="block p-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg hover:bg-gray-400"
+              v-bind:class="selectBlogNavigation(['blog', 'blogpost'])"
+            >
+              Blog
+            </router-link>
+            <router-link
+              :to="{ name: 'page', params: { link: 'about' } }"
+              class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:ml-2 text-lg hover:bg-gray-400"
+              v-bind:class="selectPageNavigation('about')"
+            >
+              About
+            </router-link>
+            <router-link
+              :to="{ name: 'page', params: { link: 'kontakt' } }"
+              class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg hover:bg-gray-400"
+              v-bind:class="selectPageNavigation('kontakt')"
+            >
+              Kontakt
+            </router-link>
+          </div>
+        </transition>
+        <div
+          class="hidden sm:block mt-2 md:mt-0 text-gray-700 font-semibold text-xl md:text-3xl"
         >
-          Blog
-        </router-link>
-        <router-link
-          :to="{ name: 'page', params: { link: 'about' } }"
-          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 text-lg md:text-3xl hover:bg-gray-400"
-          v-bind:class="selectPageNavigation('about')"
-        >
-          About
-        </router-link>
-        <router-link
-          :to="{ name: 'page', params: { link: 'kontakt' } }"
-          class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:mt-0 sm:ml-2 text-lg md:text-3xl hover:bg-gray-400"
-          v-bind:class="selectPageNavigation('kontakt')"
-        >
-          Kontakt
-        </router-link>
+          <router-link
+            :to="{ name: 'blog' }"
+            class="hover:bg-gray-100 hover:bg-gray-400 rounded p-2"
+            v-bind:class="selectBlogNavigation(['blog', 'blogpost'])"
+          >
+            Blog
+          </router-link>
+          <router-link
+            :to="{ name: 'page', params: { link: 'about' } }"
+            class="hover:bg-gray-100 hover:bg-gray-400 rounded p-2 mx-2"
+            v-bind:class="selectPageNavigation('about')"
+          >
+            About
+          </router-link>
+          <router-link
+            :to="{ name: 'page', params: { link: 'kontakt' } }"
+            class="hover:bg-gray-100 hover:bg-gray-400 rounded p-2"
+            v-bind:class="selectPageNavigation('kontakt')"
+          >
+            Kontakt
+          </router-link>
+        </div>
       </nav>
     </header>
   </div>
@@ -72,11 +101,11 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Navbar",
-  computed: mapGetters(["getIsOpen"]),
+  computed: mapGetters(["getIsOpen", "getAppClick"]),
   methods: {
-    clickHandler(isOpen) {
-      this.$store.commit("SET_IS_OPEN", !isOpen);
-      this.$store.dispatch("setAppClick", true);
+    clickHandler(isOpen, appClick) {
+      this.$store.dispatch("setIsOpen", !isOpen);
+      this.$store.dispatch("setAppClick", !appClick);
     },
     selectBlogNavigation(name) {
       return {
@@ -91,3 +120,17 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.2s;
+}
+.slide-fade-leave-active {
+  transition: all 0.3s;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+</style>

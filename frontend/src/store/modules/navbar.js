@@ -17,7 +17,7 @@ export default {
     setAppClick({ commit }, appClick) {
       _delay(function() {
         commit("SET_APP_CLICK", appClick);
-      }, 10);
+      }, 5);
     },
     setIsOpen({ commit }, isOpen) {
       commit("SET_IS_OPEN", isOpen);
@@ -28,6 +28,7 @@ export default {
       return state.appClick;
     },
     getIsOpen: state => {
+      console.log(state.isOpen);
       return state.isOpen;
     }
   }

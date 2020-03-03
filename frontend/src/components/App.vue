@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="z-2">
     <div @click="appClickHandler(getAppClick, getIsOpen)">
       <div class="antialiased flex flex-col min-h-screen">
         <navbar />
