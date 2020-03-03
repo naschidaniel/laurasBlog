@@ -122,6 +122,6 @@ img {
 }
 
 .content >>> img {
-  @apply rounded shadow-2xl;
+  @apply rounded shadow-xl mb-4;
 }
 </style>
