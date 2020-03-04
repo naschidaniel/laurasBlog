@@ -58,6 +58,21 @@ class BlogCategory(models.Model):
             k = k.parent
         return ' -> '.join(full_path[::-1])
 
+class BlogQuote(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField(max_length=200)
+    datePosted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    category = models.ForeignKey('BlogCategory', null=True, blank=True, on_delete=models.CASCADE) 
+    mainImage = models.ImageField(upload_to='')
+    mainImageAlt = models.CharField(max_length=100, blank=True)
+    
+    def __str__(self):
+        return '{}'.format(self.title)
+
+    class Meta:
+        ordering = ['-datePosted']
+
 @receiver(pre_delete, sender=BlogPost)
 def del_BlogPost(sender, instance, **kwargs):
     # Pass false so FileField doesn't save the model.
@@ -108,5 +123,13 @@ def del_BlogPost(sender, instance, **kwargs):
 
     if instance.subImage9:
         instance.subImage9.delete(True)
+    else:
+        pass
+
+@receiver(pre_delete, sender=BlogQuote)
+def del_BlogQuote(sender, instance, **kwargs):
+    # Pass false so FileField doesn't save the model.
+    if instance.mainImage:
+        instance.mainImage.delete(True)
     else:
         pass
