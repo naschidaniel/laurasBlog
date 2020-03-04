@@ -8,7 +8,7 @@ export default {
     lodStatBlogPosts: "notLoading",
     blogPosts: "",
     lodStatBlogQuotes: "notLoading",
-    blogQuotes: ""
+    blogQuotes: "",
   },
   mutations: {
     SET_BLOG_CATEGORIES(state, blogCategories) {
@@ -57,6 +57,18 @@ export default {
     getBlogCategory: state => {
       return state.blogCategory;
     },
+    getBlogQuoteById: state => id => {
+      if (state.blogQuotes === "") {
+        return "";
+      } else {
+        return state.blogQuotes.find(
+          blogQuotes => blogQuotes.id === id
+        );
+      }
+    },
+    getBlogQuotesLen: state => {
+      return state.blogQuotes.length;
+    },
     filterBlogPostsByCategory: state => category => {
       if (state.blogPosts === "") {
         return "";
@@ -67,19 +79,6 @@ export default {
           );
         } else {
           return state.blogPosts;
-        }
-      }
-    },
-    filterBlogQuotesByCategory: state => category => {
-      if (state.blogQuotes === "") {
-        return "";
-      } else {
-        if (category !== "") {
-          return state.blogQuotes.filter(
-            blogQuotes => blogQuotes.category === category
-          );
-        } else {
-          return state.blogQuotes;
         }
       }
     }
