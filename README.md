@@ -22,7 +22,6 @@ echo "DB=sqlite3" >> ./djangoVue/.env
 ## Django-Backend
 ### Installation of example Data
 ```
-python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py loaddata db.json
