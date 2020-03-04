@@ -28,7 +28,6 @@ export default {
       return state.appClick;
     },
     getIsOpen: state => {
-      console.log(state.isOpen);
       return state.isOpen;
     }
   }
