@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog.models import BlogPost, BlogCategory
+from blog.models import BlogPost, BlogCategory, BlogQuote
 from pages.models import Pages
 from sociallinks.models import SocialMediaLink
 
@@ -125,6 +125,22 @@ class BlogCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogCategory
         fields = ['id', 'category', 'slug', 'parent']
+
+# BlogQuote
+class BlogQuoteSerializer(serializers.ModelSerializer):
+    datePosted = serializers.DateTimeField(
+        format='%Y-%m-%d %H:%M', input_formats=None)
+    mainImage_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BlogQuote
+        many = True
+        fields = ['id', 'title', 'datePosted', 'category', 'content', 'author', 'mainImage_url', 'mainImageAlt']
+
+    def get_mainImage_url(self, BlogQuote):
+        request = self.context.get('request')
+        mainImage_url = BlogQuote.mainImage.url
+        return request.build_absolute_uri(mainImage_url)
 
 # Pages
 class PagesSerializer(serializers.ModelSerializer):
