@@ -6,7 +6,9 @@ export default {
     blogCategories: "",
     blogCategory: "",
     lodStatBlogPosts: "notLoading",
-    blogPosts: ""
+    blogPosts: "",
+    lodStatBlogQuotes: "notLoading",
+    blogQuotes: ""
   },
   mutations: {
     SET_BLOG_CATEGORIES(state, blogCategories) {
@@ -23,15 +25,18 @@ export default {
     },
     SET_LOAD_STAT_BLOG_POSTS(state, status) {
       state.lodStatBlogPosts = status;
+    },
+    SET_BLOG_QUOTES(state, blogQuotes) {
+      state.blogQuotes = blogQuotes;
+    },
+    SET_LOAD_STAT_BLOG_QUOTES(state, status) {
+      state.lodStatBlogQuotes = status;
     }
   },
   actions,
   getters: {
     allBlogCateogries: state => {
       return state.blogCategories;
-    },
-    getLoadingStatus: state => {
-      return state.loadingStatus;
     },
     getBlogById: state => id => {
       if (state.blogPosts === "") {
@@ -62,6 +67,19 @@ export default {
           );
         } else {
           return state.blogPosts;
+        }
+      }
+    },
+    filterBlogQuotesByCategory: state => category => {
+      if (state.blogQuotes === "") {
+        return "";
+      } else {
+        if (category !== "") {
+          return state.blogQuotes.filter(
+            blogQuotes => blogQuotes.category === category
+          );
+        } else {
+          return state.blogQuotes;
         }
       }
     }
