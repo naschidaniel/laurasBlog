@@ -1,8 +1,8 @@
 <template>
   <div class="mt-6 mb-8 flex flex-wrap">
-    <h1 class="content">
+    <h2 class="content">
       {{ getBlogById(blogID).title }}
-    </h1>
+    </h2>
     <img
       :src="getBlogById(blogID).mainImage_url"
       :alt="getBlogById(blogID).mainImageAlt"
@@ -10,7 +10,7 @@
     />
     <div
       v-html="getBlogById(blogID).content"
-      class="content mt-5 text-base content-center text-gray-700"
+      class="content mt-5 text-gray-700"
     ></div>
     <div class=" mx-auto mt-5 font-semibold text-lg md:text-2xl">
       <router-link
@@ -40,7 +40,6 @@
 import { mapGetters } from "vuex";
 import { findIndex as _findIndex } from "lodash";
 
-// import { indexOf as _indexOf } from "lodash";
 export default {
   props: {
     blogID: String
@@ -49,7 +48,8 @@ export default {
     ...mapGetters([
       "getBlogById",
       "filterBlogPostsByCategory",
-      "getBlogCategory"
+      "getBlogCategory",
+
     ]),
     blogPostNavigation: function next() {
       const blogPosts = this.filterBlogPostsByCategory(this.getBlogCategory);
@@ -105,7 +105,7 @@ img {md:ml-2}
 @apply list-disc;
 }
 .content >>> p {
-@apply flex flex-wrap max-w-full justify-center p-2 mb-3 text-2xl text-justify;
+@apply flex flex-wrap max-w-full justify-center p-2 mb-3 text-xl text-justify;
 }
 .content >>> img {
 @apply rounded shadow-2xl m-3;
