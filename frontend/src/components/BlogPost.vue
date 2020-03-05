@@ -82,15 +82,9 @@ export default {
 </script>
 
 <style scoped>
-img {
-  md: w-1/3;
-}
-img {
-  md: mr-2;
-}
-img {
-  md: ml-2;
-}
+img {md:w-1/3}
+img {md:mr-2}
+img {md:ml-2}
 .content >>> h1 {
   @apply text-4xl text-red-600 mt-16;
 }
