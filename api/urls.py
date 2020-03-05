@@ -4,6 +4,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'blogposts', views.BlogPostViewSet)
+router.register(r'blogquotes', views.BlogQuoteViewSet)
 router.register(r'blogcategories', views.BlogCategoryViewSet)
 router.register(r'pages', views.PagesViewSet)
 router.register(r'socialmedialinks', views.SocialMediaLinkViewSet)

@@ -64,11 +64,32 @@ export const actions = {
 
     _delay(function() {
       if (
-        state.lodStatBlogCategories === "notLoadingBlogCategories" &&
+        state.lodStatBlogCategories === "notLoading" &&
         state.blogCategories.length === 0
       ) {
         dispatch("fetchBlogCategories");
       }
     }, 10);
+  },
+  fetchBlogQuotes({ state, dispatch, commit }) {
+    commit("SET_LOAD_STAT_BLOG_QUOTES", "loading");
+    async function setBlogQuotes() {
+      let res = await api("/api/blogquotes/?format=json");
+      commit("SET_BLOG_QUOTES", res);
+      commit("SET_LOAD_STAT_BLOG_QUOTES", "notLoading");
+    }
+
+    if (state.blogCategories.length === 0) {
+      setBlogQuotes();
+    }
+
+    _delay(function() {
+      if (
+        state.lodStatBlogCategories === "notLoading" &&
+        state.blogCategories.length === 0
+      ) {
+        dispatch("fetchBlogCategories");
+      }
+    }, 20);
   }
 };

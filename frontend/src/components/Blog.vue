@@ -2,7 +2,7 @@
   <div class="mt-2">
     <div class="flex flex-wrap">
       <div
-        v-for="bp in filterBlogPostsByCategory(getBlogCategory)"
+        v-for="(bp, index) in filterBlogPostsByCategory(getBlogCategory)"
         :key="bp.id"
         class="w-full px-2 mt-3 mb-8"
       >
@@ -38,15 +38,21 @@
               </div>
             </router-link>
           </div>
-          <div class="pt-3 py-2 px-2">
-            <div class="pt-3 text-gray-900">
-              <p
-                class="h-28 break-words overflow-hidden whitespace-normal text-2xl text-justify p-3"
-              >
-                {{ bp.abstract }}
-              </p>
-            </div>
+          <div class="p-2 text-gray-700">
+            <p
+              class="h-28 break-words overflow-hidden whitespace-normal text-xl text-justify p-3"
+            >
+              {{ bp.abstract }}
+            </p>
           </div>
+        </div>
+        <div
+          v-if="
+            [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29].includes(index + 1) &&
+              getBlogQuotesLen > index
+          "
+        >
+          <blog-quote :blogQuoteID="index + 1"></blog-quote>
         </div>
       </div>
     </div>
@@ -55,19 +61,25 @@
 
 <script>
 import { mapGetters } from "vuex";
+import BlogQuote from "./BlogQuote.vue";
 
 export default {
   name: "blogPosts",
   props: {
     blogCategoryID: String
   },
+  components: {
+    BlogQuote
+  },
   computed: mapGetters([
     "getBlogCategoriesById",
     "getBlogCategory",
-    "filterBlogPostsByCategory"
+    "filterBlogPostsByCategory",
+    "getBlogQuotesLen"
   ]),
   created() {
     this.$store.dispatch("fetchBlogPosts");
+    this.$store.dispatch("fetchBlogQuotes");
   }
 };
 </script>
