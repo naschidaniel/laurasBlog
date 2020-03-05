@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white border-b border-gray-400 shadow-lg sticky top-0 h-20 md:h-24 items-center z-10"
+    class="bg-white border-b border-gray-400 shadow-lg sticky top-0 h-20 md:h-24 items-center z-40"
   >
     <header
       class="h-12 md:h-20 w-full mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3 md:rounded-lg mt-2 lg:max-w-6xl"

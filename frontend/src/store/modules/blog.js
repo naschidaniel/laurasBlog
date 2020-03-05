@@ -8,7 +8,7 @@ export default {
     lodStatBlogPosts: "notLoading",
     blogPosts: "",
     lodStatBlogQuotes: "notLoading",
-    blogQuotes: "",
+    blogQuotes: ""
   },
   mutations: {
     SET_BLOG_CATEGORIES(state, blogCategories) {
@@ -61,9 +61,7 @@ export default {
       if (state.blogQuotes === "") {
         return "";
       } else {
-        return state.blogQuotes.find(
-          blogQuotes => blogQuotes.id === id
-        );
+        return state.blogQuotes.find(blogQuotes => blogQuotes.id === id);
       }
     },
     getBlogQuotesLen: state => {

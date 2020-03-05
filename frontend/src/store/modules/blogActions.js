@@ -75,9 +75,6 @@ export const actions = {
     commit("SET_LOAD_STAT_BLOG_QUOTES", "loading");
     async function setBlogQuotes() {
       let res = await api("/api/blogquotes/?format=json");
-      _forEach(res, function(post) {
-        post["content"] = marked(post.content);
-      });
       commit("SET_BLOG_QUOTES", res);
       commit("SET_LOAD_STAT_BLOG_QUOTES", "notLoading");
     }

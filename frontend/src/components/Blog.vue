@@ -46,7 +46,12 @@
             </p>
           </div>
         </div>
-        <div v-if="[1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29].includes(index + 1) && getBlogQuotesLen > index">
+        <div
+          v-if="
+            [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29].includes(index + 1) &&
+              getBlogQuotesLen > index
+          "
+        >
           <blog-quote :blogQuoteID="index + 1"></blog-quote>
         </div>
       </div>
@@ -57,7 +62,6 @@
 <script>
 import { mapGetters } from "vuex";
 import BlogQuote from "./BlogQuote.vue";
-
 
 export default {
   name: "blogPosts",
