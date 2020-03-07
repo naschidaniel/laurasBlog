@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Blog-top />
-    <Blog />
+    <Blog-top class=" mt-2"></Blog-top>
+    <Blog class=" mt-5"></Blog>
   </div>
 </template>
 
