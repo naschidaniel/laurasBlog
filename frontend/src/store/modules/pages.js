@@ -3,12 +3,12 @@ import { api } from "@/api/api";
 
 export default {
   state: {
-    loadStatusPage: "",
+    loadingStatusPage: false,
     page: ""
   },
   mutations: {
-    SET_LOAD_STATUS_PAGE(state, loadStatusPage) {
-      state.loadStatusPage = loadStatusPage;
+    SET_LOADING_STATUS_PAGE(state, loadingStatusPage) {
+      state.loadingStatusPage = loadingStatusPage;
     },
     SET_PAGE(state, page) {
       state.page = page;
@@ -16,20 +16,23 @@ export default {
   },
   actions: {
     fetchPages({ commit }, link) {
-      commit("SET_LOAD_STATUS_PAGE", "loading");
       async function setPages() {
+        commit("SET_LOADING_STATUS_PAGE", true);
         let apiLink = "/api/pages/" + link + "/?format=json";
         let res = await api(apiLink);
         res["content"] = marked(res.content);
         commit("SET_PAGE", res);
       }
       setPages();
-      commit("SET_LOAD_STATUS_PAGE", "notloading");
+      commit("SET_LOADING_STATUS_PAGE", false);
     }
   },
   getters: {
     getPage: state => {
       return state.page;
+    },
+    getLoadingStatusPage: state => {
+      return state.loadingStatusPage;
     }
   }
 };

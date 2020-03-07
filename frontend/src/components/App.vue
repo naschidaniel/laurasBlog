@@ -1,5 +1,16 @@
 <template>
   <div id="app" class="z-2">
+    <div
+      class=" flex justify-center w-screen h-screen absolute z-20 opacity-75"
+      :class="setLoadingWindow(setSpinner())"
+    >
+      <ring-loader
+        :loading="setSpinner()"
+        color="#db3d3d"
+        class="m-auto opacity-100"
+      ></ring-loader>
+    </div>
+
     <div @click="appClickHandler(getAppClick, getIsOpen)">
       <div class="antialiased flex flex-col min-h-screen">
         <navbar />
@@ -17,12 +28,20 @@
 import AppTop from "./AppTop.vue";
 import AppFooter from "./AppFooter.vue";
 import Navbar from "./Navbar.vue";
+import RingLoader from "vue-spinner/src/RingLoader.vue";
 import "es6-promise/auto";
 import { mapGetters } from "vuex";
 
 export default {
   name: "app",
-  computed: mapGetters(["getAppClick", "getIsOpen"]),
+  computed: mapGetters([
+    "getAppClick",
+    "getIsOpen",
+    "getLoadingStatusBlogPosts",
+    "getLoadingStatusBlogQuotes",
+    "getLoadingStatusPage",
+    "getLoadingStatusSocialLinks"
+  ]),
   methods: {
     appClickHandler(appClick, isOpen) {
       if (appClick === true && isOpen === true) {
@@ -31,12 +50,31 @@ export default {
       } else {
         this.$store.commit("SET_APP_CLICK", false);
       }
+    },
+    setSpinner() {
+      if (
+        this.getLoadingStatusBlogPosts ||
+        this.getLoadingStatusBlogQuotes ||
+        this.getLoadingStatusPage ||
+        this.getLoadingStatusSocialLinks
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    setLoadingWindow(setSpinner) {
+      return {
+        block: setSpinner,
+        hidden: !setSpinner
+      };
     }
   },
   components: {
     Navbar,
     AppTop,
-    AppFooter
+    AppFooter,
+    RingLoader
   }
 };
 </script>

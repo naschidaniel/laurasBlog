@@ -10,7 +10,7 @@ import { api } from "@/api/api";
 export const actions = {
   fetchBlogCategories({ state, commit }) {
     async function setBlogCategories() {
-      commit("SET_LOAD_STAT_BLOG_CATEGORIES", "loading");
+      commit("SET_LOADING_STATUS_BLOG_CATEGORIES", true);
       let res = await api("/api/blogcategories/?format=json");
 
       for (let index = 0; index < res.length; index++) {
@@ -37,7 +37,7 @@ export const actions = {
         return o.breadcrumps.join(" ");
       });
       commit("SET_BLOG_CATEGORIES", orderData);
-      commit("SET_LOAD_STAT_BLOG_CATEGORIES", "notLoading");
+      commit("SET_LOADING_STATUS_BLOG_CATEGORIES", false);
     }
 
     if (state.blogCategories.length === 0) {
@@ -45,8 +45,8 @@ export const actions = {
     }
   },
   fetchBlogPosts({ state, dispatch, commit }) {
-    commit("SET_LOAD_STAT_BLOG_POSTS", "loading");
     async function setBlogPosts() {
+      commit("SET_LOADING_STATUS_BLOG_POSTS", true);
       let res = await api("/api/blogposts/?format=json");
       _forEach(res, function(post) {
         if (post.content.length >= 200) {
@@ -55,7 +55,7 @@ export const actions = {
         post["content"] = marked(post.content);
       });
       commit("SET_BLOG_POSTS", res);
-      commit("SET_LOAD_STAT_BLOG_POSTS", "notLoading");
+      commit("SET_LOADING_STATUS_BLOG_POSTS", false);
     }
 
     if (state.blogCategories.length === 0) {
@@ -64,7 +64,7 @@ export const actions = {
 
     _delay(function() {
       if (
-        state.lodStatBlogCategories === "notLoading" &&
+        state.loadingStatusBlogCategories === false &&
         state.blogCategories.length === 0
       ) {
         dispatch("fetchBlogCategories");
@@ -72,11 +72,11 @@ export const actions = {
     }, 10);
   },
   fetchBlogQuotes({ state, dispatch, commit }) {
-    commit("SET_LOAD_STAT_BLOG_QUOTES", "loading");
     async function setBlogQuotes() {
+      commit("SET_LOADING_STATUS_BLOG_QUOTES", true);
       let res = await api("/api/blogquotes/?format=json");
       commit("SET_BLOG_QUOTES", res);
-      commit("SET_LOAD_STAT_BLOG_QUOTES", "notLoading");
+      commit("SET_LOADING_STATUS_BLOG_QUOTES", false);
     }
 
     if (state.blogCategories.length === 0) {
@@ -85,7 +85,7 @@ export const actions = {
 
     _delay(function() {
       if (
-        state.lodStatBlogCategories === "notLoading" &&
+        state.loadingStatusBlogCategories === false &&
         state.blogCategories.length === 0
       ) {
         dispatch("fetchBlogCategories");

@@ -2,12 +2,12 @@ import { api } from "@/api/api";
 
 export default {
   state: {
-    loadStatusSocialLinks: "",
+    loadingStatusSocialLinks: false,
     socialLinks: ""
   },
   mutations: {
-    SET_LOAD_STATUS_SOCIAL_LINKS(state, loadStatusSocialLinks) {
-      state.loadStatusSocialLinks = loadStatusSocialLinks;
+    SET_LOADING_STATUS_SOCIAL_LINKS(state, loadingStatusSocialLinks) {
+      state.loadingStatusSocialLinks = loadingStatusSocialLinks;
     },
     SET_SOCIAL_LINKS(state, socialLinks) {
       state.socialLinks = socialLinks;
@@ -15,14 +15,14 @@ export default {
   },
   actions: {
     fetchSocialLinks({ commit }) {
-      commit("SET_LOAD_STATUS_SOCIAL_LINKS", "loading");
       async function setSocialLinks() {
+        commit("SET_LOADING_STATUS_SOCIAL_LINKS", true);
         let apiLink = "/api/socialmedialinks/?format=json";
         let res = await api(apiLink);
         commit("SET_SOCIAL_LINKS", res);
       }
       setSocialLinks();
-      commit("SET_LOAD_STATUS_SOCIAL_LINKS", "notloading");
+      commit("SET_LOADING_STATUS_SOCIAL_LINKS", false);
     }
   },
   getters: {
@@ -34,6 +34,9 @@ export default {
           socialLinks => socialLinks.socialMediaPlatform === String(Platform)
         );
       }
+    },
+    getLoadingStatusSocialLinks: state => {
+      return state.loadingStatusSocialLinks;
     }
   }
 };
