@@ -50,7 +50,7 @@ export default {
       "filterBlogPostsByCategory",
       "getBlogCategory"
     ]),
-    blogPostNavigation: function next() {
+    blogPostNavigation: function navi() {
       const blogPosts = this.filterBlogPostsByCategory(this.getBlogCategory);
       let navigation = { back: "", current: "", next: "nextIndex" };
       if (blogPosts.length !== 0) {
