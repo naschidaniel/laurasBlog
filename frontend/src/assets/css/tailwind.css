@@ -1,9 +1,5 @@
 @tailwind base;
 
-h1 {
-  @apply text-4xl text-red-600;
-}
-
 @tailwind components;
 
 @tailwind utilities;
