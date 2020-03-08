@@ -46,21 +46,21 @@
             <router-link
               :to="{ name: 'blog' }"
               class="block p-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg hover:bg-gray-400"
-              v-bind:class="selectBlogNavigation(['blog', 'blogpost'])"
+              :class="selectBlogNavigation(['blog', 'blogpost'])"
             >
               Blog
             </router-link>
             <router-link
               :to="{ name: 'page', params: { link: 'about' } }"
               class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 sm:ml-2 text-lg hover:bg-gray-400"
-              v-bind:class="selectPageNavigation('about')"
+              :class="selectPageNavigation('about')"
             >
               About
             </router-link>
             <router-link
               :to="{ name: 'page', params: { link: 'kontakt' } }"
               class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-lg hover:bg-gray-400"
-              v-bind:class="selectPageNavigation('kontakt')"
+              :class="selectPageNavigation('kontakt')"
             >
               Kontakt
             </router-link>

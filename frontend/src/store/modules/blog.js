@@ -2,12 +2,12 @@ import { actions } from "./blogActions";
 
 export default {
   state: {
-    lodStatBlogCategories: "notLoadingBlogCategories",
+    loadingStatusBlogCategories: "notLoadingBlogCategories",
     blogCategories: "",
     blogCategory: "",
-    lodStatBlogPosts: "notLoading",
+    loadingStatusBlogPosts: false,
     blogPosts: "",
-    lodStatBlogQuotes: "notLoading",
+    loadingStatusBlogQuotes: false,
     blogQuotes: ""
   },
   mutations: {
@@ -17,26 +17,32 @@ export default {
     SET_BLOG_CATEGORY(state, id) {
       state.blogCategory = id;
     },
-    SET_LOAD_STAT_BLOG_CATEGORIES(state, status) {
-      state.lodStatBlogCategories = status;
+    SET_LOADING_STATUS_BLOG_CATEGORIES(state, status) {
+      state.loadingStatusBlogCategories = status;
     },
     SET_BLOG_POSTS(state, blogPosts) {
       state.blogPosts = blogPosts;
     },
-    SET_LOAD_STAT_BLOG_POSTS(state, status) {
-      state.lodStatBlogPosts = status;
+    SET_LOADING_STATUS_BLOG_POSTS(state, status) {
+      state.loadingStatusBlogPosts = status;
     },
     SET_BLOG_QUOTES(state, blogQuotes) {
       state.blogQuotes = blogQuotes;
     },
-    SET_LOAD_STAT_BLOG_QUOTES(state, status) {
-      state.lodStatBlogQuotes = status;
+    SET_LOADING_STATUS_BLOG_QUOTES(state, status) {
+      state.loadingStatusBlogQuotes = status;
     }
   },
   actions,
   getters: {
     allBlogCateogries: state => {
       return state.blogCategories;
+    },
+    getLoadingStatusBlogPosts: state => {
+      return state.loadingStatusBlogPosts;
+    },
+    getLoadingStatusBlogQuotes: state => {
+      return state.loadingStatusBlogQuotes;
     },
     getBlogById: state => id => {
       if (state.blogPosts === "") {
