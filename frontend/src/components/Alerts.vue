@@ -4,7 +4,6 @@
     role="alert"
     v-if="getNetworkErrorWindow && getNetworkErrorWindow"
   >
-    Window: {{ getNetworkErrorWindow }}
     <strong class="font-bold">Netzwerkproblem! </strong>
     <span class="block sm:inline">Die Daten konnten nicht geladen werden.</span>
     <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
