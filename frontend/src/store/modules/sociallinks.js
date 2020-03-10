@@ -27,7 +27,7 @@ export default {
   },
   getters: {
     getSocialLinkByPlatform: state => Platform => {
-      if (state.socialLinks === "") {
+      if (state.socialLinks == "") {
         return "";
       } else {
         return state.socialLinks.find(

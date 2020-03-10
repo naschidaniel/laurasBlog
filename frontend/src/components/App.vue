@@ -14,6 +14,7 @@
     <div @click="appClickHandler(getAppClick, getIsOpen)">
       <div class="antialiased flex flex-col min-h-screen">
         <navbar />
+        <alerts class="mt-2" />
         <app-top />
         <main class=" mx-auto flex-grow w-full px-3 lg:max-w-6xl">
           <router-view />
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import Alerts from "./Alerts.vue";
 import AppTop from "./AppTop.vue";
 import AppFooter from "./AppFooter.vue";
 import Navbar from "./Navbar.vue";
@@ -71,9 +73,10 @@ export default {
     }
   },
   components: {
-    Navbar,
+    Alerts,
     AppTop,
     AppFooter,
+    Navbar,
     RingLoader
   }
 };
