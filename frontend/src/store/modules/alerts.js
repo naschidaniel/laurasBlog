@@ -25,6 +25,10 @@ export default {
         commit("SET_NETWORK_ERROR", true);
         console.log("Error: " + error);
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f647a84ffc3c959a0ac723192e80e4ac22e18910
     },
     setAlertErrorWindow({ commit }, value) {
       commit("SET_NETWORK_ERROR_WINDOW", value);
