@@ -2,16 +2,18 @@ version: '3'
 
 services:
   web:
-    build: ./docker/web
-    container_name: web
-    command: bash -c "source activate djangoVue && python manage.py collectstatic --no-input --settings=djangoVue.settings && python manage.py migrate --settings=djangoVue.settings && gunicorn djangoVue.wsgi -b 0.0.0.0:3000"
-    volumes:
-      - ./:/web/
+    build: ./docker/django
+    container_name: django
+cd    volumes:
+      - ./:/www/site
+    environment:
+      PYTHONUNBUFFERED: "TRUE"
+    user: "${USERID}:${GROUPID}"    
     networks:
       nginx_proxy:
         ipv4_address: 10.5.0.12
     ports:
-      - "3000"
+      - "8000"
     restart: always
 
 networks:

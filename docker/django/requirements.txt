@@ -1,0 +1,9 @@
+django
+djangorestframework
+django-environ
+uvicorn
+pylint
+whitenoise
+Pillow
+django-webpack-loader
+
