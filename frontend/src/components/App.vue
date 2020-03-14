@@ -11,7 +11,7 @@
       ></ring-loader>
     </div>
 
-    <div @click="appClickHandler(getAppClick, getIsOpen)">
+    <div @click="appClickHandler(getAppClick, getNavbarOpen)">
       <div class="antialiased flex flex-col min-h-screen">
         <navbar />
         <alerts class="mt-2" />
@@ -38,7 +38,7 @@ export default {
   name: "app",
   computed: mapGetters([
     "getAppClick",
-    "getIsOpen",
+    "getNavbarOpen",
     "getLoadingStatusBlogPosts",
     "getLoadingStatusBlogQuotes",
     "getLoadingStatusPage",
@@ -48,7 +48,7 @@ export default {
     appClickHandler(appClick, isOpen) {
       if (appClick === true && isOpen === true) {
         this.$store.commit("SET_APP_CLICK", false);
-        this.$store.commit("SET_IS_OPEN", false);
+        this.$store.commit("SET_NAVBAR_OPEN", false);
       } else {
         this.$store.commit("SET_APP_CLICK", false);
       }

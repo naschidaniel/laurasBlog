@@ -3,14 +3,14 @@ import { delay as _delay } from "lodash";
 export default {
   state: {
     appClick: false,
-    isOpen: false
+    navbarOpen: false
   },
   mutations: {
     SET_APP_CLICK(state, appClick) {
       state.appClick = appClick;
     },
-    SET_IS_OPEN(state, isOpen) {
-      state.isOpen = isOpen;
+    SET_NAVBAR_OPEN(state, navbarOpen) {
+      state.navbarOpen = navbarOpen;
     }
   },
   actions: {
@@ -19,16 +19,16 @@ export default {
         commit("SET_APP_CLICK", appClick);
       }, 5);
     },
-    setIsOpen({ commit }, isOpen) {
-      commit("SET_IS_OPEN", isOpen);
+    setNavbarOpen({ commit }, navbarOpen) {
+      commit("SET_NAVBAR_OPEN", navbarOpen);
     }
   },
   getters: {
     getAppClick: state => {
       return state.appClick;
     },
-    getIsOpen: state => {
-      return state.isOpen;
+    getNavbarOpen: state => {
+      return state.navbarOpen;
     }
   }
 };
