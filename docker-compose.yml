@@ -8,13 +8,27 @@ services:
       - ./:/www/site
     environment:
       PYTHONUNBUFFERED: "TRUE"
-    user: "${USERID}:${GROUPID}"    
+    user: "${USERID}:${GROUPID}"
     networks:
       nginx_proxy:
         ipv4_address: 10.5.0.12
     expose:
       - "3000"
     restart: always
+
+  node:
+    build: ./frontend
+    container_name: node
+    volumes:
+      - ./frontend:/usr/src/app
+    user: "${USERID}:${GROUPID}"
+    #command: "npm run serve"
+    networks:
+      nginx_proxy:
+        ipv4_address: 10.5.0.14
+    expose:
+      - "8080"
+    
 
 networks:
   default:
