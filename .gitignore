@@ -3,6 +3,7 @@ dist/
 npm-debug.log
 yarn-error.log
 */webpack-stats.json
+frontend/package-lock.json
 
 # Editor directories and files
 .vscode/settings.json
