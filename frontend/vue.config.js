@@ -9,6 +9,8 @@ module.exports = {
 
   chainWebpack: config => {
     config.optimization.splitChunks(false);
+    
+    config.optimization.minimize(true);
 
     config
       .plugin("BundleTracker")
