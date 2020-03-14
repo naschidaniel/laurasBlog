@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && gzipper --verbose ./dist",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "axios": "^0.19.0",
     "core-js": "^3.4.3",
     "es6-promise": "^4.2.8",
+    "gzipper": "^3.5.0",
     "lodash": "^4.17.15",
     "marked": "^0.7.0",
     "serve": "^11.3.0",
