@@ -15,6 +15,6 @@ WORKDIR /www/site
 EXPOSE 3000
 ENV DJANGO_SETTINGS_MODULE "djangoVue.settings"
 
-CMD python manage.py collectstatic --no-input
-CMD python manage.py migrate
+CMD python3 manage.py collectstatic --no-input
+CMD python3 manage.py migrate
 CMD uvicorn --reload --host 0.0.0.0 --port 3000 djangoVue.asgi:application
