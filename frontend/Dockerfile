@@ -1,11 +1,15 @@
-FROM node:latest
+FROM node:current
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+ADD ./package.json /usr/src/app
 
-RUN npm install
+RUN cat /usr/src/app/package.json
 
-ADD . .
+USER root
 
-EXPOSE 8080
+RUN npm install 
+
+RUN cat /usr/src/app/package-lock.json
+
+ADD . /usr/src/app

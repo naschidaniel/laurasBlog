@@ -22,7 +22,7 @@ services:
     volumes:
       - ./frontend:/usr/src/app
     user: "${USERID}:${GROUPID}"
-    #command: "npm run serve"
+    command: "npm run serve"
     networks:
       nginx_proxy:
         ipv4_address: 10.5.0.14
