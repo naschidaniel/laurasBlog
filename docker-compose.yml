@@ -1,38 +1,25 @@
 version: '3'
 
 services:
-  web:
-    build: ./docker/django
+  vue:
+    build: ./vue
+    container_name: vue
+    volumes:
+      - ./vue:/usr/src/app
+    user: "${USERID}:${GROUPID}"
+    ports:
+      - "8080:8080"
+
+  django:
+    build: ./django
     container_name: django
     volumes:
-      - ./:/www/site
+      - ./django:/www/site
+      - ./vue:/www/site/frontend
     environment:
       PYTHONUNBUFFERED: "TRUE"
     user: "${USERID}:${GROUPID}"
-    networks:
-      nginx_proxy:
-        ipv4_address: 10.5.0.12
-    expose:
-      - "3000"
+    ports:
+      - "8000:8000"
     restart: always
 
-  node:
-    build: ./frontend
-    container_name: node
-    volumes:
-      - ./frontend:/usr/src/app
-    user: "${USERID}:${GROUPID}"
-    command: "npm run serve"
-    networks:
-      nginx_proxy:
-        ipv4_address: 10.5.0.14
-    expose:
-      - "8080"
-    
-
-networks:
-  default:
-    external:
-      name: nginx_proxy
-  nginx_proxy:
-    external: true
