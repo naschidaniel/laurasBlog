@@ -3,7 +3,7 @@ version: '3'
 services:
   vue:
     build: ./vue
-    container_name: node
+    container_name: vue
     volumes:
       - ./vue:/usr/src/app
     user: "${USERID}:${GROUPID}"
@@ -11,7 +11,7 @@ services:
       - "8080:8080"
 
   django:
-    build: ./docker/django
+    build: ./django
     container_name: django
     volumes:
       - ./django:/www/site
