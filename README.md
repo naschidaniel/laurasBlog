@@ -58,9 +58,9 @@ yarn lint
 
 ## Important Links
 ```
-http://localhost:8000
-http://localhost:8000/api/
-http://localhost:8000/admin/
+http://localhost:3000
+http://localhost:3000/api/
+http://localhost:3000/admin/
 ```
 
 

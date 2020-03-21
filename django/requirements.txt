@@ -6,4 +6,5 @@ pylint
 whitenoise
 Pillow
 django-webpack-loader
+psycopg2
 
