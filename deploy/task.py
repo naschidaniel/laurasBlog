@@ -19,26 +19,21 @@ def docker_compose(c, cmd, **kwargs):
     return c.run(" ".join(command), **kwargs)
 
 @task
-def manage_py(c, cmd, **kwargs):
-    """The function is used to start a command inside a container."""
+def managepy(c, cmd, **kwargs):
+    """The function is used to start a command inside a django container."""
     uid = "{}:{}".format(os.getuid(), os.getgid())
-    return docker_compose(c, f"run -u {uid} fedora python3 /www/site/manage.py {cmd}", pty=True)
+    return docker_compose(c, f"run -u {uid} django python3 /www/site/manage.py {cmd}", pty=True)
+
+@task
+def npm(c, cmd, **kwargs):
+    """This function is used to respond to the packet manager npm."""
+    uid = "{}:{}".format(os.getuid(), os.getgid())
+    docker_compose(c, f"run -u {uid} vue npm {cmd}", pty=True)
 
 @task
 def serve(c):
-    """This function is used to recreate the docker containers."""
-    docker_compose(c, "up")
-
-@task
-def nodebuild(c, **kwargs):
-    """This function is used to recreate the docker containers."""
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    docker_compose(c, f"run -u {uid} node npm run build", pty=True)
-
-@task
-def test(c):
-    """This function is used to recreate the docker containers."""
-    docker_compose(c, "up web")
+    """This function is used to start the development environment."""
+    docker_compose(c, f"up")
 
 @task
 def rebuild(c):
@@ -50,16 +45,17 @@ MAIN_COLLECTION = Collection()
 
 LOCAL_NS = Collection("local")
 LOCAL_NS.configure({
+    "host": "local",
+    "hostname": "local",
     "docker_compose_files": [
         "./docker-compose.yml"
     ]
 })
 MAIN_COLLECTION.add_collection(LOCAL_NS)
 
-LOCAL_NS.add_task(manage_py)
+LOCAL_NS.add_task(managepy)
 LOCAL_NS.add_task(serve)
-LOCAL_NS.add_task(nodebuild)
-LOCAL_NS.add_task(test)
+LOCAL_NS.add_task(npm)
 LOCAL_NS.add_task(rebuild)
 
 PROGRAM = Program(namespace=MAIN_COLLECTION)

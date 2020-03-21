@@ -5,7 +5,8 @@ services:
     build: ./vue
     container_name: vue
     volumes:
-      - ./vue:/usr/src/app
+      - /home/daniel/dev/djangoVue/vue:/usr/src/app
+    command: "npm run serve"
     user: "${USERID}:${GROUPID}"
     ports:
       - "8080:8080"
