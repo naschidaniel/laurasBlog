@@ -2,10 +2,10 @@ version: '3'
 
 services:
   django:
-    build: ./docker/django
+    build: ./django
     container_name: django
     volumes:
-      - ./:/www/site
+      - ./django:/www/site
     environment:
       PYTHONUNBUFFERED: "TRUE"
     user: "${USERID}:${GROUPID}"
@@ -16,11 +16,11 @@ services:
       - "3000"
     restart: always
 
-  node:
-    build: ./docker/node
+  vue:
+    build: ./vue
     container_name: node
     volumes:
-      - ./frontend:/usr/src/app
+      - ./vue:/usr/src/app
     user: "${USERID}:${GROUPID}"
     command: "npm run serve"
     networks:
