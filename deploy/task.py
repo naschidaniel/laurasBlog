@@ -19,10 +19,10 @@ def docker_compose(c, cmd, **kwargs):
     return c.run(" ".join(command), **kwargs)
 
 @task
-def managepy(c, cmd, **kwargs):
-    """The function is used to start a command inside a django container."""
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    return docker_compose(c, f"run -u {uid} django python3 /www/site/manage.py {cmd}", pty=True)
+def rebuild(c):
+    """This function is used to recreate the docker containers."""
+    docker_compose(c, "build")
+
 
 @task
 def npm(c, cmd, **kwargs):
@@ -36,10 +36,16 @@ def serve(c):
     docker_compose(c, f"up")
 
 @task
-def rebuild(c):
-    """This function is used to recreate the docker containers."""
-    docker_compose(c, "build")
+def managepy(c, cmd, **kwargs):
+    """The function is used to start a command inside a django container."""
+    uid = "{}:{}".format(os.getuid(), os.getgid())
+    return docker_compose(c, f"run -u {uid} django python3 /www/site/manage.py {cmd}", pty=True)
 
+@task
+def djangoup(c, **kwargs):
+    """The function is used to start a command inside a django container."""
+    uid = "{}:{}".format(os.getuid(), os.getgid())
+    return docker_compose(c, f"run -u {uid} django", pty=True)
 
 MAIN_COLLECTION = Collection()
 
@@ -53,6 +59,7 @@ LOCAL_NS.configure({
 })
 MAIN_COLLECTION.add_collection(LOCAL_NS)
 
+LOCAL_NS.add_task(djangoup)
 LOCAL_NS.add_task(managepy)
 LOCAL_NS.add_task(serve)
 LOCAL_NS.add_task(npm)
