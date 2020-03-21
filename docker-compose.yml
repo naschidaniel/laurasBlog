@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  django:
     build: ./docker/django
     container_name: django
     volumes:
@@ -17,7 +17,7 @@ services:
     restart: always
 
   node:
-    build: ./frontend
+    build: ./docker/node
     container_name: node
     volumes:
       - ./frontend:/usr/src/app
