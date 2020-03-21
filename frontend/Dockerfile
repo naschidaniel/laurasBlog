@@ -9,5 +9,3 @@ RUN cat /usr/src/app/package.json
 RUN npm install 
 
 RUN cat /usr/src/app/package-lock.json
-
-ADD . /usr/src/app
