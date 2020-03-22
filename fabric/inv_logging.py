@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
+"""DjangoVue logging module for fabric."""
 
-"""
-DjangoVue logging module for fabric.
-"""
 import logging
 import logging.config
 import os
@@ -32,7 +30,7 @@ def start_logging():
 def success_logging(task=None):
     """A function which returns the successful completion of the logging.
     """
-    if task is None:
+    if task is not None and task != "":
         logging.info(f"The task {task} was successfully completed.")
     else:
         logging.info(f"The program was successfully completed.")
