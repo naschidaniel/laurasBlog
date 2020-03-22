@@ -16,17 +16,15 @@ inv_logging.start_logging()
 # Settings
 def read_settings(what):
     """A function to read the settings file."""
-    settings_file = os.path.join(os.path.join(os.getcwd(), "/fabric/settings.json"))
-    
+    settings_file = os.path.join(os.path.join(os.getcwd(), "fabric/settings.json"))
+    print(settings_file)
     if os.path.exists(settings_file):
-        with open("settings.json") as f:
+        with open(settings_file) as f:
             settings = json.load(f)
-        print(settings)
         logging.info(f"The {settings_file} file was successfully read.")
     else:
         fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
         logging.error(f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
-        print("The program was stopped unexpectedly.")
         sys.exit(1)
     
     return settings[what]
@@ -67,7 +65,7 @@ def folders(c, cmd, **kwargs):
     if cmd in ["development", "production"]:
         settings = read_settings(cmd)
     else:
-        print("Your entry was incorrect. Please enter development or production.")
+        logging.error("Your entry was incorrect. Please enter development or production.")
         sys.exit(1)
 
     for f in settings["initFolders"]:
@@ -76,9 +74,9 @@ def folders(c, cmd, **kwargs):
         if not os.path.exists(f):
             try:
                 os.makedirs(f)
-                print(f"The folder {f} has been created.")
+                logging.info(f"The folder {f} has been created.")
             except:
-                print(f"The folder {f} could not be created.")
+                logging.error(f"The folder {f} could not be created.")
                 sys.exit(1)
 
 
@@ -88,9 +86,12 @@ def folders(c, cmd, **kwargs):
 def start(c):
     """This function is used to start the production test environment."""
     static_folder = os.path.join(os.getcwd(), "django/static")
-    shutil.rmtree(static_folder)
-    print("{} Static Files Folder cleared".format(static_folder))
-    
+    try:
+        shutil.rmtree(static_folder)
+        logging.info(f"{static_folder} folder was deleted.")
+    except:
+        logging.error(f"{static_folder} could not be deleted.")
+
     manage_py(c, "migrate", pty=True)
     manage_py(c, "collectstatic --no-input", pty=True)
     docker_compose(c, f"up -d")
@@ -122,10 +123,10 @@ def serve(c):
     docker_compose(c, f"up")
 
 @task
-def djangoup(c, **kwargs):
+def run(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
     uid = "{}:{}".format(os.getuid(), os.getgid())
-    return docker_compose(c, f"run -u {uid} django", pty=True)
+    return docker_compose(c, f"run -u {uid} {cmd}", pty=True)
 
 
 MAIN_COLLECTION = Collection()
@@ -170,11 +171,11 @@ LOCAL_NS.configure({
     ]
 })
 
-LOCAL_NS.add_task(djangoup)
-LOCAL_NS.add_task(serve)
 LOCAL_NS.add_task(build)
+LOCAL_NS.add_task(serve)
 LOCAL_NS.add_task(npm)
 LOCAL_NS.add_task(rebuild)
+LOCAL_NS.add_task(run)
 
 
 ####### Program

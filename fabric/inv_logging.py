@@ -29,7 +29,10 @@ def start_logging():
     logging.info("DjangoVue fabric logging module was started.")
 
 
-def success_logging(task):
+def success_logging(task=None):
     """A function which returns the successful completion of the logging.
     """
-    logging.info(f"The task {task} was successfully completed.")
+    if task is None:
+        logging.info(f"The task {task} was successfully completed.")
+    else:
+        logging.info(f"The program was successfully completed.")
