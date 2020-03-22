@@ -1,13 +1,10 @@
 # Envirion
 .env
-rsync.sh
-
-# local env files
-.env
 .env.local
 .env.*.local
 
 # Log files
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -31,3 +28,6 @@ dist/
 npm-debug.log
 */webpack-stats.json
 vue/frontend/package-lock.json
+
+# Deployment
+rsync.sh
