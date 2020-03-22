@@ -1,18 +1,17 @@
 {
   "development": {
-    "installationFolder": "/www/",
     "initFolders": [
-      "./data/postgresdata",
-      "./log/nginx",
-      "./media"
+      "data/postgresdata",
+      "log/nginx",
+      "media"
     ]
   },
   "production": {
     "installationFolder": "/www/",
     "initFolders": [
-      "./data/postgresdata",
-      "./log/nginx",
-      "./media"
+      "data/postgresdata",
+      "log/nginx",
+      "media"
     ]
   }
 }
