@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  vue:
-    build: ./vue
-    container_name: vue
-    volumes:
-      - ${PWD}/vue:/usr/src/app
-    command: "npm run serve"
-    user: "${USERID}:${GROUPID}"
-    ports:
-      - "8080:8080"
-
   django:
     build: ./django
     container_name: django
@@ -27,10 +17,23 @@ services:
   postgres:
     build: "./postgres"
     restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  vue:
+    build: ./vue
+    container_name: vue
+    volumes:
+      - ${PWD}/vue:/usr/src/app
+    command: "npm run serve"
+    user: "${USERID}:${GROUPID}"
+    ports:
+      - "8080:8080"
 
 volumes:
   postgres_data:
