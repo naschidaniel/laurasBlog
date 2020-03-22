@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  nginx:
+    restart: unless-stopped
+    image: nginx:stable
+    volumes:
+      - ${PWD}/nginx:/etc/nginx/conf.d
+      - ${PWD}/django:/www/site
+      - ${PWD}/log:/log
+    ports:
+      - "80:80"
+
+  django:
+    restart: always
+    build: ./django
+    container_name: django
+    volumes:
+      - ${PWD}/django:/www/site
+      - ${PWD}/vue:/www/site/frontend
+    environment:
+      PYTHONUNBUFFERED: "TRUE"
+    user: "${USERID}:${GROUPID}"
+    ports:
+      - "3000:3000"
+
+  postgres:
+    restart: always
+    build: "./postgres"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/pgdata
+ 
+
+
+
+
+
+
+
+
+
+
