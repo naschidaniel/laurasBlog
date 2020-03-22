@@ -2,16 +2,39 @@
 #  -*- coding: utf-8 -*-
 """The fabricfile of the project."""
 
+import json
 import os
 import shutil
+import sys
+import logging
+import inv_logging
 from invoke import task, Collection, Program
 
+# Logging
+inv_logging.start_logging()
 
-# rsync
+# Settings
+def read_settings(what):
+    """A function to read the settings file."""
+    settings_file = os.path.join(os.path.join(os.getcwd(), "/fabric/settings.json"))
+    
+    if os.path.exists(settings_file):
+        with open("settings.json") as f:
+            settings = json.load(f)
+        print(settings)
+        logging.info(f"The {settings_file} file was successfully read.")
+    else:
+        fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
+        logging.error(f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
+        print("The program was stopped unexpectedly.")
+        sys.exit(1)
+    
+    return settings[what]
 
-def rsync_push(c, local_dir, remote_dir, exclude=None)
-    return _rsync(c, local_dir, remote_dir, exclude, push=True)
-
+# Rsync
+#def rsync_push(c, local_dir, remote_dir, exclude=None):
+    #"""A function to push data to the remote server."""
+    #return _rsync(c, local_dir, remote_dir, exclude, push=True)
 
 
 # Docker
@@ -31,11 +54,32 @@ def docker_compose(c, cmd, **kwargs):
 def manage_py(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
     uid = "{}:{}".format(os.getuid(), os.getgid())
+    
     return docker_compose(c, f"run -u {uid} django python3 /www/site/manage.py {cmd}", pty=True)
 
 
 
 ### Tasks
+# Installation
+@task
+def folders(c, cmd, **kwargs):
+    """This function is used to start the production test environment."""
+    if cmd in ["development", "production"]:
+        settings = read_settings(cmd)
+    else:
+        print("Your entry was incorrect. Please enter development or production.")
+        sys.exit(1)
+
+    for f in settings["initFolders"]:
+        f = os.path.join(os.getcwd(), f)
+        
+        if not os.path.exists(f):
+            try:
+                os.makedirs(f)
+                print(f"The folder {f} has been created.")
+            except:
+                print(f"The folder {f} could not be created.")
+                sys.exit(1)
 
 
 
@@ -85,6 +129,20 @@ def djangoup(c, **kwargs):
 
 
 MAIN_COLLECTION = Collection()
+
+####### Init Collection
+INIT_NS = Collection("init")
+MAIN_COLLECTION.add_collection(INIT_NS)
+INIT_NS.configure({
+    "host": "local",
+    "hostname": "local",
+    "docker_compose_files": [
+        "./docker-compose.test.yml"
+    ]
+})
+INIT_NS.add_task(folders)
+
+
 
 ####### Testing Collection
 TEST_NS = Collection("test")

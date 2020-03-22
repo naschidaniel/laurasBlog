@@ -30,4 +30,5 @@ npm-debug.log
 vue/frontend/package-lock.json
 
 # Deployment
+fabric/settings.json
 rsync.sh
