@@ -6,7 +6,7 @@ import os
 import sys
 import logging
 from invoke import task
-from inv_base import read_settings
+from inv_base import read_settings, manage_py
 from inv_logging import success_logging
 
 
@@ -32,5 +32,5 @@ def folders(c, cmd, **kwargs):
                 sys.exit(1)
         else:
             logging.info(f"The folder {f} already exists.")
-    
+
     success_logging(folders.__name__)
