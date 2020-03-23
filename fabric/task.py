@@ -6,8 +6,10 @@ import json
 import os
 import sys
 import logging
+import inv_build
+import inv_django
 import inv_install
-import inv_local
+import inv_node
 import inv_test
 from invoke import task, Collection, Program
 from inv_logging import start_logging
@@ -17,19 +19,6 @@ start_logging()
 
 # Collections
 MAIN_COLLECTION = Collection()
-
-# Install Collection
-INSTALL_NS = Collection("install")
-MAIN_COLLECTION.add_collection(INSTALL_NS)
-INSTALL_NS.configure({
-    "host": "local",
-    "hostname": "local",
-    "docker_compose_files": [
-        "./docker-compose.test.yml"
-    ]
-})
-INSTALL_NS.add_task(inv_install.folders)
-
 
 # Testing Collection
 TEST_NS = Collection("test")
@@ -56,11 +45,23 @@ LOCAL_NS.configure({
     ]
 })
 
-LOCAL_NS.add_task(inv_local.build)
-LOCAL_NS.add_task(inv_local.serve)
-LOCAL_NS.add_task(inv_local.npm)
-LOCAL_NS.add_task(inv_local.rebuild)
-LOCAL_NS.add_task(inv_local.run)
+LOCAL_NS.add_task(inv_install.folders)
+
+
+LOCAL_NS.add_task(inv_build.rebuild)
+LOCAL_NS.add_task(inv_build.start)
+LOCAL_NS.add_task(inv_build.stop)
+LOCAL_NS.add_task(inv_build.serve)
+LOCAL_NS.add_task(inv_build.rebuild)
+LOCAL_NS.add_task(inv_build.run)
+
+LOCAL_NS.add_task(inv_node.npm)
+
+LOCAL_NS.add_task(inv_django.collectionstatic)
+LOCAL_NS.add_task(inv_django.createsuperuser)
+LOCAL_NS.add_task(inv_django.loadexampledata)
+LOCAL_NS.add_task(inv_django.makemigrations)
+LOCAL_NS.add_task(inv_django.migrate)
 
 
 # Program
