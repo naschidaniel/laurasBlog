@@ -1,54 +1,70 @@
 # djangoVue
 
-The website can be installed for ***local development*** with a local sqlite3 database (Part 1: Development). It also can be run in a local ***docker-compose*** file (Part 2: Docker for production).  
+With the help of Django as backend and Vue as frontend a small website was created. DjangoVue includes a blog and classic pages. 
+The development and production mode are provided by docker. To communicate pleasantly with dockercontainer python invoke is used. 
 
-# Development
-## Conda Env for djangoVue
-```
-conda env create -f environment.yml
-```
 
-### Activate Conda Env
-```
-conda activate djangoVue
-```
 
-## Set Development .env
-```
-echo "DEBUG=True" > ./djangoVue/.env
-echo "DB=sqlite3" >> ./djangoVue/.env
-```
+## Dependencies
 
-## Django-Backend
-### Installation of example Data
-```
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py loaddata db.json
-```
-### Django-Backend for development
-```
-python manage.py runserver
+The following dependencies must be installed to access the dokercontainer using invoke.
 
 ```
+python 3.7+
+pip install invoke
+```
 
-### VueJs-Frontend
+
+## Settings
+
+Copy the `fabir/settings.example.json` to `fabric/settings.json` and adapt the file to your individual needs.
+
+Settings for ***development*** and ***production*** can be set:
+Under `django` all settings for django must be made. 
+`DEBUG` should be deactivated for production. 
+Specify the `ALLOWED_HOSTS` of the application.
+You can choose between sqlite3 and postgres for `DB`.
+If necessary, specify `POSTGRES_HOST`, `POSTGRES_USER` and `POSTGRES_PASSWORD`.
+Set a `SECRET_KEY` for the application or generate a new secret key (see [Create a new Secret Key](#Create-a-new-Secret-Key)).
+
+
+## Installation
+
+You can use these commands to install DjangoVue locally on your computer.
+
+
+### Create file structure
+
 ```
-cd frontend
-yarn install
+python fabric/task.py local.folders
 ```
+
+
+### Create Docker container
+
+```
+python fabric/task.py local.rebuild
+```
+
+
+
+### Install Django
+
+```
+python fabric/task.py local.migrate
+python fabric/task.py local.createsuperuser
+python fabric/task.py local.loadexampledata
+```
+
 
 ### Compiles and hot-reloads for development
 ```
-cd frontend
-yarn serve
+python fabric/task.py local.serve
 ```
 
-### Compiles and minifies for production
-```
-cd frontend
-yarn build
-```
+
+
+
 
 ### Lints and fixes files
 ```
@@ -56,7 +72,10 @@ cd frontend
 yarn lint
 ```
 
+
 ## Important Links
+
+The following important links are now available for local development.
 ```
 http://localhost:3000
 http://localhost:3000/api/
@@ -64,76 +83,53 @@ http://localhost:3000/admin/
 ```
 
 
-# Docker
-## Export a list of the conda Env
-The shellscript will export the local install packages. It will be used for building the docker container.
-```
-sh ./deploy/update_env_list.sh
-```
+### Compiling and minifying Vue files for production
 
-## Set env Variables
-### For testing on a local machine
-Set the environ variables in the `djangoVue` settings Folder for `development` or `production`. Use the following commands or copy the `.env.example` file.
+A local nginx web server is started to test the functionality of the booked files. This step should always be tested before going live.
 
 ```
-cp djangoVue/.env.example djangoVue/.env
+python fabric/task.py local.build
+python fabric/task.py test.start
 ```
 
-### For production on a server (TODO)
+
+
+## Useful Docker commands, which are implemented in fabric
+
+The docker commands implemented in fabric correspond to the official docker commands.
+
+
+### Building Docker containers
+
 ```
-echo "ALLOWED_HOSTS=[%%%%SERVER_URL%%%%]" >> ./djangoVue/.env
-....
+python fabric/task.py local.rebuild
 ```
 
-## Create a Docker Network
+### Start and stop all Docker containers
+
+```
+python fabric/task.py local.start
+python fabric/task.py local.stop
+```
+
+### Start, stop and start a single container from the docker-compose file
+
+```
+python fabric/task.py local.run
+```
+
+
+### Create a new Secret Key
+
+With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file.
+
+```
+python fabric/task.py local.generateSecretKey
+```
+
+
+## DjangoVue in Production Mode
+
+### Create a Docker Network
 ```
 docker network create --driver bridge --subnet 10.5.0.0/16 nginx_proxy || true
-```
-
-## Build Docker Containers
-```
-docker-compose build
-```
-
-# Edit the `djangoVue/.env` the way you like. Generate a `SECRET_KEY` for your production server.
-```
-docker-compose run web /bin/bash
-/opt/conda/envs/djangoVue/bin/python /web/manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-vim /web/djangoVue/.env
-#SET the new SECRET_KEY
-exit
-```
-
-
-## Yarn Build inside the Docker Container
-```
-docker-compose run web /bin/bash
-cd /web/frontend/
-/opt/conda/envs/djangoVue/bin/yarn install
-/opt/conda/envs/djangoVue/bin/yarn build
-exit
-```
-
-## POSTGRES-DB DATA Init
-```
-## Migrate
-docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py migrate --settings=djangoVue.settings"
-
-## Create superuser
-docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py createsuperuser --settings=djangoVue.settings"
-
-## Import dummy-data 
-docker-compose run web /bin/bash -c "/opt/conda/envs/djangoVue/bin/python manage.py loaddata db.json --settings=djangoVue.settings"
-```
-
-## Start Docker Containers
-```
-docker-compose up
-```
-
-### Important links for development
-```
-http://localhost:3000
-http://localhost:3000/api/
-http://localhost:3000/admin/
-```
