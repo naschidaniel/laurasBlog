@@ -9,14 +9,6 @@ from invoke import task
 from inv_base import docker_compose, manage_py
 
 
-@task
-def build(c, **kwargs):
-    """This function is used to respond to the packet manager npm."""
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    docker_compose(c, f"run -u {uid} vue npm run build", pty=True)
-    manage_py(c, "migrate")
-    manage_py(c, "collectstatic -v 0 --no-input")
-
 
 @task
 def run(c, cmd, **kwargs):
