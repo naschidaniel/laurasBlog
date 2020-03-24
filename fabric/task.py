@@ -53,14 +53,16 @@ LOCAL_NS.add_task(inv_build.stop)
 LOCAL_NS.add_task(inv_build.serve)
 LOCAL_NS.add_task(inv_build.run)
 
-LOCAL_NS.add_task(inv_node.npm)
 LOCAL_NS.add_task(inv_node.build)
+LOCAL_NS.add_task(inv_node.npm)
+LOCAL_NS.add_task(inv_node.lint)
 
 LOCAL_NS.add_task(inv_django.collectionstatic)
 LOCAL_NS.add_task(inv_django.createsuperuser)
 LOCAL_NS.add_task(inv_django.generateSecretKey)
 LOCAL_NS.add_task(inv_django.loadexampledata)
 LOCAL_NS.add_task(inv_django.makemigrations)
+LOCAL_NS.add_task(inv_django.managepy)
 LOCAL_NS.add_task(inv_django.migrate)
 
 

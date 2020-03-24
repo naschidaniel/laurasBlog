@@ -33,6 +33,14 @@ def loadexampledata(c, **kwargs):
 
 
 @task
+def managepy(c, cmd, **kwargs):
+    """This function is used to create magrations."""
+    task_logging(managepy.__name__)
+    manage_py(c, cmd)
+    success_logging(managepy.__name__)
+
+
+@task
 def makemigrations(c, **kwargs):
     """This function is used to create magrations."""
     task_logging(makemigrations.__name__)
