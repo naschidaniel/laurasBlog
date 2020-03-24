@@ -41,11 +41,11 @@ python fabric/task.py local.rebuild
 ```
 
 
-
-### Create file structure
+### Create file structure and install Javascript Ecosystem with NPM
 
 ```
 python fabric/task.py local.folders development
+python fabric/task.py local.npm install
 ```
 
 
@@ -61,16 +61,6 @@ python fabric/task.py local.loadexampledata
 ### Compiles and hot-reloads for development
 ```
 python fabric/task.py local.serve
-```
-
-
-
-
-
-### Lints and fixes files
-```
-cd frontend
-yarn lint
 ```
 
 
@@ -116,7 +106,7 @@ python fabric/task.py local.stop
 ### Start, stop and start a single container from the docker-compose file
 
 ```
-python fabric/task.py local.run
+python fabric/task.py local.run %service%
 ```
 
 
@@ -127,6 +117,13 @@ With this command you can create a new `SECRET_KEY` for the `fabric/settings.jso
 ```
 python fabric/task.py local.generateSecretKey
 ```
+
+### Execute a django manage.py command 
+
+```
+python fabric/task.py local.run %service%
+```
+
 
 
 ## DjangoVue in Production Mode
