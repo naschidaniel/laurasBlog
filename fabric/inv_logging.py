@@ -13,7 +13,7 @@ def start_logging():
     """
     logging_folder = os.path.join(os.getcwd(), "log/fabric")
     if not os.path.exists(os.path.join(os.getcwd(), "log")):
-        os.mkdir(os.path.exists(os.path.join(os.getcwd(), "log")))
+        os.mkdir(os.path.join(os.getcwd(), "log"))
 
     if not os.path.exists(logging_folder):
         os.mkdir(logging_folder)
