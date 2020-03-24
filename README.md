@@ -33,12 +33,6 @@ Set a `SECRET_KEY` for the application or generate a new secret key (see [Create
 You can use these commands to install DjangoVue locally on your computer.
 
 
-### Create file structure
-
-```
-python fabric/task.py local.folders
-```
-
 
 ### Create Docker container
 
@@ -46,6 +40,13 @@ python fabric/task.py local.folders
 python fabric/task.py local.rebuild
 ```
 
+
+
+### Create file structure
+
+```
+python fabric/task.py local.folders
+```
 
 
 ### Install Django
