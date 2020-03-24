@@ -27,6 +27,7 @@ TEST_NS.configure({
     "host": "local",
     "hostname": "local",
     "docker_compose_files": [
+        "./docker-compose.default.yml",
         "./docker-compose.test.yml"
     ]
 })
@@ -41,6 +42,7 @@ LOCAL_NS.configure({
     "host": "local",
     "hostname": "local",
     "docker_compose_files": [
+        "./docker-compose.default.yml",
         "./docker-compose.dev.yml"
     ]
 })

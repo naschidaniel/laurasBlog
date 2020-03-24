@@ -1,31 +1,6 @@
 version: '3'
 
 services:
-  django:
-    build: ./django
-    container_name: django
-    volumes:
-      - ${PWD}/django:/www/site
-      - ${PWD}/vue:/www/site/frontend
-    environment:
-      PYTHONUNBUFFERED: "TRUE"
-    user: "${USERID}:${GROUPID}"
-    ports:
-      - "3000:3000"
-    restart: always
-
-  postgres:
-    build: "./postgres"
-    container_name: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   vue:
     build: ./vue
     container_name: vue
@@ -36,10 +11,3 @@ services:
     ports:
       - "8080:8080"
 
-volumes:
-  postgres_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/data/postgresdata
