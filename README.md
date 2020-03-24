@@ -121,9 +121,14 @@ python fabric/task.py local.generateSecretKey
 ### Execute a django manage.py command 
 
 ```
-python fabric/task.py local.run %service%
+python fabric/task.py local.managepy %command%
 ```
 
+### Execute a npm command 
+
+```
+python fabric/task.py local.npm %command%
+```
 
 
 ## DjangoVue in Production Mode
