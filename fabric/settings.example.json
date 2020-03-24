@@ -1,5 +1,14 @@
 {
   "development": {
+    "docker_compose_files": [
+      "./docker-compose.default.yml",
+      "./docker-compose.dev.yml"
+    ],
+    "initFolders": [
+      "data/postgresdata",
+      "log/nginx",
+      "media"
+    ],
     "django": {
       "DEBUG": "True",
       "ALLOWED_HOSTS": "127.0.0.1,localhost",
@@ -7,16 +16,20 @@
       "POSTGRES_HOST": "postgres",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres",
-      "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw",
+      "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
-    "initFolders": [
-      "data/postgresdata", 
-      "log/nginx",
-      "media"
-    ]
+    "postgres": {
+      "POSTGRES_USER": "postgres",
+      "POSTGRES_PASSWORD": "postgres"
+    }
   },
   "production": {
     "installationFolder": "/www/",
+    "initFolders": [
+      "data/postgresdata",
+      "log/nginx",
+      "django/media"
+    ],
     "django": {
       "DEBUG": "False",
       "ALLOWED_HOSTS": "127.0.0.1,localhost",
@@ -24,12 +37,11 @@
       "POSTGRES_HOST": "postgres",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres",
-      "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw",
+      "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
-    "initFolders": [
-      "data/postgresdata", 
-      "log/nginx",
-      "django/media"
-    ]
+    "postgres": {
+      "POSTGRES_USER": "postgres",
+      "POSTGRES_PASSWORD": "postgres"
+    }
   }
 }

@@ -11,6 +11,7 @@ import inv_django
 import inv_install
 import inv_node
 import inv_test
+from inv_base import read_settings
 from invoke import task, Collection, Program
 from inv_logging import start_logging
 
@@ -38,14 +39,7 @@ TEST_NS.add_task(inv_test.start)
 LOCAL_NS = Collection("local")
 MAIN_COLLECTION.add_collection(LOCAL_NS)
 
-LOCAL_NS.configure({
-    "host": "local",
-    "hostname": "local",
-    "docker_compose_files": [
-        "./docker-compose.default.yml",
-        "./docker-compose.dev.yml"
-    ]
-})
+LOCAL_NS.configure(read_settings("development"))
 
 LOCAL_NS.add_task(inv_install.folders)
 
