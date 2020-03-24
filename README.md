@@ -45,7 +45,7 @@ python fabric/task.py local.rebuild
 ### Create file structure
 
 ```
-python fabric/task.py local.folders
+python fabric/task.py local.folders development
 ```
 
 
