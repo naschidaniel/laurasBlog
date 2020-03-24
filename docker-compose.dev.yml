@@ -16,6 +16,7 @@ services:
 
   postgres:
     build: "./postgres"
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: "postgres"
