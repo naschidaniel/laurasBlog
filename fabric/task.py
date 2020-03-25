@@ -35,6 +35,7 @@ MAIN_COLLECTION.add_collection(LOCAL_NS)
 LOCAL_NS.configure(read_settings("development"))
 
 LOCAL_NS.add_task(inv_install.folders)
+LOCAL_NS.add_task(inv_install.setenvironment)
 
 LOCAL_NS.add_task(inv_build.rebuild)
 LOCAL_NS.add_task(inv_build.start)

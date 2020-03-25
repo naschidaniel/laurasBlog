@@ -34,6 +34,20 @@ You can use these commands to install DjangoVue locally on your computer.
 
 
 
+### Create folder structure
+
+```
+python fabric/task.py local.folders
+```
+
+
+### Set environment variables for django and postgres
+
+```
+python fabric/task.py local.setenvironment development
+```
+
+
 ### Create Docker container
 
 ```
@@ -112,10 +126,11 @@ python fabric/task.py local.run %service%
 
 ### Create a new Secret Key
 
-With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file.
+With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file. Do not forget to update the enviroment variables after entering the setting.
 
 ```
 python fabric/task.py local.generateSecretKey
+python fabric/task.py local.setenvironment "development or production"
 ```
 
 ### Execute a django manage.py command 
