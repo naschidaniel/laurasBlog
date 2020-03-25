@@ -24,14 +24,7 @@ MAIN_COLLECTION = Collection()
 # Testing Collection
 TEST_NS = Collection("test")
 MAIN_COLLECTION.add_collection(TEST_NS)
-TEST_NS.configure({
-    "host": "local",
-    "hostname": "local",
-    "docker_compose_files": [
-        "./docker-compose.default.yml",
-        "./docker-compose.test.yml"
-    ]
-})
+TEST_NS.configure(read_settings("test"))
 TEST_NS.add_task(inv_test.start)
 
 
