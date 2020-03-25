@@ -34,12 +34,6 @@ You can use these commands to install DjangoVue locally on your computer.
 
 
 
-### Create folder structure
-
-```
-python fabric/task.py local.folders
-```
-
 
 ### Set environment variables for django and postgres
 

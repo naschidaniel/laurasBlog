@@ -31,7 +31,7 @@ def folders(c, cmd, **kwargs):
                 logging.error(f"The folder {d} could not be created.")
                 sys.exit(1)
         else:
-            logging.info(f"The folder {d} already exists.")
+            logging.warning(f"The folder {d} already exists.")
 
     success_logging(folders.__name__)
 
@@ -46,16 +46,21 @@ def setenvironment(c, cmd, **kwargs):
             "Your entry was incorrect. Please enter development or production.")
         sys.exit(1)
 
-    django_env = os.path.join(os.getcwd(), "django/.env")
-    try:
-        f = open(django_env, "w")
-        for key, value in settings["django"].items():
-            f.write(f"{key}={value}\n")
-            logging.info(f"The enviroment variable {key} was written to the file '{django_env}'.")
-        f.close()
-    except:
-        logging.error(f"TIt was not possible to write to the file {django_env}.")
-        sys.exit(1)
+    dict_env = {
+        "django": os.path.join(os.getcwd(), "django/djangoVue/.env"),
+        "postgres": os.path.join(os.getcwd(), ".env")
+    }
+    
+    for dict_env_key, dict_env_value in dict_env.items():
+        try:
+            f = open(dict_env_value, "w")
+            for key, value in settings[dict_env_key].items():
+                f.write(f"{key}={value}\n")
+                logging.info(f"The enviroment variable {key} was written to the file '{dict_env_value}'.")
+            f.close()
+        except:
+            logging.error(f"TIt was not possible to write to the file {dict_env_value}.")
+            sys.exit(1)
 
     success_logging(folders.__name__)
 
