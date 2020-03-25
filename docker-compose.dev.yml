@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  vue:
+    build: ./vue
+    container_name: vue
+    volumes:
+      - ${PWD}/vue:/usr/src/app
+    command: "npm run serve"
+    user: "${USERID}:${GROUPID}"
+    ports:
+      - "8080:8080"
+

@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx:
+    restart: unless-stopped
+    image: nginx:stable
+    volumes:
+      - ${PWD}/nginx:/etc/nginx/conf.d
+      - ${PWD}/django:/www/site
+      - ${PWD}/log:/log
+    ports:
+      - "80:80"
+
+
+
+
+
+
+
+
+
+
+
