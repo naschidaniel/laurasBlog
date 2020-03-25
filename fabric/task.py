@@ -42,6 +42,7 @@ LOCAL_NS.add_task(inv_build.start)
 LOCAL_NS.add_task(inv_build.stop)
 LOCAL_NS.add_task(inv_build.serve)
 LOCAL_NS.add_task(inv_build.run)
+LOCAL_NS.add_task(inv_build.logs)
 
 LOCAL_NS.add_task(inv_node.build)
 LOCAL_NS.add_task(inv_node.npm)

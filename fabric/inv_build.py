@@ -41,3 +41,8 @@ def stop(c, which=None):
         docker_compose(c, "down --remove-orphans")
     else:
         docker_compose(c, "stop {}".format(which))
+
+@task
+def logs(c, cmd):
+    docker_compose(c, 'logs {}'.format(cmd))
+    

@@ -117,6 +117,11 @@ python fabric/task.py local.stop
 python fabric/task.py local.run %service%
 ```
 
+### Output logs from a single Docker Container from the docker-compose file
+
+```
+python fabric/task.py local.log %service%
+```
 
 ### Create a new Secret Key
 
