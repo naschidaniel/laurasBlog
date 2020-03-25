@@ -1,13 +1,13 @@
 # djangoVue
 
 With the help of Django as backend and Vue as frontend a small website was created. DjangoVue includes a blog and classic pages. 
-The development and production mode are provided by docker. To communicate pleasantly with dockercontainer python invoke is used. 
+The development and production mode are provided by docker. To communicate pleasantly with docker container python invoke is used. 
 
 
 
 ## Dependencies
 
-The following dependencies must be installed to access the dokercontainer using invoke.
+The following dependencies must be installed to access the docker container using invoke.
 
 ```
 python 3.7+
@@ -17,7 +17,7 @@ pip install invoke
 
 ## Settings
 
-Copy the `fabir/settings.example.json` to `fabric/settings.json` and adapt the file to your individual needs.
+Copy the `fabric/settings.example.json` to `fabric/settings.json` and adapt the file to your individual needs.
 
 Settings for ***development*** and ***production*** can be set:
 Under `django` all settings for django must be made. 
