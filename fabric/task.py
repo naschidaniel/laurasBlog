@@ -62,6 +62,13 @@ RSYNC_NS = Collection("rsync")
 MAIN_COLLECTION.add_collection(RSYNC_NS)
 RSYNC_NS.add_task(inv_rsync.push)
 
+
+# REMOTE Collection
+REMOTE_NS = Collection("remote")
+MAIN_COLLECTION.add_collection(REMOTE_NS)
+REMOTE_NS.add_task(inv_rsync.push)
+
+
 # Program
 PROGRAM = Program(namespace=MAIN_COLLECTION)
 PROGRAM.run()

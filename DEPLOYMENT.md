@@ -7,7 +7,7 @@ Rsync is used to exchange data between the local PC and the server. All settings
 
 ### Push local files onto the server
 ```
-python fabric/task.py rsync.push
+python fabric/task.py remote.push
 ```
 
 ## Docker
