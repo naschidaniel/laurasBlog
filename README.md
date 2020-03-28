@@ -143,10 +143,3 @@ python fabric/task.py local.managepy %command%
 ```
 python fabric/task.py local.npm %command%
 ```
-
-
-## DjangoVue in Production Mode
-
-### Create a Docker Network
-```
-docker network create --driver bridge --subnet 10.5.0.0/16 nginx_proxy || true
