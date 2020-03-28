@@ -8,7 +8,7 @@ import logging
 from invoke import task
 from inv_base import read_settings, manage_py
 from inv_logging import success_logging, cmd_logging, task_logging
-from inv_rsync import scp
+from inv_rsync import scp, ssh, rsync_push
 
 
 @task
@@ -63,30 +63,34 @@ def setenvironment(c, cmd):
         "django": os.path.join(development_dir, f"django/djangoVue/{filename}"),
         "docker": os.path.join(development_dir, f"{filename}")
     }
-    
+
     for dict_env_key, dict_env_value in dict_env.items():
         try:
             f = open(dict_env_value, "w")
             for key, value in settings[dict_env_key].items():
                 f.write(f"{key}={value}\n")
-                logging.info(f"The environment variable {key} was written to the file '{dict_env_value}'.")
+                logging.info(
+                    f"The environment variable {key} was written to the file '{dict_env_value}'.")
             f.close()
         except:
-            logging.error(f"It was not possible to write to the file {dict_env_value}.")
+            logging.error(
+                f"It was not possible to write to the file {dict_env_value}.")
             sys.exit(1)
 
     success_logging(setenvironment.__name__)
     return dict_env
 
+
 @task
 def setproductionenvironment(c, cmd):
-    """The function writes the envionment variables on the server for django and docker."""
+    """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
     task_logging(setproductionenvironment.__name__)
     cmd_logging(cmd)
     if cmd == "production":
         settings = read_settings(cmd)
     else:
-        logging.error("Your entry was incorrect. Please enter production for the next steps.")
+        logging.error(
+            "Your entry was incorrect. Please enter production for the next steps.")
         sys.exit(1)
 
     dict_env = setenvironment(c, cmd)
@@ -95,7 +99,21 @@ def setproductionenvironment(c, cmd):
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    scp(c, settings["remote_user"], settings["remote_host"], dict_env["docker"], remote_env["docker"])
-    scp(c, settings["remote_user"], settings["remote_host"], dict_env["django"], remote_env["django"])
+    scp(c, settings["remote_user"], settings["remote_host"],
+        dict_env["docker"], remote_env["docker"])
+    scp(c, settings["remote_user"], settings["remote_host"],
+        dict_env["django"], remote_env["django"])
+
+    os.system(f"rm {dict_env['docker']}")
+    logging.info(
+        f"The environment '{dict_env['docker']}' variable was deleted.")
+    os.system(f"rm {dict_env['django']}")
+    logging.info(
+        f"The environment '{dict_env['django']}' variable was deleted.")
+
+    for folder in settings['initFolders']:
+        folder = os.path.join(settings["docker"]["INSTALLFOLDER"], folder)
+        ssh(c, settings["remote_user"],
+            settings["remote_host"], f"mkdir -p {folder}")
 
     success_logging(setproductionenvironment.__name__)

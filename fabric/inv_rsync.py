@@ -12,6 +12,11 @@ from inv_logging import task_logging, success_logging, cmd_logging
 from itertools import chain, repeat
 
 
+def ssh(c, remote_user, remote_host, cmd):
+    ssh_cmd = ["ssh", f"{remote_user}@{remote_host}", f"{cmd}"]
+    logging.info(f"The following command was executed for with ssh: {ssh_cmd}")
+    subprocess.run(ssh_cmd, check=True)
+
 def scp(c, remote_user, remote_host, source_file, destination_file):
     scp_cmd = ["scp", f"{source_file}", f"{remote_user}@{remote_host}:{destination_file}"]
     logging.info(f"The following command was executed for with scp: {scp_cmd}")

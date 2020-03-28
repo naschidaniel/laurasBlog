@@ -3,12 +3,26 @@
 In this file the further steps for the production on the server are explained.
 
 ## Rsync
-Rsync is used to exchange data between the local PC and the server. All settings are done in the `fabric/settings.json` file under "production". Please specify the `remote_user` (for example: example) and `remote_host` (for example: example.org) In the sub-dictionary "rsync" `local_dir`, `remote_dir` and `exclude` files are set for every single task.
+
+Rsync is used to exchange data between the local PC and the server. All settings are done in the `fabric\settings.json` file under "production". Please specify the `remote_user` (for example: example) and `remote_host` (for example: example.org) In the sub-dictionary "rsync" `local_dir`, `remote_dir` and `exclude` files are set for every single task.
+
+
 
 ### Push local files onto the server
+
 ```
 python fabric/task.py remote.push
 ```
+
+
+## Create environment variables and folder structure on the server.
+
+Using the settings and "production" from the `fabruc\settings.json` file, the environment variables are created. The created environment variables are uploaded to the server and the folder structure is created. 
+
+```
+python fabric/task.py remote.setproductionenvironment
+```
+
 
 ## Docker
 
