@@ -10,6 +10,22 @@ from inv_logging import task_logging, cmd_logging, success_logging
 
 
 @task
+def restart(c):
+    """Restart all docker containers."""
+    task_logging(restart.__name__)
+    docker_compose(c, "up -d --remove-orphans")
+    success_logging(restart.__name__)
+
+
+@task
+def fullrestart(c):
+    """Restart all docker containers with force."""
+    task_logging(fullrestart.__name__)
+    docker_compose(c, "up -d --force-recreate")
+    success_logging(fullrestart.__name__)
+
+
+@task
 def run(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
     task_logging(run.__name__)
@@ -25,6 +41,16 @@ def rebuild(c):
     task_logging(rebuild.__name__)
     docker_compose(c, "build")
     success_logging(rebuild.__name__)
+
+
+@task
+def rebuildhard(c):
+    """Rebuild all containers with --no-cache."""
+    task_logging(rebuildhard.__name__)
+    docker_compose(c, "build --no-cache")
+    fullrestart(c)
+    success_logging(rebuildhard.__name__)
+
 
 @task
 def serve(c):

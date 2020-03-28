@@ -98,17 +98,21 @@ python fabric/task.py test.start
 The docker commands implemented in fabric correspond to the official docker commands.
 
 
-### Building Docker containers
+### Build or hard rebuild of docker containers
 
 ```
 python fabric/task.py local.rebuild
+python fabric/task.py local.rebuildhard
 ```
 
-### Start and stop all Docker containers
+### Start, stop, restart and fullrestart of all docker containers
 
 ```
 python fabric/task.py local.start
 python fabric/task.py local.stop
+
+python fabric/task.py local.restart
+python fabric/task.py local.fullrestart
 ```
 
 ### Start, stop and start a single container from the docker-compose file
