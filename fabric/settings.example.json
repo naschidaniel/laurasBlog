@@ -7,7 +7,7 @@
     "initFolders": [
       "data/postgresdata",
       "log/nginx",
-      "media"
+      "django/media"
     ],
     "django": {
       "DEBUG": "True",
@@ -32,7 +32,6 @@
   "production": {
     "installationFolder": "/www/",
     "initFolders": [
-      "data/postgresdata",
       "log/nginx",
       "django/media"
     ],
@@ -48,6 +47,37 @@
     "postgres": {
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
+    }
+  },
+  "deployment": {
+    "remote_user": "example.org",
+    "remote_host": "example",
+    "rsync": {
+      "django": {
+        "local_dir": "~/dev/djangoVue/django",
+        "remote_dir": "/home/webserver/djangoVue",
+        "exclude": [
+          "static",
+          "media",
+          "db.sqlite3",
+          ".env"
+        ]
+      },
+      "static": {
+        "local_dir": "~/dev/djangoVue/django/static",
+        "remote_dir": "/home/www/djangoVue/django/"
+      },
+      "postgres": {
+        "local_dir": "~/dev/dev/djangoVue/postgres",
+        "remote_dir": "/home/www/djangoVue/"
+      },
+      "fabric": {
+        "local_dir": "~/dev/djangoVue/fabric",
+        "remote_dir": "/home/www/djangoVue/",
+        "exclude": [
+          "cert"
+        ]
+      }
     }
   }
 }
