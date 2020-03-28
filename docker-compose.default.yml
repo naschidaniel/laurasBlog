@@ -3,11 +3,9 @@ version: '3'
 services:  
   django:
     restart: always
-    build: ./django
+    build: 
+      context: ./django
     container_name: django
-    volumes:
-      - ${PWD}/django:/www/site
-      - ${PWD}/vue:/www/site/frontend
     environment:
       PYTHONUNBUFFERED: "TRUE"
     user: "${USERID}:${GROUPID}"
@@ -15,23 +13,19 @@ services:
       - "3000:3000"
     depends_on: 
       - postgres
+    volumes:
+      - django:/www/site
+      - frontend:/www/site/frontend
 
   postgres:
-    restart: always
-    build: "./postgres"
-    container_name: postgres
+    build: 
+      context: ./postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+    container_name: postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/data/postgresdata
