@@ -20,7 +20,6 @@ def read_settings(what):
     if os.path.exists(settings_file):
         with open(settings_file) as f:
             settings = json.load(f)
-        logging.info(f"The {settings_file} file was successfully read.")
     else:
         fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
         logging.error(
