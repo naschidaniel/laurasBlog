@@ -7,12 +7,15 @@ import sys
 import logging
 from invoke import task
 from inv_base import read_settings, manage_py
-from inv_logging import success_logging
+from inv_logging import success_logging, cmd_logging, task_logging
+from inv_rsync import scp
 
 
 @task
 def folders(c, cmd, **kwargs):
     """This function is used to start the production test environment."""
+    task_logging(folders.__name__)
+    cmd_logging(cmd)
     if cmd in ["development", "production"]:
         settings = read_settings(cmd)
     else:
@@ -37,8 +40,10 @@ def folders(c, cmd, **kwargs):
 
 
 @task
-def setenvironment(c, cmd, **kwargs):
-    """The function writes the local environment variables for django and postgres."""
+def setenvironment(c, cmd):
+    """The function writes the local environment variables for django and docker."""
+    task_logging(setenvironment.__name__)
+    cmd_logging(cmd)
     if cmd in ["development", "production"]:
         settings = read_settings(cmd)
     else:
@@ -46,9 +51,17 @@ def setenvironment(c, cmd, **kwargs):
             "Your entry was incorrect. Please enter development or production.")
         sys.exit(1)
 
+    if cmd == "development":
+        development_dir = settings["docker"]["INSTALLFOLDER"]
+        filename = ".env"
+    else:
+        development_dir = read_settings("development")
+        development_dir = development_dir["docker"]["INSTALLFOLDER"]
+        filename = ".env.production"
+
     dict_env = {
-        "django": os.path.join(os.getcwd(), "django/djangoVue/.env"),
-        "docker": os.path.join(os.getcwd(), ".env")
+        "django": os.path.join(development_dir, f"django/djangoVue/{filename}"),
+        "docker": os.path.join(development_dir, f"{filename}")
     }
     
     for dict_env_key, dict_env_value in dict_env.items():
@@ -62,4 +75,27 @@ def setenvironment(c, cmd, **kwargs):
             logging.error(f"It was not possible to write to the file {dict_env_value}.")
             sys.exit(1)
 
-    success_logging(folders.__name__)
+    success_logging(setenvironment.__name__)
+    return dict_env
+
+@task
+def setproductionenvironment(c, cmd):
+    """The function writes the envionment variables on the server for django and docker."""
+    task_logging(setproductionenvironment.__name__)
+    cmd_logging(cmd)
+    if cmd == "production":
+        settings = read_settings(cmd)
+    else:
+        logging.error("Your entry was incorrect. Please enter production for the next steps.")
+        sys.exit(1)
+
+    dict_env = setenvironment(c, cmd)
+    remote_env = {
+        "django": os.path.join(settings["docker"]["INSTALLFOLDER"], "django/djangoVue/.env"),
+        "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
+    }
+
+    scp(c, settings["remote_user"], settings["remote_host"], dict_env["docker"], remote_env["docker"])
+    scp(c, settings["remote_user"], settings["remote_host"], dict_env["django"], remote_env["django"])
+
+    success_logging(setproductionenvironment.__name__)
