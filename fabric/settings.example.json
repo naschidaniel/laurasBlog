@@ -49,9 +49,7 @@
       "INSTALLFOLDER": "~/djangoVue",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
-    }
-  },
-  "deployment": {
+    },
     "remote_user": "example.org",
     "remote_host": "example",
     "rsync": {

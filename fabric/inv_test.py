@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 #  -*- coding: utf-8 -*-
-"""This collection is used to test the functionality of DjangoVue before deployment."""
+"""This collection is used to test the functionality of DjangoVue before production."""
 
 import os
 import sys
