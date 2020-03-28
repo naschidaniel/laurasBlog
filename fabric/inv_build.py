@@ -6,41 +6,58 @@ import os
 import sys
 from invoke import task
 from inv_base import docker_compose, manage_py
+from inv_logging import task_logging, cmd_logging, success_logging
 
 
 @task
 def run(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
+    task_logging(run.__name__)
     uid = "{}:{}".format(os.getuid(), os.getgid())
-    return docker_compose(c, f"run -u {uid} {cmd}", pty=True)
+    cmd_logging(cmd)
+    docker_compose(c, f"run -u {uid} {cmd}", pty=True)
+    success_logging(run.__name__)
 
 
 @task
 def rebuild(c):
     """This function is used to recreate the docker containers."""
+    task_logging(rebuild.__name__)
     docker_compose(c, "build")
-
+    success_logging(rebuild.__name__)
 
 @task
 def serve(c):
     """This function is used to start the development environment."""
+    task_logging(serve.__name__)
     docker_compose(c, f"up")
+    success_logging(serve.__name__)
 
 
 @task
 def start(c):
-    """ starts all docker containers """
+    """This function is used to start all Docker Containers."""
+    task_logging(start.__name__)
     docker_compose(c, "up -d")
+    success_logging(start.__name__)
 
 
 @task
 def stop(c, which=None):
+    """This function is used to stop all Docker Container."""
+    task_logging(stop.__name__)
     if which is None:
         docker_compose(c, "down --remove-orphans")
     else:
         docker_compose(c, "stop {}".format(which))
+        cmd_logging(which)
+    success_logging(stop.__name__)
 
 
 @task
 def logs(c, cmd):
+    """This function is used to output Docker Container logs."""
+    task_logging(logs.__name__)
     docker_compose(c, 'logs {}'.format(cmd))
+    cmd_logging(cmd)
+    success_logging(logs.__name__)
