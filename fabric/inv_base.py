@@ -8,11 +8,6 @@ import sys
 import json
 
 
-# Rsync
-# def rsync_push(c, local_dir, remote_dir, exclude=None):
-#"""A function to push data to the remote server."""
-# return _rsync(c, local_dir, remote_dir, exclude, push=True)
-
 def read_settings(what):
     """A function to read the settings file."""
     settings_file = os.path.join(os.path.join(
