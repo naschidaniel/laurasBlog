@@ -43,15 +43,11 @@ def start(c):
 
 
 @task
-def stop(c, which=None):
-    """This function is used to stop all Docker Container."""
-    task_logging(stop.__name__)
-    if which is None:
-        docker_compose(c, "down --remove-orphans")
-    else:
-        docker_compose(c, "stop {}".format(which))
-        cmd_logging(which)
-    success_logging(stop.__name__)
+def down(c):
+    """This function is used to stop all Docker Containers."""
+    task_logging(down.__name__)
+    docker_compose(c, "down --remove-orphans")
+    success_logging(down.__name__)
 
 
 @task
