@@ -18,7 +18,8 @@
       "POSTGRES_PASSWORD": "postgres",
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
-    "postgres": {
+    "docker": {
+      "INSTALLFOLDER": "/home/daniel/dev/djangoVue",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
@@ -30,8 +31,8 @@
     ]
   },
   "production": {
-    "installationFolder": "/www/",
     "initFolders": [
+      "data/postgresdata",
       "log/nginx",
       "django/media"
     ],
@@ -44,7 +45,8 @@
       "POSTGRES_PASSWORD": "postgres",
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
-    "postgres": {
+    "docker": {
+      "INSTALLFOLDER": "~/djangoVue",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
@@ -55,7 +57,7 @@
     "rsync": {
       "django": {
         "local_dir": "~/dev/djangoVue/django",
-        "remote_dir": "/home/webserver/djangoVue",
+        "remote_dir": "~/djangoVue",
         "exclude": [
           "static",
           "media",

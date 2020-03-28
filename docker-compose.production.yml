@@ -6,10 +6,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/webserver/djangoVue/data/postgresdata
+      device: ${INSTALLFOLDER}/data/postgresdata
   django:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/webserver/djangoVue/django
+      device: ${INSTALLFOLDER}/djangoVue/django

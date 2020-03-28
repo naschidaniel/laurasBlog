@@ -48,7 +48,7 @@ def setenvironment(c, cmd, **kwargs):
 
     dict_env = {
         "django": os.path.join(os.getcwd(), "django/djangoVue/.env"),
-        "postgres": os.path.join(os.getcwd(), ".env")
+        "docker": os.path.join(os.getcwd(), ".env")
     }
     
     for dict_env_key, dict_env_value in dict_env.items():
