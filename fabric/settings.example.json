@@ -2,7 +2,7 @@
   "development": {
     "docker_compose_files": [
       "./docker-compose.yml",
-      "./docker-compose.dev.yml"
+      "./docker-compose.development.yml"
     ],
     "initFolders": [
       "data/postgresdata",
