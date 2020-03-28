@@ -35,24 +35,24 @@ You can use these commands to install DjangoVue locally on your computer.
 
 
 
-### Set environment variables for django and postgres
+### Create file structure and set environment variables for django and postgres
 
 ```
+python fabric/task.py local.folders development
 python fabric/task.py local.setenvironment development
 ```
 
 
-### Create Docker container
+### Create docker container
 
 ```
 python fabric/task.py local.rebuild
 ```
 
 
-### Create file structure and install Javascript Ecosystem with NPM
+### Install Javascript Ecosystem with NPM
 
 ```
-python fabric/task.py local.folders development
 python fabric/task.py local.npm install
 ```
 
@@ -93,7 +93,7 @@ python fabric/task.py test.start
 
 
 
-## Useful Docker commands, which are implemented in fabric
+## Useful docker commands, which are implemented in fabric
 
 The docker commands implemented in fabric correspond to the official docker commands.
 
@@ -121,7 +121,7 @@ python fabric/task.py local.fullrestart
 python fabric/task.py local.run %service%
 ```
 
-### Output logs from a single Docker Container from the docker-compose file
+### Output logs from a single docker Container from the docker-compose file
 
 ```
 python fabric/task.py local.log %service%
