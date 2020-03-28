@@ -59,8 +59,7 @@ def setenvironment(c, cmd, **kwargs):
                 logging.info(f"The enviroment variable {key} was written to the file '{dict_env_value}'.")
             f.close()
         except:
-            logging.error(f"TIt was not possible to write to the file {dict_env_value}.")
+            logging.error(f"It was not possible to write to the file {dict_env_value}.")
             sys.exit(1)
 
     success_logging(folders.__name__)
-
