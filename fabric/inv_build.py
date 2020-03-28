@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python3
 #  -*- coding: utf-8 -*-
 """This collection is used to test the functionality of DjangoVue before deployment."""
@@ -7,7 +6,6 @@ import os
 import sys
 from invoke import task
 from inv_base import docker_compose, manage_py
-
 
 
 @task
@@ -42,7 +40,7 @@ def stop(c, which=None):
     else:
         docker_compose(c, "stop {}".format(which))
 
+
 @task
 def logs(c, cmd):
     docker_compose(c, 'logs {}'.format(cmd))
-    
