@@ -38,7 +38,7 @@ def folders(c, cmd, **kwargs):
 
 @task
 def setenvironment(c, cmd, **kwargs):
-    """The function writes the local enviroment variables for django and postgres."""
+    """The function writes the local environment variables for django and postgres."""
     if cmd in ["development", "production"]:
         settings = read_settings(cmd)
     else:
@@ -56,7 +56,7 @@ def setenvironment(c, cmd, **kwargs):
             f = open(dict_env_value, "w")
             for key, value in settings[dict_env_key].items():
                 f.write(f"{key}={value}\n")
-                logging.info(f"The enviroment variable {key} was written to the file '{dict_env_value}'.")
+                logging.info(f"The environment variable {key} was written to the file '{dict_env_value}'.")
             f.close()
         except:
             logging.error(f"It was not possible to write to the file {dict_env_value}.")
