@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 volumes:
   postgres_data:
@@ -20,24 +20,10 @@ volumes:
       o: bind
       device: ${PWD}/vue
 
-
-services:
-  django:
-    build: 
-      target: dev
-    user: "${USERID}:${GROUPID}"
-
-  postgres:
-    build: 
-      target: dev
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
+services: 
   vue:
     build: 
       context: ./vue
-      target: dev
     container_name: vue
     volumes:
       - ${PWD}/vue:/usr/src/app
