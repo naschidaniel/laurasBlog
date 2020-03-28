@@ -11,6 +11,7 @@ import inv_django
 import inv_install
 import inv_node
 import inv_test
+import inv_rsync
 from inv_base import read_settings
 from invoke import task, Collection, Program
 from inv_logging import start_logging
@@ -26,7 +27,6 @@ TEST_NS = Collection("test")
 MAIN_COLLECTION.add_collection(TEST_NS)
 TEST_NS.configure(read_settings("test"))
 TEST_NS.add_task(inv_test.start)
-
 
 # Local Collection
 LOCAL_NS = Collection("local")
@@ -56,6 +56,11 @@ LOCAL_NS.add_task(inv_django.makemigrations)
 LOCAL_NS.add_task(inv_django.managepy)
 LOCAL_NS.add_task(inv_django.migrate)
 
+
+# RSYNC Collection
+RSYNC_NS = Collection("rsync")
+MAIN_COLLECTION.add_collection(RSYNC_NS)
+RSYNC_NS.add_task(inv_rsync.push)
 
 # Program
 PROGRAM = Program(namespace=MAIN_COLLECTION)
