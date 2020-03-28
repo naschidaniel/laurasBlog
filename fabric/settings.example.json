@@ -1,7 +1,7 @@
 {
   "development": {
     "docker_compose_files": [
-      "./docker-compose.default.yml",
+      "./docker-compose.yml",
       "./docker-compose.dev.yml"
     ],
     "initFolders": [
@@ -25,7 +25,7 @@
   },
   "test": {
     "docker_compose_files": [
-      "./docker-compose.default.yml",
+      "./docker-compose.yml",
       "./docker-compose.test.yml"
     ]
   },

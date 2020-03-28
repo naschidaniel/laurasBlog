@@ -1,8 +1,43 @@
 version: '3'
 
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/postgresdata
+  django:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/django
+  frontend:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/vue
+
+
 services:
+  django:
+    build: 
+      target: dev
+    user: "${USERID}:${GROUPID}"
+
+  postgres:
+    build: 
+      target: dev
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
   vue:
-    build: ./vue
+    build: 
+      context: ./vue
+      target: dev
     container_name: vue
     volumes:
       - ${PWD}/vue:/usr/src/app
@@ -10,4 +45,3 @@ services:
     user: "${USERID}:${GROUPID}"
     ports:
       - "8080:8080"
-
