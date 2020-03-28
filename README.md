@@ -129,11 +129,11 @@ python fabric/task.py local.log %service%
 
 ### Create a new Secret Key
 
-With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file. Do not forget to update the enviroment variables after entering the setting.
+With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file. Do not forget to update the environment variables after entering the setting.
 
 ```
 python fabric/task.py local.generateSecretKey
-python fabric/task.py local.setenvironment "development or production"
+python fabric/task.py local.setenvironment development #or production
 ```
 
 ### Execute a django manage.py command 
