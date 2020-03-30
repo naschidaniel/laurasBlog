@@ -32,9 +32,6 @@ Set a `SECRET_KEY` for the application or generate a new secret key (see [Create
 
 You can use these commands to install DjangoVue locally on your computer.
 
-
-
-
 ### Create file structure and set environment variables for django and postgres
 
 ```
@@ -74,21 +71,21 @@ python fabric/task.py local.serve
 
 ## Important Links
 
-The following important links are now available for local development.
+A local nginx webserver will provide the data for the development mode. The listed links are now available.
 ```
-http://localhost:3000
-http://localhost:3000/api/
-http://localhost:3000/admin/
+http://localhost
+http://localhost/api/
+http://localhost/admin/
 ```
 
 
 ### Compiling and minifying Vue files for production
 
-A local nginx web server is started to test the functionality of the booked files. This step should always be tested before going live.
+This step should always be tested before going live. Start and stop the docker compose components and check the website.
 
 ```
-python fabric/task.py local.build
-python fabric/task.py test.start
+python fabric/task.py local.start
+python fabric/task.py local.stop
 ```
 
 
@@ -146,4 +143,10 @@ python fabric/task.py local.managepy %command%
 
 ```
 python fabric/task.py local.npm %command%
+```
+
+### Serve a development server 
+
+```
+python fabric/task.py local.serve
 ```
