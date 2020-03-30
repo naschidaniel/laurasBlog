@@ -44,14 +44,14 @@ def setenvironment(c, cmd):
     """The function writes the local environment variables for django and docker."""
     task_logging(setenvironment.__name__)
     cmd_logging(cmd)
-    if cmd in ["development", "production"]:
+    if cmd in ["development", "production", "test"]:
         settings = read_settings(cmd)
     else:
         logging.error(
             "Your entry was incorrect. Please enter development or production.")
         sys.exit(1)
 
-    if cmd == "development":
+    if cmd in ["development", "test"]:
         development_dir = settings["docker"]["INSTALLFOLDER"]
         filename = ".env"
     else:

@@ -7,6 +7,8 @@ import sys
 from invoke import task
 from inv_base import docker_compose, manage_py
 from inv_logging import task_logging, cmd_logging, success_logging
+from inv_django import collectionstatic
+from inv_node import build
 
 
 @task
@@ -56,7 +58,7 @@ def rebuildhard(c):
 def serve(c):
     """This function is used to start the development environment."""
     task_logging(serve.__name__)
-    docker_compose(c, f"up")
+    docker_compose(c, "up")
     success_logging(serve.__name__)
 
 
@@ -65,6 +67,7 @@ def start(c):
     """This function is used to start all Docker Containers."""
     task_logging(start.__name__)
     docker_compose(c, "up -d")
+    build(c)
     success_logging(start.__name__)
 
 

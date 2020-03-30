@@ -7,6 +7,7 @@ import sys
 import logging
 from invoke import task
 from inv_base import docker_compose, manage_py
+from inv_django import collectionstatic, migrate, makemigrations
 from inv_logging import success_logging, cmd_logging, task_logging
 
 
@@ -25,10 +26,16 @@ def build(c, **kwargs):
     """This function is used to build the Javascript components. The data is then integrated into django."""
     task_logging(build.__name__)
     uid = "{}:{}".format(os.getuid(), os.getgid())
-    docker_compose(c, f"run -u {uid} vue npm run build", pty=True)
-    manage_py(c, "migrate")
-    manage_py(c, "collectstatic -v 0 --no-input")
+    docker_compose(c, f"exec -u {uid} vue npm run build", pty=True)
+    logging.info("The Vue components were built, minified and zipped.")
+    makemigrations(c)
+    logging.info("The migrations were created.")
+    migrate(c)
+    logging.info("The database migrations were carried out.")
+    collectionstatic(c)
+    logging.info("The static files were stored in the static folder.")
     success_logging(build.__name__)
+
 
 @task
 def lint(c, **kwargs):
@@ -37,4 +44,3 @@ def lint(c, **kwargs):
     uid = "{}:{}".format(os.getuid(), os.getgid())
     docker_compose(c, f"run -u {uid} vue npm run lint", pty=True)
     success_logging(lint.__name__)
-

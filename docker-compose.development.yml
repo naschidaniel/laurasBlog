@@ -1,33 +1,40 @@
 version: '3.7'
 
 volumes:
-  postgres_data:
+  nginx:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/data/postgresdata
-  django:
+      device: ${INSTALLFOLDER}/nginx
+  log:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/django
-  frontend:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/vue
-
-services: 
+      device: ${INSTALLFOLDER}/log
+  
+services:
   vue:
     build: 
       context: ./vue
     container_name: vue
+    command: npm run serve
     volumes:
-      - ${PWD}/vue:/usr/src/app
-    command: "npm run serve"
+      - frontend:/usr/src/app
     user: "${USERID}:${GROUPID}"
     ports:
       - "8080:8080"
+  nginx:
+    restart: unless-stopped
+    build: 
+      context: ./nginx
+    volumes:
+      - nginx:/etc/nginx/conf.d
+      - django:/www/site
+      - log:/log
+    ports:
+      - "80:80"
+    depends_on: 
+      - django
+      - postgres

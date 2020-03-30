@@ -26,7 +26,9 @@ MAIN_COLLECTION = Collection()
 TEST_NS = Collection("test")
 MAIN_COLLECTION.add_collection(TEST_NS)
 TEST_NS.configure(read_settings("test"))
-TEST_NS.add_task(inv_test.start)
+TEST_NS.add_task(inv_test.starttest)
+TEST_NS.add_task(inv_build.stop)
+
 
 # Local Collection
 LOCAL_NS = Collection("local")
