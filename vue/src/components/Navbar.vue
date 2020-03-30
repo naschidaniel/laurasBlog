@@ -22,7 +22,7 @@
             type="button"
             class="block text-gray-700 hover:text-gray-900 focus:text-gray-900 focus:outline-none"
           >
-            <svg class="h-12 w-12 fill-current" viewBox="0 0 24 24">
+            <svg class="h-10 w-10 fill-current" viewBox="0 0 24 24">
               <path
                 v-if="getNavbarOpen"
                 fill-rule="evenodd"
