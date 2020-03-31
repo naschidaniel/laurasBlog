@@ -19,7 +19,7 @@
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "INSTALLFOLDER": "/home/daniel/dev/djangoVue",
+      "INSTALLFOLDER": "./",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
@@ -39,7 +39,7 @@
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "INSTALLFOLDER": "/home/daniel/dev/djangoVue",
+      "INSTALLFOLDER": "./",
       "DJANGO_HOST": "10.5.0.12",
       "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",
@@ -76,7 +76,7 @@
     "remote_host": "example.com",
     "rsync": {
       "django": {
-        "local_dir": "/home/daniel/dev/djangoVue/django",
+        "local_dir": "./django",
         "remote_dir": "/www/djangoVue",
         "exclude": [
           "static",
@@ -86,15 +86,15 @@
         ]
       },
       "static": {
-        "local_dir": "/home/daniel/dev/djangoVue/django/static",
+        "local_dir": "./django/static",
         "remote_dir": "/www/djangoVue/django/static"
       },
       "postgres": {
-        "local_dir": "/home/daniel/dev/djangoVue/postgres",
+        "local_dir": "./postgres",
         "remote_dir": "/www/djangoVue/"
       },
       "fabric": {
-        "local_dir": "/home/daniel/dev/djangoVue/fabric",
+        "local_dir": "./fabric",
         "remote_dir": "/www/djangoVue/fabric",
         "exclude": [
           "cert"
