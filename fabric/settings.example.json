@@ -1,8 +1,8 @@
 {
   "development": {
     "docker_compose_files": [
-      "./docker-compose.default.yml",
-      "./docker-compose.dev.yml"
+      "./docker-compose.yml",
+      "./docker-compose.development.yml"
     ],
     "initFolders": [
       "data/postgresdata",
@@ -18,20 +18,21 @@
       "POSTGRES_PASSWORD": "postgres",
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
-    "postgres": {
+    "docker": {
+      "INSTALLFOLDER": "/home/daniel/dev/djangoVue",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
   },
   "test": {
     "docker_compose_files": [
-      "./docker-compose.default.yml",
+      "./docker-compose.yml",
       "./docker-compose.test.yml"
     ]
   },
   "production": {
-    "installationFolder": "/www/",
     "initFolders": [
+      "data/postgresdata",
       "log/nginx",
       "django/media"
     ],
@@ -44,18 +45,17 @@
       "POSTGRES_PASSWORD": "postgres",
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
-    "postgres": {
+    "docker": {
+      "INSTALLFOLDER": "~/djangoVue",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
-    }
-  },
-  "deployment": {
+    },
     "remote_user": "example.org",
     "remote_host": "example",
     "rsync": {
       "django": {
         "local_dir": "~/dev/djangoVue/django",
-        "remote_dir": "/home/webserver/djangoVue",
+        "remote_dir": "~/djangoVue",
         "exclude": [
           "static",
           "media",

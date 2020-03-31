@@ -1,0 +1,53 @@
+version: '3.7'
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/data/postgresdata
+  django:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/django
+  frontend:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/vue
+
+services:  
+  django:
+    restart: always
+    build: ./django
+    container_name: django
+    user: "${USERID}:${GROUPID}"
+    environment:
+      PYTHONUNBUFFERED: "TRUE"
+    user: "${USERID}:${GROUPID}"
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - postgres
+    volumes:
+      - django:/www/site
+      - frontend:/www/site/frontend
+
+  postgres:
+    build: ./postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

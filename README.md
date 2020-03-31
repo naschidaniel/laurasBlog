@@ -32,27 +32,24 @@ Set a `SECRET_KEY` for the application or generate a new secret key (see [Create
 
 You can use these commands to install DjangoVue locally on your computer.
 
-
-
-
-### Set environment variables for django and postgres
+### Create file structure and set environment variables for django and postgres
 
 ```
+python fabric/task.py local.folders development
 python fabric/task.py local.setenvironment development
 ```
 
 
-### Create Docker container
+### Create docker container
 
 ```
 python fabric/task.py local.rebuild
 ```
 
 
-### Create file structure and install Javascript Ecosystem with NPM
+### Install Javascript Ecosystem with NPM
 
 ```
-python fabric/task.py local.folders development
 python fabric/task.py local.npm install
 ```
 
@@ -74,41 +71,45 @@ python fabric/task.py local.serve
 
 ## Important Links
 
-The following important links are now available for local development.
+A local nginx webserver will provide the data for the development mode. The listed links are now available.
 ```
-http://localhost:3000
-http://localhost:3000/api/
-http://localhost:3000/admin/
+http://localhost
+http://localhost/api/
+http://localhost/admin/
 ```
 
 
 ### Compiling and minifying Vue files for production
 
-A local nginx web server is started to test the functionality of the booked files. This step should always be tested before going live.
-
-```
-python fabric/task.py local.build
-python fabric/task.py test.start
-```
-
-
-
-## Useful Docker commands, which are implemented in fabric
-
-The docker commands implemented in fabric correspond to the official docker commands.
-
-
-### Building Docker containers
-
-```
-python fabric/task.py local.rebuild
-```
-
-### Start and stop all Docker containers
+This step should always be tested before going live. Start and stop the docker compose components and check the website.
 
 ```
 python fabric/task.py local.start
 python fabric/task.py local.stop
+```
+
+
+
+## Useful docker commands, which are implemented in fabric
+
+The docker commands implemented in fabric correspond to the official docker commands.
+
+
+### Build or hard rebuild of docker containers
+
+```
+python fabric/task.py local.rebuild
+python fabric/task.py local.rebuildhard
+```
+
+### Start, stop, restart and fullrestart of all docker containers
+
+```
+python fabric/task.py local.start
+python fabric/task.py local.stop
+
+python fabric/task.py local.restart
+python fabric/task.py local.fullrestart
 ```
 
 ### Start, stop and start a single container from the docker-compose file
@@ -117,7 +118,7 @@ python fabric/task.py local.stop
 python fabric/task.py local.run %service%
 ```
 
-### Output logs from a single Docker Container from the docker-compose file
+### Output logs from a single docker Container from the docker-compose file
 
 ```
 python fabric/task.py local.log %service%
@@ -125,11 +126,11 @@ python fabric/task.py local.log %service%
 
 ### Create a new Secret Key
 
-With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file. Do not forget to update the enviroment variables after entering the setting.
+With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file. Do not forget to update the environment variables after entering the setting.
 
 ```
 python fabric/task.py local.generateSecretKey
-python fabric/task.py local.setenvironment "development or production"
+python fabric/task.py local.setenvironment development #or production
 ```
 
 ### Execute a django manage.py command 
@@ -142,4 +143,10 @@ python fabric/task.py local.managepy %command%
 
 ```
 python fabric/task.py local.npm %command%
+```
+
+### Serve a development server 
+
+```
+python fabric/task.py local.serve
 ```

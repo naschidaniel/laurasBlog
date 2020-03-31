@@ -12,6 +12,17 @@ from inv_logging import task_logging, success_logging, cmd_logging
 from itertools import chain, repeat
 
 
+def ssh(c, remote_user, remote_host, cmd):
+    ssh_cmd = ["ssh", f"{remote_user}@{remote_host}", f"{cmd}"]
+    logging.info(f"The following command was executed for with ssh: {ssh_cmd}")
+    subprocess.run(ssh_cmd, check=True)
+
+def scp(c, remote_user, remote_host, source_file, destination_file):
+    scp_cmd = ["scp", f"{source_file}", f"{remote_user}@{remote_host}:{destination_file}"]
+    logging.info(f"The following command was executed for with scp: {scp_cmd}")
+    subprocess.run(scp_cmd, check=True)
+
+
 def rsync_push(c, remote_user, remote_host, local_dir, remote_dir, exclude=None):
     return _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude, push=True)
 
@@ -31,7 +42,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
     else:
         cp = [ssh_str, local_dir]
 
-    rsync_cmd = ['rsync', '-a', '--delete-before'] + exclude_args + cp
+    rsync_cmd = ["rsync", "-a", "--delete-before"] + exclude_args + cp
     logging.info(f"The following rsync command is executed: {rsync_cmd}")
     subprocess.run(rsync_cmd, check=True)
 
@@ -39,7 +50,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
 @task
 def push(c):
     task_logging(push.__name__)
-    settings = read_settings("deployment")
+    settings = read_settings("production")
 
     for rsync_task in settings["rsync"]:
         if "exclude" in settings["rsync"][rsync_task]:
@@ -48,7 +59,7 @@ def push(c):
             exclude = None
         
         logging.info(
-            f"The settings {rsync_task} from the settings.json file are used for the deployment.")
+            f"The settings {rsync_task} from the settings.json file are used for the production.")
         rsync_push(c, settings["remote_user"], settings["remote_host"], settings["rsync"][rsync_task]
                 ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], exclude)
     

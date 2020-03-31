@@ -26,7 +26,9 @@ MAIN_COLLECTION = Collection()
 TEST_NS = Collection("test")
 MAIN_COLLECTION.add_collection(TEST_NS)
 TEST_NS.configure(read_settings("test"))
-TEST_NS.add_task(inv_test.start)
+TEST_NS.add_task(inv_test.starttest)
+TEST_NS.add_task(inv_build.stop)
+
 
 # Local Collection
 LOCAL_NS = Collection("local")
@@ -37,6 +39,9 @@ LOCAL_NS.configure(read_settings("development"))
 LOCAL_NS.add_task(inv_install.folders)
 LOCAL_NS.add_task(inv_install.setenvironment)
 
+LOCAL_NS.add_task(inv_build.restart)
+LOCAL_NS.add_task(inv_build.fullrestart)
+LOCAL_NS.add_task(inv_build.rebuildhard)
 LOCAL_NS.add_task(inv_build.rebuild)
 LOCAL_NS.add_task(inv_build.start)
 LOCAL_NS.add_task(inv_build.stop)
@@ -57,10 +62,12 @@ LOCAL_NS.add_task(inv_django.managepy)
 LOCAL_NS.add_task(inv_django.migrate)
 
 
-# RSYNC Collection
-RSYNC_NS = Collection("rsync")
-MAIN_COLLECTION.add_collection(RSYNC_NS)
-RSYNC_NS.add_task(inv_rsync.push)
+# REMOTE Collection
+REMOTE_NS = Collection("remote")
+MAIN_COLLECTION.add_collection(REMOTE_NS)
+REMOTE_NS.add_task(inv_rsync.push)
+REMOTE_NS.add_task(inv_install.setproductionenvironment)
+
 
 # Program
 PROGRAM = Program(namespace=MAIN_COLLECTION)
