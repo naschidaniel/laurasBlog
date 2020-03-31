@@ -19,7 +19,6 @@
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "INSTALLFOLDER": "./",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
@@ -39,7 +38,6 @@
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "INSTALLFOLDER": "./",
       "DJANGO_HOST": "10.5.0.12",
       "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",
