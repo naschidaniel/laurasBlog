@@ -1,18 +1,36 @@
 version: '3.7'
 
 volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/postgresdata
+  django:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/django
+  frontend:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/vue
   nginx:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${INSTALLFOLDER}/nginx
+      device: ${PWD}/nginx
   log:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${INSTALLFOLDER}/log
+      device: ${PWD}/log
   
 services:
   vue:

@@ -19,6 +19,24 @@ volumes:
       type: none
       o: bind
       device: ${INSTALLFOLDER}/vue
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/data/postgresdata
+  django:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/django
+  frontend:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/vue
 
 services: 
   django:
