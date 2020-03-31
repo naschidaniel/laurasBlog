@@ -86,7 +86,7 @@ def setenvironment(c, cmd):
 
 @task
 def quickinstallation(c):
-    """A function for quick installation of djangoVue and start of a development server""".
+    """A function for quick installation of djangoVue and start of a development server."""
     task_logging(quickinstallation.__name__)
     folders(c, "development")
     setenvironment(c, "development")
