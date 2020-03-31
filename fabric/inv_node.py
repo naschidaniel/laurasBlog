@@ -26,14 +26,8 @@ def build(c, **kwargs):
     """This function is used to build the Javascript components. The data is then integrated into django."""
     task_logging(build.__name__)
     uid = "{}:{}".format(os.getuid(), os.getgid())
-    docker_compose(c, f"exec -u {uid} vue npm run build", pty=True)
+    docker_compose(c, f"run -u {uid} vue npm run build", pty=True)
     logging.info("The Vue components were built, minified and zipped.")
-    makemigrations(c)
-    logging.info("The migrations were created.")
-    migrate(c)
-    logging.info("The database migrations were carried out.")
-    collectionstatic(c)
-    logging.info("The static files were stored in the static folder.")
     success_logging(build.__name__)
 
 

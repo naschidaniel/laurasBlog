@@ -4,10 +4,11 @@
 
 import os
 import sys
+import logging
 from invoke import task
 from inv_base import docker_compose, manage_py
 from inv_logging import task_logging, cmd_logging, success_logging
-from inv_django import collectionstatic
+from inv_django import collectionstatic, makemigrations, migrate
 from inv_node import build
 
 
@@ -68,6 +69,12 @@ def start(c):
     task_logging(start.__name__)
     docker_compose(c, "up -d")
     build(c)
+    makemigrations(c)
+    logging.info("The migrations were created.")
+    migrate(c)
+    logging.info("The database migrations were carried out.")
+    collectionstatic(c)
+    logging.info("The static files were stored in the static folder.")
     success_logging(start.__name__)
 
 
