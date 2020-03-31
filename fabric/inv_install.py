@@ -54,13 +54,13 @@ def setenvironment(c, cmd):
             "Your entry was incorrect. Please enter development or production.")
         sys.exit(1)
 
-    if cmd in ["development", "test"]:
-        development_dir = settings["docker"]["INSTALLFOLDER"]
-        filename = ".env"
-    else:
+    if cmd == "production":
         development_dir = read_settings("development")
         development_dir = development_dir["docker"]["INSTALLFOLDER"]
         filename = ".env.production"
+    else:
+        development_dir = os.getcwd()
+        filename = ".env"
 
     dict_env = {
         "django": os.path.join(development_dir, f"django/djangoVue/{filename}"),
