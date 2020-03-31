@@ -19,7 +19,7 @@ services:
     build: 
       context: ./vue
     container_name: vue
-    command: npm run serve
+    command: "npm run serve"
     volumes:
       - frontend:/usr/src/app
     user: "${USERID}:${GROUPID}"
