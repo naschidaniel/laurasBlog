@@ -10,7 +10,7 @@ module.exports = {
   chainWebpack: config => {
     config.optimization.splitChunks(false);
 
-    config.optimization.minimize(true);
+    config.optimization.minimize(process.env.NODE_ENV === "production" ? true : false);
 
     config
       .plugin("BundleTracker")
