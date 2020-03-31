@@ -9,6 +9,9 @@ from invoke import task
 from inv_base import read_settings, manage_py
 from inv_logging import success_logging, cmd_logging, task_logging
 from inv_rsync import scp, ssh, rsync_push
+from inv_build import rebuild, serve
+from inv_node import npm
+from inv_django import migrate, createsuperuser, loadexampledata
 
 
 @task
@@ -79,6 +82,21 @@ def setenvironment(c, cmd):
 
     success_logging(setenvironment.__name__)
     return dict_env
+
+
+@task
+def quickinstallation(c):
+    """A function for quick installation of djangoVue and start of a development server""".
+    task_logging(quickinstallation.__name__)
+    folders(c, "development")
+    setenvironment(c, "development")
+    rebuild(c)
+    npm(c, "install")
+    migrate(c)
+    createsuperuser(c)
+    loadexampledata(c)
+    serve(c)
+    success_logging(quickinstallation.__name__)
 
 
 @task

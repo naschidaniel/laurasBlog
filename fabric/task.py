@@ -38,6 +38,7 @@ LOCAL_NS.configure(read_settings("development"))
 
 LOCAL_NS.add_task(inv_install.folders)
 LOCAL_NS.add_task(inv_install.setenvironment)
+LOCAL_NS.add_task(inv_install.quickinstallation)
 
 LOCAL_NS.add_task(inv_build.restart)
 LOCAL_NS.add_task(inv_build.fullrestart)
