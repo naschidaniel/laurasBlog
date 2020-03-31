@@ -20,6 +20,7 @@ def collectionstatic(c, **kwargs):
 def createsuperuser(c, **kwargs):
     """The function is used to create a superuser."""
     task_logging(createsuperuser.__name__)
+    logging.info("Enter the user for the Django backend.")
     manage_py(c, "createsuperuser")
     success_logging(createsuperuser.__name__)
 
