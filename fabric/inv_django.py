@@ -3,7 +3,7 @@
 """The collection is needed for django commands."""
 
 import logging
-from invoke import task
+from invoke import task, Collection
 from inv_base import manage_py
 from inv_logging import cmd_logging, success_logging, task_logging
 
@@ -64,3 +64,11 @@ def generateSecretKey(c, **kwargs):
     manage_py(c, "shell -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'")
     success_logging(generateSecretKey.__name__)
 
+django_ns = Collection("django")
+django_ns.add_task(collectionstatic)
+django_ns.add_task(createsuperuser)
+django_ns.add_task(generateSecretKey)
+django_ns.add_task(loadexampledata)
+django_ns.add_task(makemigrations)
+django_ns.add_task(managepy)
+django_ns.add_task(migrate)

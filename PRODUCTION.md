@@ -12,7 +12,7 @@ python fabric/task.py test.stop
 
 ## Rsync
 
-Rsync is used to exchange data between the local PC and the server. All settings are done in the `fabric\settings.json` file under "production". Please specify the `remote_user` (for example: example) and `remote_host` (for example: example.org) In the sub-dictionary "rsync" `local_dir`, `remote_dir` and `exclude` files are set for every single task.
+Rsync is used to exchange data between the local PC and the server. All settings are done in the `fabric\settings.json` file under "production". Please specify the `REMOTE_USER` (for example: example) and `REMOTE_HOST` (for example: example.org) In the sub-dictionary "rsync" `local_dir`, `remote_dir` and `exclude` files are set for every single task.
 
 
 ### Push local files onto the server

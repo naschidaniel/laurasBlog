@@ -65,13 +65,13 @@
     },
     "docker": {
       "INSTALLFOLDER": "/home/webserver/djangoVue",
+      "REMOTE_USER": "example",
+      "REMOTE_HOST": "example.com",
       "DJANGO_HOST": "10.5.0.12",
       "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     },
-    "remote_user": "example",
-    "remote_host": "example.com",
     "rsync": {
       "django": {
         "local_dir": "./django",

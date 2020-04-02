@@ -1,16 +1,24 @@
 #! /usr/bin/env python3
 #  -*- coding: utf-8 -*-
-"""This collection is used to test the functionality of DjangoVue before production."""
+"""This function contains the most important docker commands."""
 
 import os
 import sys
 import logging
-from invoke import task
-from inv_base import docker_compose, manage_py
+from invoke import task, Collection
+from inv_base import manage_py, docker_compose
+import inv_base
 from inv_logging import task_logging, cmd_logging, success_logging
 from inv_django import collectionstatic, makemigrations, migrate
 from inv_node import build
 
+@task
+def docker(c, cmd):
+    """Restart all docker containers."""
+    task_logging(restart.__name__)
+    cmd_logging(cmd)
+    inv_base.docker(c, cmd)
+    success_logging(restart.__name__)
 
 @task
 def restart(c):
@@ -29,7 +37,7 @@ def fullrestart(c):
 
 
 @task
-def run(c, cmd, **kwargs):
+def run(c, cmd):
     """The function is used to start a command inside a django container."""
     task_logging(run.__name__)
     uid = "{}:{}".format(os.getuid(), os.getgid())
@@ -93,3 +101,14 @@ def logs(c, cmd):
     docker_compose(c, 'logs {}'.format(cmd))
     cmd_logging(cmd)
     success_logging(logs.__name__)
+
+docker_compose_ns = Collection("docker-compose")
+docker_compose_ns.add_task(restart)
+docker_compose_ns.add_task(fullrestart)
+docker_compose_ns.add_task(rebuildhard)
+docker_compose_ns.add_task(rebuild)
+docker_compose_ns.add_task(start)
+docker_compose_ns.add_task(stop)
+docker_compose_ns.add_task(serve)
+docker_compose_ns.add_task(run)
+docker_compose_ns.add_task(logs)

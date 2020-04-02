@@ -20,8 +20,16 @@ def read_settings(what):
         logging.error(
             f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
         sys.exit(1)
-
     return settings[what]
+
+
+def docker(c, cmd, **kwargs):
+    """A function to start docker-compose."""
+    command = ["docker"]
+    command.append(cmd)
+    command.insert(0, "export USERID=$UID && export GROUPID=$GID &&")
+    logging.info(f"This command is executed: {command}")
+    return c.run(" ".join(command), **kwargs)
 
 
 def docker_compose(c, cmd, **kwargs):
@@ -33,12 +41,10 @@ def docker_compose(c, cmd, **kwargs):
 
     command.append(cmd)
     command.insert(0, "export USERID=$UID && export GROUPID=$GID &&")
-
     return c.run(" ".join(command), **kwargs)
 
 
 def manage_py(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
     uid = "{}:{}".format(os.getuid(), os.getgid())
-
     return docker_compose(c, f"run -u {uid} django python3 /www/site/manage.py {cmd}", pty=True)

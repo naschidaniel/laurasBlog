@@ -60,7 +60,7 @@ def push(c):
         
         logging.info(
             f"The settings {rsync_task} from the settings.json file are used for the production.")
-        rsync_push(c, settings["remote_user"], settings["remote_host"], settings["rsync"][rsync_task]
+        rsync_push(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"], settings["rsync"][rsync_task]
                 ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], exclude)
     
     success_logging(push.__name__)

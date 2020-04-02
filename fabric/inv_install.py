@@ -9,7 +9,7 @@ from invoke import task
 from inv_base import read_settings, manage_py
 from inv_logging import success_logging, cmd_logging, task_logging
 from inv_rsync import scp, ssh, rsync_push
-from inv_build import rebuild, serve
+from inv_docker import rebuild, serve
 from inv_node import npm
 from inv_django import migrate, createsuperuser, loadexampledata
 
@@ -117,9 +117,9 @@ def setproductionenvironment(c, cmd):
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    scp(c, settings["remote_user"], settings["remote_host"],
+    scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
         dict_env["docker"], remote_env["docker"])
-    scp(c, settings["remote_user"], settings["remote_host"],
+    scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
         dict_env["django"], remote_env["django"])
 
     os.system(f"rm {dict_env['docker']}")
@@ -131,7 +131,7 @@ def setproductionenvironment(c, cmd):
 
     for folder in settings['initFolders']:
         folder = os.path.join(settings["docker"]["INSTALLFOLDER"], folder)
-        ssh(c, settings["remote_user"],
-            settings["remote_host"], f"mkdir -p {folder}")
+        ssh(c, settings["docker"]["REMOTE_USER"],
+            settings["docker"]["REMOTE_HOST"], f"mkdir -p {folder}")
 
     success_logging(setproductionenvironment.__name__)

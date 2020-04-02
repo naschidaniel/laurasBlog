@@ -11,7 +11,7 @@ from inv_node import npm, build
 from invoke import task
 from inv_base import docker_compose, manage_py
 from inv_install import setenvironment
-from inv_build import start
+from inv_docker import start
 
 @task
 def starttest(c):
