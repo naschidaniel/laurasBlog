@@ -9,7 +9,7 @@ from inv_logging import cmd_logging, success_logging, task_logging
 
 
 @task
-def collectionstatic(c, **kwargs):
+def collectionstatic(c):
     """This function is used to collect the static files."""
     task_logging(collectionstatic.__name__)
     manage_py(c, "collectstatic -v 0 --no-input")
@@ -17,7 +17,7 @@ def collectionstatic(c, **kwargs):
 
 
 @task
-def createsuperuser(c, **kwargs):
+def createsuperuser(c):
     """The function is used to create a superuser."""
     task_logging(createsuperuser.__name__)
     logging.info("Enter the user for the Django backend.")
@@ -26,7 +26,7 @@ def createsuperuser(c, **kwargs):
 
 
 @task
-def loadexampledata(c, **kwargs):
+def loadexampledata(c):
     """This function is used to load the sample data into the database."""
     task_logging(loadexampledata.__name__)
     manage_py(c, "loaddata db.json")
@@ -34,7 +34,7 @@ def loadexampledata(c, **kwargs):
 
 
 @task
-def managepy(c, cmd, **kwargs):
+def managepy(c, cmd):
     """This function is used to create magrations."""
     task_logging(managepy.__name__)
     manage_py(c, cmd)
@@ -42,7 +42,7 @@ def managepy(c, cmd, **kwargs):
 
 
 @task
-def makemigrations(c, **kwargs):
+def makemigrations(c):
     """This function is used to create magrations."""
     task_logging(makemigrations.__name__)
     manage_py(c, "makemigrations")
@@ -50,7 +50,7 @@ def makemigrations(c, **kwargs):
 
 
 @task
-def migrate(c, **kwargs):
+def migrate(c):
     """This function is used to load migrations into the database."""
     task_logging(migrate.__name__)
     manage_py(c, "migrate")
@@ -58,7 +58,7 @@ def migrate(c, **kwargs):
 
 
 @task
-def generateSecretKey(c, **kwargs):
+def generateSecretKey(c):
     """This function creates a new Secret Key for the fabric/settings.json file."""
     task_logging(generateSecretKey.__name__)
     manage_py(c, "shell -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'")
