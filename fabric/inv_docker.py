@@ -5,8 +5,11 @@
 import os
 import sys
 import logging
-import inv_base
 from invoke import task, Collection
+
+# Import Subfiles
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+import inv_base
 from inv_logging import task_logging, cmd_logging, success_logging
 from inv_django import collectionstatic, makemigrations, migrate
 from inv_node import build
