@@ -5,21 +5,10 @@
 import os
 import sys
 import logging
-from invoke import task
-
+from invoke import task, Collection
 import inv_base
 import inv_logging
 import inv_django
-
-
-@task
-def npm(c, cmd, **kwargs):
-    """This function is used to respond to the packet manager npm."""
-    inv_logging.task(npm.__name__)
-    user, group = inv_base.uid_gid(c)
-    inv_logging.cmd(cmd)
-    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm {cmd}", pty=True)
-    inv_logging.success(npm.__name__)
 
 
 @task
@@ -39,3 +28,19 @@ def lint(c, **kwargs):
     user, group = inv_base.uid_gid(c)
     inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run lint", pty=True)
     inv_logging.success(lint.__name__)
+
+
+@task
+def npm(c, cmd, **kwargs):
+    """This function is used to respond to the packet manager npm."""
+    inv_logging.task(npm.__name__)
+    user, group = inv_base.uid_gid(c)
+    inv_logging.cmd(cmd)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm {cmd}", pty=True)
+    inv_logging.success(npm.__name__)
+
+
+node_ns = Collection("node")
+node_ns.add_task(build)
+node_ns.add_task(lint)
+node_ns.add_task(npm)

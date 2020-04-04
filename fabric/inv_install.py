@@ -5,13 +5,28 @@
 import os
 import sys
 import logging
+from invoke import task, Collection
 import inv_base
-from invoke import task
-from inv_logging import inv_logging.success, inv_logging.cmd, inv_logging.task
-from inv_rsync import scp, ssh, rsync_push
-from inv_docker import rebuild, serve
-from inv_node import npm
-from inv_django import migrate, createsuperuser, loadexampledata
+import inv_logging
+import inv_docker
+import inv_node
+import inv_django
+import inv_docker
+import inv_rsync
+
+@task
+def quickinstallation(c):
+    """A function for quick installation of djangoVue and start of a development server."""
+    inv_logging.task(quickinstallation.__name__)
+    folders(c, "development")
+    setenvironment(c, "development")
+    inv_docker.rebuild(c)
+    inv_node.npm(c, "install")
+    inv_django.migrate(c)
+    inv_django.createsuperuser(c)
+    inv_django.loadexampledata(c)
+    inv_docker.serve(c)
+    inv_logging.success(quickinstallation.__name__)
 
 
 @task
@@ -72,21 +87,6 @@ def setenvironment(c, cmd):
 
 
 @task
-def quickinstallation(c):
-    """A function for quick installation of djangoVue and start of a development server."""
-    inv_logging.task(quickinstallation.__name__)
-    folders(c, "development")
-    setenvironment(c, "development")
-    rebuild(c)
-    npm(c, "install")
-    migrate(c)
-    createsuperuser(c)
-    loadexampledata(c)
-    serve(c)
-    inv_logging.success(quickinstallation.__name__)
-
-
-@task
 def setproductionenvironment(c, cmd):
     """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
     inv_logging.task(setproductionenvironment.__name__)
@@ -104,9 +104,9 @@ def setproductionenvironment(c, cmd):
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
+    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
         dict_env["docker"], remote_env["docker"])
-    scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
+    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
         dict_env["django"], remote_env["django"])
 
     os.system(f"rm {dict_env['docker']}")
@@ -118,7 +118,14 @@ def setproductionenvironment(c, cmd):
 
     for folder in settings['initFolders']:
         folder = os.path.join(settings["docker"]["INSTALLFOLDER"], folder)
-        ssh(c, settings["docker"]["REMOTE_USER"],
+        inv_rsync.ssh(c, settings["docker"]["REMOTE_USER"],
             settings["docker"]["REMOTE_HOST"], f"mkdir -p {folder}")
 
     inv_logging.success(setproductionenvironment.__name__)
+
+
+install_ns = Collection("install")
+install_ns.add_task(folders)
+install_ns.add_task(setenvironment)
+install_ns.add_task(setproductionenvironment)
+install_ns.add_task(quickinstallation)

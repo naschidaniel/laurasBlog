@@ -6,12 +6,10 @@ import os
 import sys
 import logging
 from invoke import task
-from inv_django import manage_py, makemigrations, migrate, collectionstatic
-from inv_logging import inv_logging.success, inv_logging.task
-from inv_node import npm, build
+import inv_logging
 import inv_base
-from inv_install import setenvironment
-from inv_docker import start
+import inv_install
+import inv_django
 
 @task
 def starttest(c):
@@ -24,14 +22,14 @@ def starttest(c):
     except:
         logging.error(f"{static_folder} could not be deleted.")
 
-    setenvironment(c, "test")
+    inv_install.setenvironment(c, "test")
     logging.info("The environment variables for production were set.")
-    makemigrations(c)
+    inv_django.makemigrations(c)
     logging.info("The migrations were created.")
-    migrate(c)
+    inv_django.migrate(c)
     logging.info("The database migrations were carried out.")
-    collectionstatic(c)
+    inv_django.collectionstatic(c)
     logging.info("The static files were stored in the static folder.")
     inv_base.docker_compose(c, f"up -d")
-    setenvironment(c, "development")
+    inv_install.setenvironment(c, "development")
     inv_logging.success(starttest.__name__)
