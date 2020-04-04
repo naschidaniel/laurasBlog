@@ -7,7 +7,7 @@ import sys
 import logging
 import inv_base
 from invoke import task
-from inv_logging import success_logging, cmd_logging, task_logging
+from inv_logging import inv_logging.success, inv_logging.cmd, inv_logging.task
 from inv_rsync import scp, ssh, rsync_push
 from inv_docker import rebuild, serve
 from inv_node import npm
@@ -17,8 +17,8 @@ from inv_django import migrate, createsuperuser, loadexampledata
 @task
 def folders(c, cmd, **kwargs):
     """This function is used to start the production test environment."""
-    task_logging(folders.__name__)
-    cmd_logging(cmd)
+    inv_logging.task(folders.__name__)
+    inv_logging.cmd(cmd)
     for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
 
@@ -32,14 +32,14 @@ def folders(c, cmd, **kwargs):
         else:
             logging.warning(f"The folder {d} already exists.")
 
-    success_logging(folders.__name__)
+    inv_logging.success(folders.__name__)
 
 
 @task
 def setenvironment(c, cmd):
     """The function writes the local environment variables for django and docker."""
-    task_logging(setenvironment.__name__)
-    cmd_logging(cmd)
+    inv_logging.task(setenvironment.__name__)
+    inv_logging.cmd(cmd)
 
     if cmd == "production":
         development_dir = inv_base.read_settings("development")
@@ -67,14 +67,14 @@ def setenvironment(c, cmd):
                 f"It was not possible to write to the file {dict_env_value}.")
             sys.exit(1)
 
-    success_logging(setenvironment.__name__)
+    inv_logging.success(setenvironment.__name__)
     return dict_env
 
 
 @task
 def quickinstallation(c):
     """A function for quick installation of djangoVue and start of a development server."""
-    task_logging(quickinstallation.__name__)
+    inv_logging.task(quickinstallation.__name__)
     folders(c, "development")
     setenvironment(c, "development")
     rebuild(c)
@@ -83,14 +83,14 @@ def quickinstallation(c):
     createsuperuser(c)
     loadexampledata(c)
     serve(c)
-    success_logging(quickinstallation.__name__)
+    inv_logging.success(quickinstallation.__name__)
 
 
 @task
 def setproductionenvironment(c, cmd):
     """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
-    task_logging(setproductionenvironment.__name__)
-    cmd_logging(cmd)
+    inv_logging.task(setproductionenvironment.__name__)
+    inv_logging.cmd(cmd)
     if cmd == "production":
         settings = inv_base.read_settings(cmd)
     else:
@@ -121,4 +121,4 @@ def setproductionenvironment(c, cmd):
         ssh(c, settings["docker"]["REMOTE_USER"],
             settings["docker"]["REMOTE_HOST"], f"mkdir -p {folder}")
 
-    success_logging(setproductionenvironment.__name__)
+    inv_logging.success(setproductionenvironment.__name__)

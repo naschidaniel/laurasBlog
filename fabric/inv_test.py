@@ -7,7 +7,7 @@ import sys
 import logging
 from invoke import task
 from inv_django import manage_py, makemigrations, migrate, collectionstatic
-from inv_logging import success_logging, task_logging
+from inv_logging import inv_logging.success, inv_logging.task
 from inv_node import npm, build
 import inv_base
 from inv_install import setenvironment
@@ -16,7 +16,7 @@ from inv_docker import start
 @task
 def starttest(c):
     """This function is used to start the production test environment."""
-    task_logging(starttest.__name__)
+    inv_logging.task(starttest.__name__)
     static_folder = os.path.join(os.getcwd(), "django/static")
     try:
         shutil.rmtree(static_folder)
@@ -34,4 +34,4 @@ def starttest(c):
     logging.info("The static files were stored in the static folder.")
     inv_base.docker_compose(c, f"up -d")
     setenvironment(c, "development")
-    success_logging(starttest.__name__)
+    inv_logging.success(starttest.__name__)

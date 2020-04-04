@@ -11,16 +11,16 @@ from invoke import task, Collection, Program
 sys.path.insert(0,os.getcwd())
 from fabric import inv_base
 from fabric import inv_docker
+from fabric import inv_logging
 # import inv_django
 # import inv_install
 # import inv_node
 # import inv_test
 # import inv_rsync
-# from inv_logging import start_logging
 
 
 # Logging
-#start_logging()
+inv_logging.start_logging()
 
 # Namespace
 MAIN_NS = Collection()
@@ -36,8 +36,9 @@ MAIN_NS = Collection()
 # Local Collection
 local_ns = Collection("local")
 local_ns.configure(inv_base.read_settings("development"))
-#local_ns.add_task(inv_install.folders)
 local_ns.add_task(inv_docker.docker)
+
+#local_ns.add_task(inv_install.folders)
 
 
 #local_ns.add_task(inv_install.setenvironment)

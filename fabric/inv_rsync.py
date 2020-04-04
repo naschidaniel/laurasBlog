@@ -8,7 +8,7 @@ import subprocess
 import logging
 from invoke import task
 from task import read_settings
-from inv_logging import task_logging, success_logging, cmd_logging
+from inv_logging import inv_logging.task, inv_logging.success, inv_logging.cmd
 from itertools import chain, repeat
 
 
@@ -49,7 +49,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
 
 @task
 def push(c):
-    task_logging(push.__name__)
+    inv_logging.task(push.__name__)
     settings = read_settings("production")
 
     for rsync_task in settings["rsync"]:
@@ -63,4 +63,4 @@ def push(c):
         rsync_push(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"], settings["rsync"][rsync_task]
                 ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], exclude)
     
-    success_logging(push.__name__)
+    inv_logging.success(push.__name__)

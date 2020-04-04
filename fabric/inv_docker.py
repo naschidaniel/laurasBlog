@@ -10,7 +10,7 @@ from invoke import task, Collection
 # Import Subfiles
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import inv_base
-from inv_logging import task_logging, cmd_logging, success_logging
+import inv_logging
 from inv_django import collectionstatic, makemigrations, migrate
 from inv_node import build
 
@@ -18,67 +18,67 @@ from inv_node import build
 @task
 def docker(c, cmd):
     """Restart all docker containers."""
-    task_logging(restart.__name__)
-    cmd_logging(cmd)
+    inv_logging.task(restart.__name__)
+    inv_logging.cmd(cmd)
     inv_base.dockerdaemon(c, cmd)
-    success_logging(restart.__name__)
+    inv_logging.success(restart.__name__)
 
 
 @task
 def restart(c):
     """Restart all docker containers."""
-    task_logging(restart.__name__)
+    inv_logging.task(restart.__name__)
     inv_base.docker_compose(c, "up -d --remove-orphans")
-    success_logging(restart.__name__)
+    inv_logging.success(restart.__name__)
 
 
 @task
 def fullrestart(c):
     """Restart all docker containers with force."""
-    task_logging(fullrestart.__name__)
+    inv_logging.task(fullrestart.__name__)
     inv_base.docker_compose(c, "up -d --force-recreate")
-    success_logging(fullrestart.__name__)
+    inv_logging.success(fullrestart.__name__)
 
 
 @task
 def run(c, cmd):
     """The function is used to start a command inside a django container."""
-    task_logging(run.__name__)
+    inv_logging.task(run.__name__)
     uid = "{}:{}".format(os.getuid(), os.getgid())
-    cmd_logging(cmd)
+    inv_logging.cmd(cmd)
     inv_base.docker_compose(c, f"run -u {uid} {cmd}", pty=True)
-    success_logging(run.__name__)
+    inv_logging.success(run.__name__)
 
 
 @task
 def rebuild(c):
     """This function is used to recreate the docker containers."""
-    task_logging(rebuild.__name__)
+    inv_logging.task(rebuild.__name__)
     inv_base.docker_compose(c, "build")
-    success_logging(rebuild.__name__)
+    inv_logging.success(rebuild.__name__)
 
 
 @task
 def rebuildhard(c):
     """Rebuild all containers with --no-cache."""
-    task_logging(rebuildhard.__name__)
+    inv_logging.task(rebuildhard.__name__)
     inv_base.docker_compose(c, "build --no-cache")
     fullrestart(c)
-    success_logging(rebuildhard.__name__)
+    inv_logging.success(rebuildhard.__name__)
 
 
 @task
 def serve(c):
     """This function is used to start the development environment."""
-    task_logging(serve.__name__)
+    inv_logging.task(serve.__name__)
     inv_base.docker_compose(c, "up")
-    success_logging(serve.__name__)
+    inv_logging.success(serve.__name__)
 
 
 @task
 def start(c):
     """This function is used to start all Docker Containers."""
-    task_logging(start.__name__)
+    inv_logging.task(start.__name__)
     inv_base.docker_compose(c, "up -d")
     build(c)
     makemigrations(c)
@@ -87,24 +87,24 @@ def start(c):
     logging.info("The database migrations were carried out.")
     collectionstatic(c)
     logging.info("The static files were stored in the static folder.")
-    success_logging(start.__name__)
+    inv_logging.success(start.__name__)
 
 
 @task
 def stop(c):
     """This function is used to stop all Docker Containers."""
-    task_logging(stop.__name__)
+    inv_logging.task(stop.__name__)
     inv_base.docker_compose(c, "down --remove-orphans")
-    success_logging(stop.__name__)
+    inv_logging.success(stop.__name__)
 
 
 @task
 def logs(c, cmd):
     """This function is used to output Docker Container logs."""
-    task_logging(logs.__name__)
+    inv_logging.task(logs.__name__)
     inv_base.docker_compose(c, 'logs {}'.format(cmd))
-    cmd_logging(cmd)
-    success_logging(logs.__name__)
+    inv_logging.cmd(cmd)
+    inv_logging.success(logs.__name__)
 
 docker_compose_ns = Collection("docker-compose")
 docker_compose_ns.add_task(restart)
