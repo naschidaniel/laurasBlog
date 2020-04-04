@@ -3,10 +3,17 @@ import sys
 import os
 import logging
 
+
 def read_settings(what):
     """A function to read the settings file."""
     settings_file = os.path.join(os.path.join(
         os.getcwd(), "fabric/settings.json"))
+
+    if what not in ["development", "test", "production"]:
+        logging.error(
+            f"No settings could be found in the file {settings_file} for your input: {what}")
+        sys.exit(1)
+
     if os.path.exists(settings_file):
         with open(settings_file) as f:
             settings = json.load(f)
@@ -16,11 +23,11 @@ def read_settings(what):
             f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
         sys.exit(1)
 
-    if what not in ["development", "test", "production"]:
-        logging.error(
-            f"No settings could be found in the file {settings_file} for your input: {what}")
-        sys.exit(1)
-    return settings[what]
+    if what == "test":
+        settings = settings["development"].update(settings["test"])
+    else:
+        settings = settings[what]
+    return settings
 
 
 def uid_gid(c):
@@ -31,6 +38,7 @@ def uid_gid(c):
         user = c.config["docker"]["USER"]
         group = c.config["docker"]["GROUP"]
     return user, group
+
 
 def docker_environment(c, command):
     """The function generates the docker environment variables."""

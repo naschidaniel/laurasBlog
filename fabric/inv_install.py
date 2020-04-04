@@ -18,7 +18,7 @@ import inv_rsync
 def quickinstallation(c):
     """A function for quick installation of djangoVue and start of a development server."""
     inv_logging.task(quickinstallation.__name__)
-    folders(c, "development")
+    folders(c)
     setenvironment(c, "development")
     inv_docker.rebuild(c)
     inv_node.npm(c, "install")
@@ -30,10 +30,9 @@ def quickinstallation(c):
 
 
 @task
-def folders(c, cmd, **kwargs):
+def folders(c):
     """This function is used to start the production test environment."""
     inv_logging.task(folders.__name__)
-    inv_logging.cmd(cmd)
     for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
 
@@ -68,18 +67,17 @@ def setenvironment(c, cmd):
         "django": os.path.join(development_dir, f"django/djangoVue/{filename}"),
         "docker": os.path.join(development_dir, f"{filename}")
     }
-
-    for dict_env_key, dict_env_value in dict_env.items():
+    for dict_env_key, dict_env_file in dict_env.items():
         try:
-            f = open(dict_env_value, "w")
-            for key, value in settings[dict_env_key].items():
-                f.write(f"{key}={value}\n")
-                logging.info(
-                    f"The environment variable {key} was written to the file '{dict_env_value}'.")
-            f.close()
+            with open(dict_env_file, "w") as f:
+                for key, value in c.config[dict_env_key].items():
+                    f.write(f"{key}={value}\n")
+                f.close()
+            logging.info(f"The environment variable for '{dict_env_key}'' from the settings.json file was successfully written to the .env file.: '{dict_env_file}'")
+
         except:
             logging.error(
-                f"It was not possible to write to the file {dict_env_value}.")
+                f"It was not possible to write to the file: '{dict_env_file}'")
             sys.exit(1)
 
     inv_logging.success(setenvironment.__name__)

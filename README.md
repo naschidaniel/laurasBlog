@@ -35,7 +35,7 @@ You can use these commands to install DjangoVue locally on your computer. In ord
 ### Create file structure and set environment variables for django and postgres
 
 ```
-python task.py local.install.folders development
+python task.py local.install.folders
 python task.py local.install.setenvironment development
 ```
 
