@@ -42,7 +42,7 @@ local_ns.add_task(inv_docker.docker)
 
 #local_ns.add_task(inv_install.setenvironment)
 #local_ns.add_task(inv_install.quickinstallation)
-#local_ns.add_collection(inv_docker.docker_compose_ns)
+local_ns.add_collection(inv_docker.docker_compose_ns)
 #local_ns.add_task(inv_node.build)
 #local_ns.add_task(inv_node.npm)
 #local_ns.add_task(inv_node.lint)
