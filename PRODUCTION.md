@@ -25,7 +25,7 @@ Rsync is used to exchange data between the local PC and the server. All settings
 ### Push local files onto the server
 
 ```
-python task.py remote.push
+python task.py production.rsync.push
 ```
 
 

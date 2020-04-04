@@ -85,18 +85,12 @@ def setenvironment(c, cmd):
 
 
 @task
-def setproductionenvironment(c, cmd):
+def setproductionenvironment(c):
     """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
     inv_logging.task(setproductionenvironment.__name__)
-    inv_logging.cmd(cmd)
-    if cmd == "production":
-        settings = inv_base.read_settings(cmd)
-    else:
-        logging.error(
-            "Your entry was incorrect. Please enter production for the next steps.")
-        sys.exit(1)
+    settings = inv_base.read_settings("production")
 
-    dict_env = setenvironment(c, cmd)
+    dict_env = setenvironment(c, "production")
     remote_env = {
         "django": os.path.join(settings["docker"]["INSTALLFOLDER"], "django/djangoVue/.env"),
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
