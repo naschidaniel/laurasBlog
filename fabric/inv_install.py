@@ -54,23 +54,23 @@ def setenvironment(c, cmd):
     """The function writes the local environment variables for django and docker."""
     inv_logging.task(setenvironment.__name__)
     inv_logging.cmd(cmd)
-
+    
+    settings = inv_base.read_settings(cmd)
+    development_dir = os.getcwd()
     if cmd == "production":
-        development_dir = inv_base.read_settings("development")
-        development_dir = development_dir["docker"]["INSTALLFOLDER"]
         filename = ".env.production"
     else:
-        development_dir = os.getcwd()
         filename = ".env"
 
     dict_env = {
         "django": os.path.join(development_dir, f"django/djangoVue/{filename}"),
         "docker": os.path.join(development_dir, f"{filename}")
     }
+
     for dict_env_key, dict_env_file in dict_env.items():
         try:
             with open(dict_env_file, "w") as f:
-                for key, value in c.config[dict_env_key].items():
+                for key, value in settings[dict_env_key].items():                          
                     f.write(f"{key}={value}\n")
                 f.close()
             logging.info(f"The environment variable for '{dict_env_key}'' from the settings.json file was successfully written to the .env file.: '{dict_env_file}'")

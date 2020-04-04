@@ -2,7 +2,7 @@ import json
 import sys
 import os
 import logging
-
+import copy
 
 def read_settings(what):
     """A function to read the settings file."""
@@ -23,11 +23,10 @@ def read_settings(what):
             f"There is no {settings_file} file available. Edit the settings.example.json file in the {fabric_folder} folder and save it in the main folder.")
         sys.exit(1)
 
+    settings["test"]["collection"] = what
     if what == "test":
-        settings = settings["development"].update(settings["test"])
-    else:
-        settings = settings[what]
-    return settings
+        settings["test"]["docker"]["INSTALLFOLDER"] = os.getcwd()
+    return settings[what]
 
 
 def uid_gid(c):
