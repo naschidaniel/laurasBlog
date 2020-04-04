@@ -6,10 +6,10 @@ import os
 import sys
 import subprocess
 import logging
-from invoke import task
-from inv_base import read_settings
-from inv_logging import task_logging, success_logging, cmd_logging
 from itertools import chain, repeat
+from invoke import task, Collection
+import inv_base
+import inv_logging
 
 
 def ssh(c, remote_user, remote_host, cmd):
@@ -49,8 +49,9 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
 
 @task
 def push(c):
-    task_logging(push.__name__)
-    settings = read_settings("production")
+    """This function synchronizes the local and remote folders."""
+    inv_logging.task(push.__name__)
+    settings = inv_base.read_settings("production")
 
     for rsync_task in settings["rsync"]:
         if "exclude" in settings["rsync"][rsync_task]:
@@ -60,7 +61,11 @@ def push(c):
         
         logging.info(
             f"The settings {rsync_task} from the settings.json file are used for the production.")
-        rsync_push(c, settings["remote_user"], settings["remote_host"], settings["rsync"][rsync_task]
+        rsync_push(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"], settings["rsync"][rsync_task]
                 ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], exclude)
     
-    success_logging(push.__name__)
+    inv_logging.success(push.__name__)
+
+
+rsync_ns = Collection("rsync")
+rsync_ns.add_task(push)

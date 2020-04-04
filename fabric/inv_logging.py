@@ -29,13 +29,13 @@ def start_logging():
     logging.info("DjangoVue fabric logging module was started.")
 
 
-def task_logging(task=None):
+def task(task=None):
     """A logging message is created with the task name.
     """
     logging.info(f"The task {task} was started.")
 
 
-def cmd_logging(cmd=None):
+def cmd(cmd=None):
     """A logging message is created with the additional command.
     """
     if cmd is not None and cmd != "":
@@ -44,7 +44,7 @@ def cmd_logging(cmd=None):
         logging.info(f"The program was successfully completed.")
 
 
-def success_logging(task=None):
+def success(task=None):
     """A function which returns the successful completion of the logging.
     """
     if task is not None and task != "":

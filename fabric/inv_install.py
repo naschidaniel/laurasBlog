@@ -5,28 +5,35 @@
 import os
 import sys
 import logging
-from invoke import task
-from inv_base import read_settings, manage_py
-from inv_logging import success_logging, cmd_logging, task_logging
-from inv_rsync import scp, ssh, rsync_push
-from inv_build import rebuild, serve
-from inv_node import npm
-from inv_django import migrate, createsuperuser, loadexampledata
+from invoke import task, Collection
+import inv_base
+import inv_logging
+import inv_docker
+import inv_node
+import inv_django
+import inv_docker
+import inv_rsync
+
+@task
+def quickinstallation(c):
+    """A function for quick installation of djangoVue and start of a development server."""
+    inv_logging.task(quickinstallation.__name__)
+    folders(c)
+    setenvironment(c, "development")
+    inv_docker.rebuild(c)
+    inv_node.npm(c, "install")
+    inv_django.migrate(c)
+    inv_django.createsuperuser(c)
+    inv_django.loadexampledata(c)
+    inv_docker.serve(c)
+    inv_logging.success(quickinstallation.__name__)
 
 
 @task
-def folders(c, cmd, **kwargs):
+def folders(c):
     """This function is used to start the production test environment."""
-    task_logging(folders.__name__)
-    cmd_logging(cmd)
-    if cmd in ["development", "production"]:
-        settings = read_settings(cmd)
-    else:
-        logging.error(
-            "Your entry was incorrect. Please enter development or production.")
-        sys.exit(1)
-
-    for d in settings["initFolders"]:
+    inv_logging.task(folders.__name__)
+    for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
 
         if not os.path.exists(d):
@@ -39,27 +46,20 @@ def folders(c, cmd, **kwargs):
         else:
             logging.warning(f"The folder {d} already exists.")
 
-    success_logging(folders.__name__)
+    inv_logging.success(folders.__name__)
 
 
 @task
 def setenvironment(c, cmd):
     """The function writes the local environment variables for django and docker."""
-    task_logging(setenvironment.__name__)
-    cmd_logging(cmd)
-    if cmd in ["development", "production", "test"]:
-        settings = read_settings(cmd)
-    else:
-        logging.error(
-            "Your entry was incorrect. Please enter development or production.")
-        sys.exit(1)
-
+    inv_logging.task(setenvironment.__name__)
+    inv_logging.cmd(cmd)
+    
+    settings = inv_base.read_settings(cmd)
+    development_dir = os.getcwd()
     if cmd == "production":
-        development_dir = read_settings("development")
-        development_dir = development_dir["docker"]["INSTALLFOLDER"]
         filename = ".env.production"
     else:
-        development_dir = os.getcwd()
         filename = ".env"
 
     dict_env = {
@@ -67,45 +67,30 @@ def setenvironment(c, cmd):
         "docker": os.path.join(development_dir, f"{filename}")
     }
 
-    for dict_env_key, dict_env_value in dict_env.items():
+    for dict_env_key, dict_env_file in dict_env.items():
         try:
-            f = open(dict_env_value, "w")
-            for key, value in settings[dict_env_key].items():
-                f.write(f"{key}={value}\n")
-                logging.info(
-                    f"The environment variable {key} was written to the file '{dict_env_value}'.")
-            f.close()
+            with open(dict_env_file, "w") as f:
+                for key, value in settings[dict_env_key].items():                          
+                    f.write(f"{key}={value}\n")
+                f.close()
+            logging.info(f"The environment variable for '{dict_env_key}'' from the settings.json file was successfully written to the .env file.: '{dict_env_file}'")
+
         except:
             logging.error(
-                f"It was not possible to write to the file {dict_env_value}.")
+                f"It was not possible to write to the file: '{dict_env_file}'")
             sys.exit(1)
 
-    success_logging(setenvironment.__name__)
+    inv_logging.success(setenvironment.__name__)
     return dict_env
-
-
-@task
-def quickinstallation(c):
-    """A function for quick installation of djangoVue and start of a development server."""
-    task_logging(quickinstallation.__name__)
-    folders(c, "development")
-    setenvironment(c, "development")
-    rebuild(c)
-    npm(c, "install")
-    migrate(c)
-    createsuperuser(c)
-    loadexampledata(c)
-    serve(c)
-    success_logging(quickinstallation.__name__)
 
 
 @task
 def setproductionenvironment(c, cmd):
     """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
-    task_logging(setproductionenvironment.__name__)
-    cmd_logging(cmd)
+    inv_logging.task(setproductionenvironment.__name__)
+    inv_logging.cmd(cmd)
     if cmd == "production":
-        settings = read_settings(cmd)
+        settings = inv_base.read_settings(cmd)
     else:
         logging.error(
             "Your entry was incorrect. Please enter production for the next steps.")
@@ -117,9 +102,9 @@ def setproductionenvironment(c, cmd):
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    scp(c, settings["remote_user"], settings["remote_host"],
+    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
         dict_env["docker"], remote_env["docker"])
-    scp(c, settings["remote_user"], settings["remote_host"],
+    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
         dict_env["django"], remote_env["django"])
 
     os.system(f"rm {dict_env['docker']}")
@@ -131,7 +116,13 @@ def setproductionenvironment(c, cmd):
 
     for folder in settings['initFolders']:
         folder = os.path.join(settings["docker"]["INSTALLFOLDER"], folder)
-        ssh(c, settings["remote_user"],
-            settings["remote_host"], f"mkdir -p {folder}")
+        inv_rsync.ssh(c, settings["docker"]["REMOTE_USER"],
+            settings["docker"]["REMOTE_HOST"], f"mkdir -p {folder}")
 
-    success_logging(setproductionenvironment.__name__)
+    inv_logging.success(setproductionenvironment.__name__)
+
+
+install_ns = Collection("install")
+install_ns.add_task(folders)
+install_ns.add_task(setenvironment)
+install_ns.add_task(quickinstallation)

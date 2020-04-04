@@ -5,36 +5,42 @@
 import os
 import sys
 import logging
-from invoke import task
-from inv_base import docker_compose, manage_py
-from inv_django import collectionstatic, migrate, makemigrations
-from inv_logging import success_logging, cmd_logging, task_logging
-
-
-@task
-def npm(c, cmd, **kwargs):
-    """This function is used to respond to the packet manager npm."""
-    task_logging(npm.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    cmd_logging(cmd)
-    docker_compose(c, f"run -u {uid} vue npm {cmd}", pty=True)
-    success_logging(npm.__name__)
+from invoke import task, Collection
+import inv_base
+import inv_logging
+import inv_django
 
 
 @task
 def build(c, **kwargs):
     """This function is used to build the Javascript components. The data is then integrated into django."""
-    task_logging(build.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    docker_compose(c, f"run -u {uid} vue npm run build", pty=True)
+    inv_logging.task(build.__name__)
+    user, group = inv_base.uid_gid(c)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run build", pty=True)
     logging.info("The Vue components were built, minified and zipped.")
-    success_logging(build.__name__)
+    inv_logging.success(build.__name__)
 
 
 @task
 def lint(c, **kwargs):
     """This command is used to embellish the code."""
-    task_logging(lint.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    docker_compose(c, f"run -u {uid} vue npm run lint", pty=True)
-    success_logging(lint.__name__)
+    inv_logging.task(lint.__name__)
+    user, group = inv_base.uid_gid(c)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run lint", pty=True)
+    inv_logging.success(lint.__name__)
+
+
+@task
+def npm(c, cmd, **kwargs):
+    """This function is used to respond to the packet manager npm."""
+    inv_logging.task(npm.__name__)
+    user, group = inv_base.uid_gid(c)
+    inv_logging.cmd(cmd)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm {cmd}", pty=True)
+    inv_logging.success(npm.__name__)
+
+
+node_ns = Collection("node")
+node_ns.add_task(build)
+node_ns.add_task(lint)
+node_ns.add_task(npm)
