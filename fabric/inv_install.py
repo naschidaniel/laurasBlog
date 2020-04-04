@@ -5,8 +5,8 @@
 import os
 import sys
 import logging
+import inv_base
 from invoke import task
-from task import read_settings
 from inv_logging import success_logging, cmd_logging, task_logging
 from inv_rsync import scp, ssh, rsync_push
 from inv_docker import rebuild, serve
@@ -19,14 +19,7 @@ def folders(c, cmd, **kwargs):
     """This function is used to start the production test environment."""
     task_logging(folders.__name__)
     cmd_logging(cmd)
-    if cmd in ["development", "production"]:
-        settings = read_settings(cmd)
-    else:
-        logging.error(
-            "Your entry was incorrect. Please enter development or production.")
-        sys.exit(1)
-
-    for d in settings["initFolders"]:
+    for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
 
         if not os.path.exists(d):
@@ -47,15 +40,9 @@ def setenvironment(c, cmd):
     """The function writes the local environment variables for django and docker."""
     task_logging(setenvironment.__name__)
     cmd_logging(cmd)
-    if cmd in ["development", "production", "test"]:
-        settings = read_settings(cmd)
-    else:
-        logging.error(
-            "Your entry was incorrect. Please enter development or production.")
-        sys.exit(1)
 
     if cmd == "production":
-        development_dir = read_settings("development")
+        development_dir = inv_base.read_settings("development")
         development_dir = development_dir["docker"]["INSTALLFOLDER"]
         filename = ".env.production"
     else:
@@ -105,7 +92,7 @@ def setproductionenvironment(c, cmd):
     task_logging(setproductionenvironment.__name__)
     cmd_logging(cmd)
     if cmd == "production":
-        settings = read_settings(cmd)
+        settings = inv_base.read_settings(cmd)
     else:
         logging.error(
             "Your entry was incorrect. Please enter production for the next steps.")

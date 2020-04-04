@@ -9,7 +9,7 @@ from invoke import task
 from inv_django import manage_py, makemigrations, migrate, collectionstatic
 from inv_logging import success_logging, task_logging
 from inv_node import npm, build
-from inv_docker import docker_compose
+import inv_base
 from inv_install import setenvironment
 from inv_docker import start
 
@@ -32,6 +32,6 @@ def starttest(c):
     logging.info("The database migrations were carried out.")
     collectionstatic(c)
     logging.info("The static files were stored in the static folder.")
-    docker_compose(c, f"up -d")
+    inv_base.docker_compose(c, f"up -d")
     setenvironment(c, "development")
     success_logging(starttest.__name__)

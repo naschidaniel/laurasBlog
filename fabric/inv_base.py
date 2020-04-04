@@ -1,6 +1,27 @@
-
+import json
+import sys
 import os
 import logging
+
+def read_settings(what):
+    """A function to read the settings file."""
+    settings_file = os.path.join(os.path.join(
+        os.getcwd(), "fabric/settings.json"))
+    if os.path.exists(settings_file):
+        with open(settings_file) as f:
+            settings = json.load(f)
+    else:
+        fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
+        logging.error(
+            f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
+        sys.exit(1)
+
+    if what not in ["development", "test", "production"]:
+        logging.error(
+            f"No settings could be found in the file {settings_file} for your input: {what}")
+        sys.exit(1)
+    return settings[what]
+
 
 def uid_gid(c):
     if c.config["collection"] == "production":
