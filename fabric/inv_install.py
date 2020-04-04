@@ -127,5 +127,4 @@ def setproductionenvironment(c, cmd):
 install_ns = Collection("install")
 install_ns.add_task(folders)
 install_ns.add_task(setenvironment)
-install_ns.add_task(setproductionenvironment)
 install_ns.add_task(quickinstallation)

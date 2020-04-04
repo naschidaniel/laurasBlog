@@ -15,7 +15,7 @@ from fabric import inv_django
 from fabric import inv_node
 from fabric import inv_install
 from fabric import inv_test
-
+from fabric import inv_rsync
 
 # Logging
 inv_logging.start_logging()
@@ -42,11 +42,11 @@ MAIN_NS.add_collection(test_ns)
 
 MAIN_NS.add_collection(local_ns)
 
-# # Production Collection
-# production_ns = Collection("production")
-# production_ns.add_task(inv_rsync.push)
-# production_ns.add_task(inv_install.setproductionenvironment)
-# MAIN_NS.add_collection(production_ns)
+# Production Collection
+production_ns = Collection("production")
+production_ns.add_collection(inv_rsync.rsync_ns)
+production_ns.add_task(inv_install.setproductionenvironment)
+MAIN_NS.add_collection(production_ns)
 
 
 # Program

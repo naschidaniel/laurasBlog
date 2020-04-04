@@ -7,7 +7,7 @@ import sys
 import subprocess
 import logging
 from itertools import chain, repeat
-from invoke import task
+from invoke import task, Collection
 import inv_base
 import inv_logging
 
@@ -49,6 +49,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
 
 @task
 def push(c):
+    """This function synchronizes the local and remote folders."""
     inv_logging.task(push.__name__)
     settings = inv_base.read_settings("production")
 
@@ -64,3 +65,7 @@ def push(c):
                 ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], exclude)
     
     inv_logging.success(push.__name__)
+
+
+rsync_ns = Collection("rsync")
+rsync_ns.add_task(push)
