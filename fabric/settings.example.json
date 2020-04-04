@@ -1,5 +1,6 @@
 {
   "development": {
+    "collection": "development",
     "docker_compose_files": [
       "./docker-compose.yml",
       "./docker-compose.development.yml"
@@ -24,6 +25,7 @@
     }
   },
   "test": {
+    "collection": "test",
     "docker_compose_files": [
       "./docker-compose.yml",
       "./docker-compose.production.yml"
@@ -45,6 +47,7 @@
     }
   },
   "production": {
+    "collection": "production",
     "initFolders": [
       "data/postgresdata",
       "log/nginx",

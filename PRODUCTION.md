@@ -7,7 +7,6 @@ In this file the further steps for the production on the server are explained.
 First the frontend files have to be made available for production.
 ```
 python task.py local.node.build
-
 ```
 
 ## Local testing 
