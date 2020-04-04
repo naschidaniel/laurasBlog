@@ -7,16 +7,17 @@ import logging
 import sys
 from invoke import task, Collection, Program
 
-
 sys.path.insert(0,os.getcwd())
 from fabric import inv_base
 from fabric import inv_docker
 from fabric import inv_logging
-# import inv_django
+from fabric import inv_django
+
+#from fabric import inv_rsync
+
 # import inv_install
 # import inv_node
 # import inv_test
-# import inv_rsync
 
 
 # Logging
@@ -43,11 +44,12 @@ local_ns.add_task(inv_docker.docker)
 
 #local_ns.add_task(inv_install.setenvironment)
 #local_ns.add_task(inv_install.quickinstallation)
+local_ns.add_collection(inv_django.django_ns)
 local_ns.add_collection(inv_docker.docker_compose_ns)
+
 #local_ns.add_task(inv_node.build)
 #local_ns.add_task(inv_node.npm)
 #local_ns.add_task(inv_node.lint)
-#local_ns.add_collection(inv_django.django_ns)
 
 MAIN_NS.add_collection(local_ns)
 

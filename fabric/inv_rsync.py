@@ -6,10 +6,10 @@ import os
 import sys
 import subprocess
 import logging
-from invoke import task
-from task import read_settings
-from inv_logging import inv_logging.task, inv_logging.success, inv_logging.cmd
 from itertools import chain, repeat
+from invoke import task
+import inv_base
+import inv_logging
 
 
 def ssh(c, remote_user, remote_host, cmd):
@@ -50,7 +50,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
 @task
 def push(c):
     inv_logging.task(push.__name__)
-    settings = read_settings("production")
+    settings = inv_base.read_settings("production")
 
     for rsync_task in settings["rsync"]:
         if "exclude" in settings["rsync"][rsync_task]:
