@@ -4,12 +4,10 @@
 
 import logging
 from invoke import task, Collection
-
 import inv_base
 import inv_logging
-from inv_django import collectionstatic, makemigrations, migrate
-from inv_node import build
-
+import inv_django
+import inv_node
 
 @task
 def docker(c, cmd):
@@ -73,15 +71,15 @@ def serve(c):
 
 @task
 def start(c):
-    """This function is used to start all Docker Containers."""
+    """This function is used to build the project locally and start all containers."""
     inv_logging.task(start.__name__)
     inv_base.docker_compose(c, "up -d")
-    build(c)
-    makemigrations(c)
+    inv_node.build(c)
+    inv_django.makemigrations(c)
     logging.info("The migrations were created.")
-    migrate(c)
+    inv_django.migrate(c)
     logging.info("The database migrations were carried out.")
-    collectionstatic(c)
+    inv_django.collectionstatic(c)
     logging.info("The static files were stored in the static folder.")
     inv_logging.success(start.__name__)
 
