@@ -2,13 +2,9 @@
 #  -*- coding: utf-8 -*-
 """This function contains the most important docker commands."""
 
-import os
-import sys
 import logging
 from invoke import task, Collection
 
-# Import Subfiles
-sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import inv_base
 import inv_logging
 from inv_django import collectionstatic, makemigrations, migrate

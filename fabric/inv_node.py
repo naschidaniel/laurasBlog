@@ -7,7 +7,6 @@ import sys
 import logging
 from invoke import task
 
-sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import inv_base
 import inv_logging
 import inv_django
