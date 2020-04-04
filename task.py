@@ -4,19 +4,19 @@
 
 import os
 import logging
-from .fabric import inv_base
-# import inv_docker
-# import inv_django
-# import inv_install
-# import inv_node
-# import inv_test
-# import inv_rsync
-# from inv_logging import start_logging
+import inv_base
+import inv_docker
+import inv_django
+import inv_install
+import inv_node
+import inv_test
+import inv_rsync
+from inv_logging import start_logging
 from invoke import task, Collection, Program
 
 
 # Logging
-#start_logging()
+start_logging()
 
 # Namespace
 MAIN_NS = Collection()
