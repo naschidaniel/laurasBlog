@@ -4,9 +4,14 @@
 
 import logging
 from invoke import task, Collection
-from inv_base import manage_py
+from inv_docker import uid_gid, docker_compose
 from inv_logging import cmd_logging, success_logging, task_logging
 
+
+def manage_py(c, cmd, **kwargs):
+    """The function is used to start a command inside a django container."""
+    user, group = uid_gid(c)
+    return docker_compose(c, f"run -u {user}:{group} django python3 /www/site/manage.py {cmd}", pty=True)
 
 @task
 def collectionstatic(c):

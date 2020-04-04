@@ -12,11 +12,33 @@ import inv_install
 import inv_node
 import inv_test
 import inv_rsync
-from inv_base import read_settings
+from inv_logging import start_logging
 from invoke import task, Collection, Program
 
-# Loggin
-# start_logging()
+
+def read_settings(what):
+    """A function to read the settings file."""
+    settings_file = os.path.join(os.path.join(
+        os.getcwd(), "fabric/settings.json"))
+    if os.path.exists(settings_file):
+        with open(settings_file) as f:
+            settings = json.load(f)
+    else:
+        fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
+        logging.error(
+            f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
+        sys.exit(1)
+
+    if what not in ["development", "test", "production"]:
+        logging.error(
+            f"No settings could be found in the file {settings_file} for your input: {what}")
+        sys.exit(1)
+    return settings[what]
+
+
+
+# Logging
+start_logging()
 
 # Namespace
 MAIN_NS = Collection()
@@ -24,7 +46,7 @@ MAIN_NS = Collection()
 
 # # Testing Collection
 # test_ns = Collection("test")
-# test_ns.configure(inv_base.read_settings("test"))
+# test_ns.configure(read_settings("test"))
 # test_ns.add_task(inv_test.starttest)
 # test_ns.add_task(inv_docker.docker_ns)
 # MAIN_NS.add_collection(test_ns)

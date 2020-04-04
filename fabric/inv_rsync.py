@@ -7,7 +7,7 @@ import sys
 import subprocess
 import logging
 from invoke import task
-from inv_base import read_settings
+from task import read_settings
 from inv_logging import task_logging, success_logging, cmd_logging
 from itertools import chain, repeat
 

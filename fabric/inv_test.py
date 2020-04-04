@@ -5,11 +5,11 @@
 import os
 import sys
 import logging
-from inv_django import makemigrations, migrate, collectionstatic
+from invoke import task
+from inv_django import manage_py, makemigrations, migrate, collectionstatic
 from inv_logging import success_logging, task_logging
 from inv_node import npm, build
-from invoke import task
-from inv_base import docker_compose, manage_py
+from inv_docker import docker_compose
 from inv_install import setenvironment
 from inv_docker import start
 

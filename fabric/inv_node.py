@@ -6,8 +6,8 @@ import os
 import sys
 import logging
 from invoke import task
-from inv_base import docker_compose, manage_py
-from inv_django import collectionstatic, migrate, makemigrations
+from inv_docker import docker_compose 
+from inv_django import manage_py, collectionstatic, migrate, makemigrations
 from inv_logging import success_logging, cmd_logging, task_logging
 
 

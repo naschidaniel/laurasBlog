@@ -6,19 +6,62 @@ import os
 import sys
 import logging
 from invoke import task, Collection
-from inv_base import manage_py, docker_compose
-import inv_base
 from inv_logging import task_logging, cmd_logging, success_logging
 from inv_django import collectionstatic, makemigrations, migrate
 from inv_node import build
+
+
+def uid_gid(c):
+    """The USER and GROUP are generated using the function."""
+    if c.config["collection"] == "production":
+        user = c.config["docker"]["USER"]
+        group = c.config["docker"]["GROUP"]
+        logging.info(
+            f"The command is executed for the following USER and GROUP: {user}:{group}")
+    else:
+        user = os.getuid()
+        group = os.getgid()
+    return user, group
+
+
+def docker_environment(c, command):
+    """The function generates the docker environment variables."""
+    user, group = uid_gid(c)
+    if c.config["collection"] == "production":
+        command.insert(0, f"export USERID={user} && export GROUPID={group} &&")
+    else:
+        command.insert(0, f"export USERID={user} && export GROUPID={group} &&")
+    return command
+
+
+def dockerdaemon(c, cmd, **kwargs):
+    """A function to start docker-compose."""
+    command = ["docker"]
+    command.append(cmd)
+    logging.info(f"This command will be executed: {command}")
+    return c.run(" ".join(command), **kwargs)
+
+
+def docker_compose(c, cmd, **kwargs):
+    """A function to start docker-compose."""
+    command = ["docker-compose"]
+    for config_file in c.docker_compose_files:
+        command.append("-f")
+        command.append(config_file)
+
+    command.append(cmd)
+    command = docker_environment(c, command)
+    return c.run(" ".join(command), **kwargs)
+
 
 @task
 def docker(c, cmd):
     """Restart all docker containers."""
     task_logging(restart.__name__)
     cmd_logging(cmd)
-    inv_base.docker(c, cmd)
+    dockerdaemon(c, cmd)
     success_logging(restart.__name__)
+
 
 @task
 def restart(c):

@@ -6,7 +6,8 @@ import os
 import sys
 import logging
 from invoke import task
-from inv_base import read_settings, manage_py
+from task import read_settings
+from inv_docker import docker_compose
 from inv_logging import success_logging, cmd_logging, task_logging
 from inv_rsync import scp, ssh, rsync_push
 from inv_docker import rebuild, serve
