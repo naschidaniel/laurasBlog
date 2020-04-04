@@ -44,9 +44,9 @@ def fullrestart(c):
 def run(c, cmd):
     """The function is used to start a command inside a django container."""
     inv_logging.task(run.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
+    user, group = inv_base.uid_gid(c)
     inv_logging.cmd(cmd)
-    inv_base.docker_compose(c, f"run -u {uid} {cmd}", pty=True)
+    inv_base.docker_compose(c, f"run -u {user}:{group} {cmd}", pty=True)
     inv_logging.success(run.__name__)
 
 

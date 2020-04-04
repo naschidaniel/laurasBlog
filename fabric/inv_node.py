@@ -17,9 +17,9 @@ import inv_django
 def npm(c, cmd, **kwargs):
     """This function is used to respond to the packet manager npm."""
     inv_logging.task(npm.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
+    user, group = inv_base.uid_gid(c)
     inv_logging.cmd(cmd)
-    inv_base.docker_compose(c, f"run -u {uid} vue npm {cmd}", pty=True)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm {cmd}", pty=True)
     inv_logging.success(npm.__name__)
 
 
@@ -27,8 +27,8 @@ def npm(c, cmd, **kwargs):
 def build(c, **kwargs):
     """This function is used to build the Javascript components. The data is then integrated into django."""
     inv_logging.task(build.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    inv_base.docker_compose(c, f"run -u {uid} vue npm run build", pty=True)
+    user, group = inv_base.uid_gid(c)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run build", pty=True)
     logging.info("The Vue components were built, minified and zipped.")
     inv_logging.success(build.__name__)
 
@@ -37,6 +37,6 @@ def build(c, **kwargs):
 def lint(c, **kwargs):
     """This command is used to embellish the code."""
     inv_logging.task(lint.__name__)
-    uid = "{}:{}".format(os.getuid(), os.getgid())
-    inv_base.docker_compose(c, f"run -u {uid} vue npm run lint", pty=True)
+    user, group = inv_base.uid_gid(c)
+    inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run lint", pty=True)
     inv_logging.success(lint.__name__)
