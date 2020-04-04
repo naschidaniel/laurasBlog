@@ -43,7 +43,7 @@ python task.py local.install.setenvironment development
 ### Create docker container
 
 ```
-python task.py local.docker_compose.rebuild
+python task.py local.docker-compose.rebuild
 ```
 
 

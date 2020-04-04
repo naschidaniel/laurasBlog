@@ -32,11 +32,11 @@ def read_settings(what):
 
 def uid_gid(c):
     if c.config["collection"] == "production":
-        user = os.getuid()
-        group = os.getgid()
-    else:
         user = c.config["docker"]["USER"]
         group = c.config["docker"]["GROUP"]
+    else:
+        user = os.getuid()
+        group = os.getgid()
     return user, group
 
 
