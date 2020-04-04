@@ -4,7 +4,7 @@
 
 import logging
 from invoke import task, Collection
-from inv_docker import uid_gid, docker_compose
+from inv_base import uid_gid, docker_compose
 from inv_logging import cmd_logging, success_logging, task_logging
 
 
