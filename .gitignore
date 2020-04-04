@@ -37,6 +37,6 @@ vue/frontend/package-lock.json
 
 
 # Production
-fabric/settings.json
+settings.json
 rsync.sh
 .env.production

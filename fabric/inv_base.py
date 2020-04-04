@@ -7,7 +7,7 @@ import logging
 def read_settings(what):
     """A function to read the settings file."""
     settings_file = os.path.join(os.path.join(
-        os.getcwd(), "fabric/settings.json"))
+        os.getcwd(), "settings.json"))
 
     if what not in ["development", "test", "production"]:
         logging.error(
@@ -20,7 +20,7 @@ def read_settings(what):
     else:
         fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
         logging.error(
-            f"There is no {settings_file} file available. Edit the settings.example.json file and rename the file in the {fabric_folder} folder to settings.json.")
+            f"There is no {settings_file} file available. Edit the settings.example.json file in the {fabric_folder} folder and save it in the main folder.")
         sys.exit(1)
 
     if what == "test":
