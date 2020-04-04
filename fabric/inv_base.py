@@ -18,7 +18,7 @@ def read_settings(what):
         with open(settings_file) as f:
             settings = json.load(f)
     else:
-        fabric_folder = os.path.join(os.path.join(os.getcwd(), "/fabric"))
+        fabric_folder = os.path.join(os.getcwd(), "fabric")
         logging.error(
             f"There is no {settings_file} file available. Edit the settings.example.json file in the {fabric_folder} folder and save it in the main folder.")
         sys.exit(1)
