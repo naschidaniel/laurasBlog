@@ -31,7 +31,7 @@ def quickinstallation(c):
 
 @task
 def folders(c):
-    """This function is used to start the production test environment."""
+    """This function is used to create the folder structure."""
     inv_logging.task(folders.__name__)
     for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
@@ -96,9 +96,9 @@ def setproductionenvironment(c):
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
+    inv_rsync.scp(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
         dict_env["docker"], remote_env["docker"])
-    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
+    inv_rsync.scp(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
         dict_env["django"], remote_env["django"])
 
     os.system(f"rm {dict_env['docker']}")
@@ -110,8 +110,8 @@ def setproductionenvironment(c):
 
     for folder in settings['initFolders']:
         folder = os.path.join(settings["docker"]["INSTALLFOLDER"], folder)
-        inv_rsync.ssh(c, settings["docker"]["REMOTE_USER"],
-            settings["docker"]["REMOTE_HOST"], f"mkdir -p {folder}")
+        inv_rsync.ssh(c, settings["REMOTE_USER"],
+            settings["REMOTE_HOST"], f"mkdir -p {folder}")
 
     inv_logging.success(setproductionenvironment.__name__)
 

@@ -31,10 +31,10 @@ python task.py production.rsync.push
 
 ## Create environment variables and folder structure on the server.
 
-With the settings for "Production" from the file `settings.json` the environment variables are created. The created file will also load the server. 
+With the settings for "production" from the file `settings.json` the environment variables are created. The created files are uploaded to the server and the required folders for djangoVue are created.
 
 ```
-python task.py remote.setproductionenvironment production
+python task.py production.setproductionenvironment
 ```
 
 
