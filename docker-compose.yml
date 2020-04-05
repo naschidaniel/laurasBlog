@@ -8,7 +8,7 @@ services:
     user: "${USER}:${GROUP}"
     environment:
       PYTHONUNBUFFERED: "TRUE"
-    user: "${USER}:${GROUP}"
+    user: "${USERID}:${GROUPID}"
     ports:
       - "3000:3000"
     depends_on: 
