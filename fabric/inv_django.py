@@ -8,6 +8,7 @@ import sys
 from invoke import task, Collection
 import inv_base
 import inv_logging
+import inv_docker
 
 def manage_py(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
@@ -27,6 +28,7 @@ def createsuperuser(c):
     """The function is used to create a superuser."""
     inv_logging.task(createsuperuser.__name__)
     logging.info("Enter the user for the Django backend.")
+    inv_docker.stop(c)
     manage_py(c, "createsuperuser")
     inv_logging.success(createsuperuser.__name__)
 
@@ -59,6 +61,7 @@ def makemigrations(c):
 def migrate(c):
     """This function is used to load migrations into the database."""
     inv_logging.task(migrate.__name__)
+    inv_docker.stop(c)
     manage_py(c, "migrate")
     inv_logging.success(migrate.__name__)
 
