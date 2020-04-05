@@ -46,7 +46,6 @@ def docker_environment(c):
         uid, gid = uid_gid(c)
         docker_environment["USERID"] = f"{uid}"
         docker_environment["GROUPID"] = f"{gid}"
-    print(docker_environment)
     return docker_environment
 
 
