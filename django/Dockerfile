@@ -4,9 +4,9 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /www/site
 
-ADD ./requirements.txt /www/site/requirements.txt
+COPY ./requirements.txt /www/site/requirements.txt
 
-RUN pip install -r /www/site/requirements.txt
+RUN pip install --no-cache-dir -r /www/site/requirements.txt
 
 EXPOSE 3000
 
