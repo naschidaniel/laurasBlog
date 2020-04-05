@@ -48,6 +48,11 @@
   },
   "production": {
     "collection": "production",
+    "certificates": {
+      "tlscacert": "~/.docker/djangoVue/ca.pem",
+      "tlscert": "~/.docker/djangoVue/cert.pem",
+      "tlskey": "~/.docker/djangoVue/key.pem"
+    },
     "initFolders": [
       "data/postgresdata",
       "log/nginx",
@@ -59,7 +64,7 @@
     ],
     "django": {
       "DEBUG": "False",
-      "ALLOWED_HOSTS": "example.com,www.example.com",
+      "ALLOWED_HOSTS": "milena-and-her-dog.com,www.milena-and-her-dog.com",
       "DB": "postgres",
       "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",
@@ -67,13 +72,16 @@
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "USER": "example",
-      "GROUP": "example",
+      "USERID": "1001",
+      "GROUPID": "1001",
       "INSTALLFOLDER": "/www/djangoVue",
       "DJANGO_HOST": "10.5.0.12",
       "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",
-      "POSTGRES_PASSWORD": "postgres"
+      "POSTGRES_PASSWORD": "postgres",
+      "DOCKER_TLS_VERIFY": "1",
+      "DOCKER_HOST": "tcp://example@example.com:2376",
+      "DOCKER_CERT_PATH": "./fabric/cert/"
     },
     "REMOTE_USER": "example",
     "REMOTE_HOST": "example.com",
@@ -90,17 +98,21 @@
       },
       "static": {
         "local_dir": "./django/static",
-        "remote_dir": "/www/djangoVue/django/static"
+        "remote_dir": "/www/djangoVue/django/"
       },
       "postgres": {
         "local_dir": "./postgres",
         "remote_dir": "/www/djangoVue/"
       },
-      "fabric": {
-        "local_dir": "./fabric",
-        "remote_dir": "/www/djangoVue/fabric",
+      "vue": {
+        "local_dir": "./vue",
+        "remote_dir": "/www/djangoVue/",
+        "include": [
+          "webpack-stats.json"
+        ],
         "exclude": [
-          "cert"
+          ".dockerignore",
+          "*/*"
         ]
       }
     }
