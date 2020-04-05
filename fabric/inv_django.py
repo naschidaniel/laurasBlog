@@ -16,11 +16,11 @@ def manage_py(c, cmd, **kwargs):
     inv_base.docker_compose(c, f"run -u {user}:{group} django python3 /www/site/manage.py {cmd}", pty=True)
 
 @task
-def collectionstatic(c):
+def collectstatic(c):
     """This function is used to collect the static files."""
-    inv_logging.task(collectionstatic.__name__)
+    inv_logging.task(collectstatic.__name__)
     manage_py(c, "collectstatic -v 0 --no-input")
-    inv_logging.success(collectionstatic.__name__)
+    inv_logging.success(collectstatic.__name__)
 
 
 @task
@@ -74,7 +74,7 @@ def generateSecretKey(c):
     inv_logging.success(generateSecretKey.__name__)
 
 django_ns = Collection("django")
-django_ns.add_task(collectionstatic)
+django_ns.add_task(collectstatic)
 django_ns.add_task(createsuperuser)
 django_ns.add_task(generateSecretKey)
 django_ns.add_task(loadexampledata)
