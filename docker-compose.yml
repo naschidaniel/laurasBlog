@@ -5,10 +5,10 @@ services:
     restart: always
     build: ./django
     container_name: django
-    user: "${USERID}:${GROUPID}"
+    user: "${USER}:${GROUP}"
     environment:
       PYTHONUNBUFFERED: "TRUE"
-    user: "${USERID}:${GROUPID}"
+    user: "${USER}:${GROUP}"
     ports:
       - "3000:3000"
     depends_on: 

@@ -40,7 +40,7 @@ services:
     command: "npm run serve"
     volumes:
       - frontend:/usr/src/app
-    user: "${USERID}:${GROUPID}"
+    user: "${USER}:${GROUP}"
     ports:
       - "8080:8080"
   nginx:
