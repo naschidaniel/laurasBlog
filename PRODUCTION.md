@@ -13,6 +13,7 @@ python task.py local.node.build
 Several micro services are installed on the server. The communication with an nginx is done using docker Networks. How to create a Docker Network can be read [here](#Create-a-Docker-Network)).
 
 ```
+python task.py local.docker-compose.stop
 python task.py test.starttest
 python task.py test.stop
 ```
@@ -25,16 +26,35 @@ Rsync is used to exchange data between the local PC and the server. All settings
 ### Push local files onto the server
 
 ```
-python task.py remote.push
+python task.py local.node.build
+python task.py local.django.collectstatic
+python task.py production.rsync.push
 ```
 
 
-## Create environment variables and folder structure on the server.
+## Create environment variables and folder structure on the server
 
-With the settings for "Production" from the file `settings.json` the environment variables are created. The created file will also load the server. 
+With the settings for "production" from the file `settings.json` the environment variables are created. The created files are uploaded to the server and the required folders for djangoVue are created.
 
 ```
-python task.py remote.setproductionenvironment production
+python task.py production.setproductionenvironment
+```
+
+
+### Deploy djangoVue on the server
+
+The next steps include building the docker container on the server and providing the data from the backend django.
+
+```
+id -u username
+id -g username
+```
+
+```
+python task.py production.docker-compose.rebuild
+python task.py production.django.migrate
+python task.py production.django.createsuperuser
+python task.py production.docker-compose.start
 ```
 
 

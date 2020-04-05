@@ -31,7 +31,7 @@ def quickinstallation(c):
 
 @task
 def folders(c):
-    """This function is used to start the production test environment."""
+    """This function is used to create the folder structure."""
     inv_logging.task(folders.__name__)
     for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
@@ -85,26 +85,20 @@ def setenvironment(c, cmd):
 
 
 @task
-def setproductionenvironment(c, cmd):
+def setproductionenvironment(c):
     """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
     inv_logging.task(setproductionenvironment.__name__)
-    inv_logging.cmd(cmd)
-    if cmd == "production":
-        settings = inv_base.read_settings(cmd)
-    else:
-        logging.error(
-            "Your entry was incorrect. Please enter production for the next steps.")
-        sys.exit(1)
+    settings = inv_base.read_settings("production")
 
-    dict_env = setenvironment(c, cmd)
+    dict_env = setenvironment(c, "production")
     remote_env = {
         "django": os.path.join(settings["docker"]["INSTALLFOLDER"], "django/djangoVue/.env"),
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
+    inv_rsync.scp(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
         dict_env["docker"], remote_env["docker"])
-    inv_rsync.scp(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"],
+    inv_rsync.scp(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
         dict_env["django"], remote_env["django"])
 
     os.system(f"rm {dict_env['docker']}")
@@ -116,8 +110,8 @@ def setproductionenvironment(c, cmd):
 
     for folder in settings['initFolders']:
         folder = os.path.join(settings["docker"]["INSTALLFOLDER"], folder)
-        inv_rsync.ssh(c, settings["docker"]["REMOTE_USER"],
-            settings["docker"]["REMOTE_HOST"], f"mkdir -p {folder}")
+        inv_rsync.ssh(c, settings["REMOTE_USER"],
+            settings["REMOTE_HOST"], f"mkdir -p {folder}")
 
     inv_logging.success(setproductionenvironment.__name__)
 

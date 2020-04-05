@@ -30,30 +30,30 @@ def read_settings(what):
 
 def uid_gid(c):
     if c.config["collection"] == "production":
-        user = c.config["docker"]["USER"]
-        group = c.config["docker"]["GROUP"]
+        uid = c.config["docker"]["USERID"]
+        gid = c.config["docker"]["GROUPID"]
     else:
-        user = os.getuid()
-        group = os.getgid()
-    return user, group
+        uid = os.getuid()
+        gid = os.getgid()
+    return uid, gid
 
 
-def docker_environment(c, command):
+def docker_environment(c):
     """The function generates the docker environment variables."""
-    user, group = uid_gid(c)
-    if c.config["collection"] == "production":
-        command.insert(0, f"export USERID={user} && export GROUPID={group} &&")
-    else:
-        command.insert(0, f"export USERID={user} && export GROUPID={group} &&")
-    return command
+    settings = read_settings(c.config["collection"])
+    docker_environment = settings["docker"]
+    if c.config["collection"] in ["development", "test"]:
+        uid, gid = uid_gid(c)
+        docker_environment["USERID"] = f"{uid}"
+        docker_environment["GROUPID"] = f"{gid}"
+    return docker_environment
 
 
 def dockerdaemon(c, cmd, **kwargs):
     """A function to start docker-compose."""
     command = ["docker"]
     command.append(cmd)
-    logging.info(f"This command will be executed: {command}")
-    return c.run(" ".join(command), **kwargs)
+    return c.run(" ".join(command), env=docker_environment(c), **kwargs)
 
 
 def docker_compose(c, cmd, **kwargs):
@@ -62,7 +62,5 @@ def docker_compose(c, cmd, **kwargs):
     for config_file in c.docker_compose_files:
         command.append("-f")
         command.append(config_file)
-
     command.append(cmd)
-    command = docker_environment(c, command)
-    return c.run(" ".join(command), **kwargs)
+    return c.run(" ".join(command), env=docker_environment(c), **kwargs)

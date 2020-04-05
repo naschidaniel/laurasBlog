@@ -44,8 +44,12 @@ MAIN_NS.add_collection(local_ns)
 
 # Production Collection
 production_ns = Collection("production")
+production_ns.configure(inv_base.read_settings("production"))
 production_ns.add_collection(inv_rsync.rsync_ns)
 production_ns.add_task(inv_install.setproductionenvironment)
+production_ns.add_collection(inv_docker.docker_compose_ns)
+production_ns.add_collection(inv_django.django_ns)
+production_ns.add_task(inv_docker.docker)
 MAIN_NS.add_collection(production_ns)
 
 

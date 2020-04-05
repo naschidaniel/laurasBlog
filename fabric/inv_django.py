@@ -8,6 +8,7 @@ import sys
 from invoke import task, Collection
 import inv_base
 import inv_logging
+import inv_docker
 
 def manage_py(c, cmd, **kwargs):
     """The function is used to start a command inside a django container."""
@@ -15,11 +16,11 @@ def manage_py(c, cmd, **kwargs):
     inv_base.docker_compose(c, f"run -u {user}:{group} django python3 /www/site/manage.py {cmd}", pty=True)
 
 @task
-def collectionstatic(c):
+def collectstatic(c):
     """This function is used to collect the static files."""
-    inv_logging.task(collectionstatic.__name__)
+    inv_logging.task(collectstatic.__name__)
     manage_py(c, "collectstatic -v 0 --no-input")
-    inv_logging.success(collectionstatic.__name__)
+    inv_logging.success(collectstatic.__name__)
 
 
 @task
@@ -27,6 +28,7 @@ def createsuperuser(c):
     """The function is used to create a superuser."""
     inv_logging.task(createsuperuser.__name__)
     logging.info("Enter the user for the Django backend.")
+    inv_docker.stop(c)
     manage_py(c, "createsuperuser")
     inv_logging.success(createsuperuser.__name__)
 
@@ -59,6 +61,7 @@ def makemigrations(c):
 def migrate(c):
     """This function is used to load migrations into the database."""
     inv_logging.task(migrate.__name__)
+    inv_docker.stop(c)
     manage_py(c, "migrate")
     inv_logging.success(migrate.__name__)
 
@@ -71,7 +74,7 @@ def generateSecretKey(c):
     inv_logging.success(generateSecretKey.__name__)
 
 django_ns = Collection("django")
-django_ns.add_task(collectionstatic)
+django_ns.add_task(collectstatic)
 django_ns.add_task(createsuperuser)
 django_ns.add_task(generateSecretKey)
 django_ns.add_task(loadexampledata)

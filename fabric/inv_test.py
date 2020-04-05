@@ -28,7 +28,7 @@ def starttest(c):
     logging.info("The migrations were created.")
     inv_django.migrate(c)
     logging.info("The database migrations were carried out.")
-    inv_django.collectionstatic(c)
+    inv_django.collectstatic(c)
     logging.info("The static files were stored in the static folder.")
     inv_base.docker_compose(c, f"up -d")
     inv_install.setenvironment(c, "development")

@@ -23,15 +23,19 @@ def scp(c, remote_user, remote_host, source_file, destination_file):
     subprocess.run(scp_cmd, check=True)
 
 
-def rsync_push(c, remote_user, remote_host, local_dir, remote_dir, exclude=None):
-    return _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude, push=True)
+def rsync_push(c, remote_user, remote_host, local_dir, remote_dir, include=None, exclude=None):
+    return _rsync(c, remote_user, remote_host, local_dir, remote_dir, include, exclude, push=True)
 
 
-def rsync_get(c, remote_user, remote_host, local_dir, remote_dir, exclude=None):
-    return _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude, push=False)
+def rsync_get(c, remote_user, remote_host, local_dir, remote_dir, include=None, exclude=None):
+    return _rsync(c, remote_user, remote_host, local_dir, remote_dir, include, exclude, push=False)
 
 
-def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, push=True):
+def _rsync(c, remote_user, remote_host, local_dir, remote_dir, include=None, exclude=None, push=True):
+    if include is None:
+        include = []
+    include_args = list(chain(*zip(repeat('--include'), include)))
+    
     if exclude is None:
         exclude = []
     exclude_args = list(chain(*zip(repeat('--exclude'), exclude)))
@@ -42,7 +46,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, exclude=None, pus
     else:
         cp = [ssh_str, local_dir]
 
-    rsync_cmd = ["rsync", "-a", "--delete-before"] + exclude_args + cp
+    rsync_cmd = ["rsync", "-a", "--progress", "--delete-before"] + include_args + exclude_args + cp
     logging.info(f"The following rsync command is executed: {rsync_cmd}")
     subprocess.run(rsync_cmd, check=True)
 
@@ -54,6 +58,11 @@ def push(c):
     settings = inv_base.read_settings("production")
 
     for rsync_task in settings["rsync"]:
+        if "include" in settings["rsync"][rsync_task]:
+            include = settings["rsync"][rsync_task]["include"]
+        else:
+            include = None
+
         if "exclude" in settings["rsync"][rsync_task]:
             exclude = settings["rsync"][rsync_task]["exclude"]
         else:
@@ -61,8 +70,8 @@ def push(c):
         
         logging.info(
             f"The settings {rsync_task} from the settings.json file are used for the production.")
-        rsync_push(c, settings["docker"]["REMOTE_USER"], settings["docker"]["REMOTE_HOST"], settings["rsync"][rsync_task]
-                ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], exclude)
+        rsync_push(c, settings["REMOTE_USER"], settings["REMOTE_HOST"], settings["rsync"][rsync_task]
+                ["local_dir"], settings["rsync"][rsync_task]["remote_dir"], include, exclude)
     
     inv_logging.success(push.__name__)
 
