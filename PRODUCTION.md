@@ -13,6 +13,7 @@ python task.py local.node.build
 Several micro services are installed on the server. The communication with an nginx is done using docker Networks. How to create a Docker Network can be read [here](#Create-a-Docker-Network)).
 
 ```
+python task.py local.docker-compose.stop
 python task.py test.starttest
 python task.py test.stop
 ```
@@ -25,6 +26,8 @@ Rsync is used to exchange data between the local PC and the server. All settings
 ### Push local files onto the server
 
 ```
+python task.py local.node.build
+python task.py local.django.collectstatic
 python task.py production.rsync.push
 ```
 
@@ -51,6 +54,7 @@ id -g username
 python task.py production.docker-compose.rebuild
 python task.py production.django.migrate
 python task.py production.django.createsuperuser
+python task.py production.docker-compose.start
 ```
 
 

@@ -97,7 +97,7 @@ python task.py --list
 ### Compiling and minifying Vue files for production
 ```
 python task.py local.node.build
-
+python task.py local.django.collectionstatic
 ```
 
 ### Start and stop of all docker containers
