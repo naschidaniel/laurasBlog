@@ -46,7 +46,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, include=None, exc
     else:
         cp = [ssh_str, local_dir]
 
-    rsync_cmd = ["rsync", "-a", "--delete-before"] + include_args + exclude_args + cp
+    rsync_cmd = ["rsync", "-a", "--progress", "--delete-before"] + include_args + exclude_args + cp
     logging.info(f"The following rsync command is executed: {rsync_cmd}")
     subprocess.run(rsync_cmd, check=True)
 
