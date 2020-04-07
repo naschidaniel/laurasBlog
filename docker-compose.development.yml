@@ -31,7 +31,19 @@ volumes:
       type: none
       o: bind
       device: ${PWD}/log
-  
+  static:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/django/static
+  media:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/django/media
+
 services:
   vue:
     build: 
@@ -50,6 +62,8 @@ services:
     volumes:
       - nginx:/etc/nginx/conf.d
       - django:/www/site
+      - static:/www/static
+      - media:/www/media
       - log:/log
     ports:
       - "80:80"
