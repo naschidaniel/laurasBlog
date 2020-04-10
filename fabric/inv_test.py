@@ -30,6 +30,6 @@ def starttest(c):
     logging.info("The database migrations were carried out.")
     inv_django.collectstatic(c)
     logging.info("The static files were stored in the static folder.")
-    inv_base.docker_compose(c, f"up -d")
+    inv_base.docker_compose(c, f"up")
     inv_install.setenvironment(c, "development")
     inv_logging.success(starttest.__name__)

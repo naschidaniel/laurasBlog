@@ -43,3 +43,16 @@ volumes:
       type: none
       o: bind
       device: ${INSTALLFOLDER}/django/media
+
+services:
+  nginx:
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+  django:
+    environment:
+      VIRTUAL_PROTO: "uwsgi"
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default

@@ -14,7 +14,6 @@ services:
     volumes:
       - django:/www/site
       - frontend:/www/site/frontend
-
   postgres:
     build: ./postgres
     environment:
@@ -31,16 +30,14 @@ services:
     restart: unless-stopped
     build: 
       context: ./nginx
-    environment:
-      VIRTUAL_HOST: "local.localhost"
     volumes:
       - nginx:/etc/nginx/conf.d
       - django:/www/site
       - static:/www/static
       - media:/www/media
       - log:/log
-    expose:
-      - "80"
+    expose: 
+      - 80
     depends_on: 
       - django
       - postgres
