@@ -7,7 +7,8 @@ services:
     container_name: django
     user: "${USER}:${GROUP}"
     environment:
-      PYTHONUNBUFFERED: "TRUE"
+      - PYTHONUNBUFFERED=TRUE
+      - VIRTUAL_PROTO=uwsgi
     user: "${USERID}:${GROUPID}"
     depends_on: 
       - postgres
@@ -28,8 +29,11 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   nginx:
     restart: unless-stopped
+    container_name: nginx
     build: 
       context: ./nginx
+    environment:
+      - VIRTUAL_HOST=lolo.localhost
     volumes:
       - nginx:/etc/nginx/conf.d
       - django:/www/site
@@ -41,3 +45,8 @@ services:
     depends_on: 
       - django
       - postgres
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default

@@ -16,7 +16,7 @@ import environ
 
 env = environ.Env(
     # set casting, default value
-    ALLOWED_HOSTS=(list, ['127.0.0.1', 'localhost', 'local.localhost']),
+    ALLOWED_HOSTS=(list, ['127.0.0.1', 'localhost']),
     DEBUG=(bool, False),
     DB=(str, 'sqlite3'),
     SECRET_KEY=(str, 'v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw')
