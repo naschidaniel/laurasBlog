@@ -55,20 +55,3 @@ services:
     user: "${USERID}:${GROUPID}"
     ports:
       - "8080:8080"
-  nginx:
-    restart: unless-stopped
-    build: 
-      context: ./nginx
-    environment:
-      - VIRTUAL_HOST=local
-    volumes:
-      - nginx:/etc/nginx/conf.d
-      - django:/www/site
-      - static:/www/static
-      - media:/www/media
-      - log:/log
-    port:
-      - "80:80"
-    depends_on: 
-      - django
-      - postgres
