@@ -8,7 +8,6 @@ services:
     user: "${USER}:${GROUP}"
     environment:
       - PYTHONUNBUFFERED=TRUE
-      - VIRTUAL_PROTO=uwsgi
     user: "${USERID}:${GROUPID}"
     depends_on: 
       - postgres
@@ -27,24 +26,6 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  nginx:
-    restart: unless-stopped
-    container_name: nginx
-    build: 
-      context: ./nginx
-    environment:
-      - VIRTUAL_HOST=lolo.localhost
-    volumes:
-      - nginx:/etc/nginx/conf.d
-      - django:/www/site
-      - static:/www/static
-      - media:/www/media
-      - log:/log
-    expose: 
-      - 80
-    depends_on: 
-      - django
-      - postgres
 
 networks:
   default:
