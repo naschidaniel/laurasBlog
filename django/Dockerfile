@@ -8,6 +8,8 @@ COPY ./requirements.txt /www/site/requirements.txt
 
 RUN pip install --no-cache-dir -r /www/site/requirements.txt
 
+EXPOSE 8000
+
 ENV DJANGO_SETTINGS_MODULE "djangoVue.settings"
 
-CMD uvicorn --reload --host 0.0.0.0 --port 3000 djangoVue.asgi:application
+CMD uvicorn --reload --host 0.0.0.0 djangoVue.asgi:application

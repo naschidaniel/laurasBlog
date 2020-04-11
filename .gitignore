@@ -40,3 +40,4 @@ vue/frontend/package-lock.json
 settings.json
 rsync.sh
 .env.production
+all.sh

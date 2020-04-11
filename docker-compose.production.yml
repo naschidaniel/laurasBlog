@@ -1,7 +1,7 @@
 version: '3.7'
 
 volumes:
-  postgres_data:
+  postgresdata:
     driver: local
     driver_opts:
       type: none
@@ -19,33 +19,3 @@ volumes:
       type: none
       o: bind
       device: ${INSTALLFOLDER}/vue
-  postgres_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${INSTALLFOLDER}/data/postgresdata
-  django:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${INSTALLFOLDER}/django
-
-
-services: 
-  django:
-    networks:
-      nginx_proxy:
-        ipv4_address: ${DJANGO_HOST}
-  postgres:
-    networks:
-      nginx_proxy:
-        ipv4_address: ${POSTGRES_HOST}
-
-networks:
-  default:
-    external:
-      name: nginx_proxy
-  nginx_proxy:
-    external: true

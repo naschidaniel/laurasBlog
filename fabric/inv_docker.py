@@ -73,7 +73,7 @@ def serve(c):
 def start(c):
     """This function is used to build the project locally and start all containers."""
     inv_logging.task(start.__name__)
-    inv_django.migrate(c)
+    #inv_django.migrate(c)
     inv_base.docker_compose(c, "up -d")
     inv_logging.success(start.__name__)
 

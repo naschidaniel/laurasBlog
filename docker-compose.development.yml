@@ -1,7 +1,7 @@
 version: '3.7'
 
 volumes:
-  postgres_data:
+  postgresdata:
     driver: local
     driver_opts:
       type: none
@@ -31,7 +31,19 @@ volumes:
       type: none
       o: bind
       device: ${PWD}/log
-  
+  static:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/django/static
+  media:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/django/media
+
 services:
   vue:
     build: 
@@ -45,14 +57,19 @@ services:
       - "8080:8080"
   nginx:
     restart: unless-stopped
+    container_name: nginx
     build: 
       context: ./nginx
+    environment:
+      - VIRTUAL_HOST=lolo.milena-and-her-dog.com
     volumes:
       - nginx:/etc/nginx/conf.d
       - django:/www/site
+      - static:/www/static
+      - media:/www/media
       - log:/log
-    ports:
-      - "80:80"
+    expose: 
+      - 80
     depends_on: 
       - django
       - postgres

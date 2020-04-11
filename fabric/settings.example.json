@@ -34,14 +34,15 @@
       "DEBUG": "False",
       "ALLOWED_HOSTS": "127.0.0.1,localhost",
       "DB": "postgres",
-      "POSTGRES_HOST": "10.5.0.13",
+      "POSTGRES_HOST": "postgres",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres",
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "DJANGO_HOST": "10.5.0.12",
-      "POSTGRES_HOST": "10.5.0.13",
+      "VIRTUAL_HOST": "local",
+      "DJANGO_HOST": "postgres",
+      "POSTGRES_HOST": "postgres",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
@@ -64,7 +65,7 @@
     ],
     "django": {
       "DEBUG": "False",
-      "ALLOWED_HOSTS": "milena-and-her-dog.com,www.milena-and-her-dog.com",
+      "ALLOWED_HOSTS": "example.com,www.example.com",
       "DB": "postgres",
       "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",

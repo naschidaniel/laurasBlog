@@ -62,4 +62,4 @@ python task.py production.docker-compose.start
 
 ### Create a Docker Network
 ```
-docker network create --driver bridge --subnet 10.5.0.0/16 nginx_proxy || true
+docker network create --driver bridge nginx-proxy_default || true

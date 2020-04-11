@@ -7,16 +7,13 @@ services:
     container_name: django
     user: "${USER}:${GROUP}"
     environment:
-      PYTHONUNBUFFERED: "TRUE"
+      - PYTHONUNBUFFERED=TRUE
     user: "${USERID}:${GROUPID}"
-    ports:
-      - "3000:3000"
     depends_on: 
       - postgres
     volumes:
       - django:/www/site
       - frontend:/www/site/frontend
-
   postgres:
     build: ./postgres
     environment:
@@ -24,10 +21,13 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     restart: always
     container_name: postgres
-    ports:
-      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgresdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
