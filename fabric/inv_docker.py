@@ -11,7 +11,7 @@ import inv_node
 
 @task
 def docker(c, cmd):
-    """Restart all docker containers."""
+    """The Task can execute a Docker command including cmd: docker ps"""
     inv_logging.task(restart.__name__)
     inv_logging.cmd(cmd)
     inv_base.dockerdaemon(c, cmd)
@@ -20,7 +20,7 @@ def docker(c, cmd):
 
 @task
 def restart(c):
-    """Restart all docker containers."""
+    """Restart all docker containers"""
     inv_logging.task(restart.__name__)
     inv_base.docker_compose(c, "up -d --remove-orphans")
     inv_logging.success(restart.__name__)
@@ -28,7 +28,7 @@ def restart(c):
 
 @task
 def fullrestart(c):
-    """Restart all docker containers with force."""
+    """Restart all docker containers with force"""
     inv_logging.task(fullrestart.__name__)
     inv_base.docker_compose(c, "up -d --force-recreate")
     inv_logging.success(fullrestart.__name__)
@@ -36,7 +36,7 @@ def fullrestart(c):
 
 @task
 def run(c, cmd):
-    """The function is used to start a command inside a django container."""
+    """Start a service from the Docker Compose file, for example: docker django"""
     inv_logging.task(run.__name__)
     user, group = inv_base.uid_gid(c)
     inv_logging.cmd(cmd)
@@ -46,7 +46,7 @@ def run(c, cmd):
 
 @task
 def rebuild(c):
-    """This function is used to recreate the docker containers."""
+    """Rebuild all docker containers"""
     inv_logging.task(rebuild.__name__)
     inv_base.docker_compose(c, "build")
     inv_logging.success(rebuild.__name__)
@@ -54,7 +54,7 @@ def rebuild(c):
 
 @task
 def rebuildhard(c):
-    """Rebuild all containers with --no-cache."""
+    """Rebuild all containers with --no-cache"""
     inv_logging.task(rebuildhard.__name__)
     inv_base.docker_compose(c, "build --no-cache")
     fullrestart(c)
@@ -63,7 +63,7 @@ def rebuildhard(c):
 
 @task
 def serve(c):
-    """This function is used to start the development environment."""
+    """Serve the development environment"""
     inv_logging.task(serve.__name__)
     inv_base.docker_compose(c, "up")
     inv_logging.success(serve.__name__)
@@ -71,7 +71,7 @@ def serve(c):
 
 @task
 def start(c):
-    """This function is used to build the project locally and start all containers."""
+    """Start in detached Modus"""
     inv_logging.task(start.__name__)
     #inv_django.migrate(c)
     inv_base.docker_compose(c, "up -d")
@@ -80,7 +80,7 @@ def start(c):
 
 @task
 def stop(c):
-    """This function is used to stop all Docker Containers."""
+    """Stop all running Docker Containers"""
     inv_logging.task(stop.__name__)
     inv_base.docker_compose(c, "down --remove-orphans")
     inv_logging.success(stop.__name__)
@@ -88,7 +88,7 @@ def stop(c):
 
 @task
 def logs(c, cmd):
-    """This function is used to output Docker Container logs."""
+    """Show the log files from the Docker Services, for example: django"""
     inv_logging.task(logs.__name__)
     inv_base.docker_compose(c, 'logs {}'.format(cmd))
     inv_logging.cmd(cmd)

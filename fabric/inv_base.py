@@ -4,6 +4,13 @@ import os
 import logging
 import copy
 
+
+def manage_py(c, cmd, **kwargs):
+    """The function executes the django manage.py command."""
+    user, group = uid_gid(c)
+    docker_compose(c, f"run -u {user}:{group} django python3 /www/site/manage.py {cmd}", pty=True)
+
+
 def read_settings(what):
     """A function to read the settings file."""
     settings_file = os.path.join(os.path.join(
@@ -50,7 +57,7 @@ def docker_environment(c):
 
 
 def dockerdaemon(c, cmd, **kwargs):
-    """A function to start docker-compose."""
+    """A function to start the docker daemon."""
     command = ["docker"]
     command.append(cmd)
     return c.run(" ".join(command), env=docker_environment(c), **kwargs)

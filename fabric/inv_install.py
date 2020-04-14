@@ -16,7 +16,7 @@ import inv_rsync
 
 @task
 def quickinstallation(c):
-    """A function for quick installation of djangoVue and start of a development server."""
+    """A task for quick installation of djangoVue and start of a development server"""
     inv_logging.task(quickinstallation.__name__)
     folders(c)
     setenvironment(c, "development")
@@ -31,7 +31,7 @@ def quickinstallation(c):
 
 @task
 def folders(c):
-    """This function is used to create the folder structure."""
+    """This task is used to create the folder structure"""
     inv_logging.task(folders.__name__)
     for d in c.config["initFolders"]:
         d = os.path.join(os.getcwd(), d)
@@ -51,7 +51,7 @@ def folders(c):
 
 @task
 def setenvironment(c, cmd):
-    """The function writes the local environment variables for django and docker."""
+    """The task writes the local environment variables for django and docker, for example: development"""
     inv_logging.task(setenvironment.__name__)
     inv_logging.cmd(cmd)
     
@@ -86,7 +86,7 @@ def setenvironment(c, cmd):
 
 @task
 def setproductionenvironment(c):
-    """The function writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
+    """The task writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
     inv_logging.task(setproductionenvironment.__name__)
     settings = inv_base.read_settings("production")
 

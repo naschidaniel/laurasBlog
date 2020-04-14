@@ -13,21 +13,25 @@ import inv_logging
 
 
 def ssh(c, remote_user, remote_host, cmd):
+    """This function executes the ssh command on the server."""
     ssh_cmd = ["ssh", f"{remote_user}@{remote_host}", f"{cmd}"]
     logging.info(f"The following command was executed for with ssh: {ssh_cmd}")
     subprocess.run(ssh_cmd, check=True)
 
 def scp(c, remote_user, remote_host, source_file, destination_file):
+    """This function copies local files to the server."""
     scp_cmd = ["scp", f"{source_file}", f"{remote_user}@{remote_host}:{destination_file}"]
     logging.info(f"The following command was executed for with scp: {scp_cmd}")
     subprocess.run(scp_cmd, check=True)
 
 
 def rsync_push(c, remote_user, remote_host, local_dir, remote_dir, include=None, exclude=None):
+    """The function synchronizes local files with the server."""
     return _rsync(c, remote_user, remote_host, local_dir, remote_dir, include, exclude, push=True)
 
 
 def rsync_get(c, remote_user, remote_host, local_dir, remote_dir, include=None, exclude=None):
+    """The function synchronizes remote files with the local machine."""
     return _rsync(c, remote_user, remote_host, local_dir, remote_dir, include, exclude, push=False)
 
 
@@ -53,7 +57,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, include=None, exc
 
 @task
 def push(c):
-    """This function synchronizes the local and remote folders."""
+    """This task synchronizes the local folders to the server"""
     inv_logging.task(push.__name__)
     settings = inv_base.read_settings("production")
 

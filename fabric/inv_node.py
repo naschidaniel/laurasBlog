@@ -12,8 +12,8 @@ import inv_django
 
 
 @task
-def build(c, **kwargs):
-    """This function is used to build the Javascript components. The data is then integrated into django."""
+def build(c):
+    """This task is used to build the Javascript components"""
     inv_logging.task(build.__name__)
     user, group = inv_base.uid_gid(c)
     inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run build", pty=True)
@@ -22,8 +22,8 @@ def build(c, **kwargs):
 
 
 @task
-def lint(c, **kwargs):
-    """This command is used to embellish the code."""
+def lint(c):
+    """This task is used to embellish the code"""
     inv_logging.task(lint.__name__)
     user, group = inv_base.uid_gid(c)
     inv_base.docker_compose(c, f"run -u {user}:{group} vue npm run lint", pty=True)
@@ -31,8 +31,8 @@ def lint(c, **kwargs):
 
 
 @task
-def npm(c, cmd, **kwargs):
-    """This function is used to respond to the packet manager npm."""
+def npm(c, cmd):
+    """This task is used to respond to the packet manager npm, for example: npm install vue"""
     inv_logging.task(npm.__name__)
     user, group = inv_base.uid_gid(c)
     inv_logging.cmd(cmd)
