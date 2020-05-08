@@ -19,12 +19,6 @@ volumes:
       type: none
       o: bind
       device: ${PWD}/vue
-  nginx:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/nginx
   log:
     driver: local
     driver_opts:
@@ -36,40 +30,44 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/django/static
+      device: ${PWD}/data/static
   media:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/django/media
+      device: ${PWD}/data/media
 
 services:
-  vue:
+  postgres:
+    ports: 
+      - "5432:5432"
+  node:
     build: 
       context: ./vue
-    container_name: vue
+    container_name: node
     command: "npm run serve"
     volumes:
       - frontend:/usr/src/app
     user: "${USERID}:${GROUPID}"
     ports:
       - "8080:8080"
+  
   nginx:
     restart: unless-stopped
     container_name: nginx
-    build: 
-      context: ./nginx
-    environment:
-      - VIRTUAL_HOST=lolo.milena-and-her-dog.com
+    build:
+      context: "./nginx"
+      args: 
+        NGINX_CONF: ${NGINX_CONF}
     volumes:
-      - nginx:/etc/nginx/conf.d
       - django:/www/site
       - static:/www/static
       - media:/www/media
       - log:/log
-    expose: 
-      - 80
+    ports: 
+      - "80:80"
     depends_on: 
       - django
       - postgres
+      - node

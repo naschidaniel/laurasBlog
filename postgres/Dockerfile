@@ -1,4 +1,5 @@
-FROM postgres:11
+FROM postgres:12
 
 EXPOSE 5432
+
 ENV TZ="Europe/Berlin"

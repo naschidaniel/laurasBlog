@@ -16,6 +16,7 @@ from fabric import inv_node
 from fabric import inv_install
 from fabric import inv_test
 from fabric import inv_rsync
+from fabric import inv_postgres
 
 # Logging
 inv_logging.start_logging()
@@ -29,17 +30,10 @@ local_ns = Collection("local")
 local_ns.configure(inv_base.read_settings("development"))
 local_ns.add_task(inv_docker.docker)
 local_ns.add_collection(inv_install.install_ns)
-local_ns.add_collection(inv_django.django_ns)
-local_ns.add_collection(inv_docker.docker_compose_ns)
+local_ns.add_collection(inv_django.django_development_ns)
+local_ns.add_collection(inv_docker.docker_compose_development_ns)
+local_ns.add_collection(inv_postgres.postgresql_development_ns)
 local_ns.add_collection(inv_node.node_ns)
-
-# Testing Collection
-test_ns = Collection("test")
-test_ns.configure(inv_base.read_settings("test"))
-test_ns.add_task(inv_test.starttest)
-test_ns.add_task(inv_docker.stop)
-MAIN_NS.add_collection(test_ns)
-
 MAIN_NS.add_collection(local_ns)
 
 # Production Collection
@@ -47,9 +41,10 @@ production_ns = Collection("production")
 production_ns.configure(inv_base.read_settings("production"))
 production_ns.add_collection(inv_rsync.rsync_ns)
 production_ns.add_task(inv_install.setproductionenvironment)
-production_ns.add_collection(inv_docker.docker_compose_ns)
-production_ns.add_collection(inv_django.django_ns)
+production_ns.add_collection(inv_docker.docker_compose_production_ns)
+production_ns.add_collection(inv_django.django_production_ns)
 production_ns.add_task(inv_docker.docker)
+production_ns.add_collection(inv_postgres.postgresql_production_ns)
 MAIN_NS.add_collection(production_ns)
 
 

@@ -49,6 +49,7 @@ def rebuild(c):
     """Rebuild all docker containers"""
     inv_logging.task(rebuild.__name__)
     inv_base.docker_compose(c, "build")
+    restart(c)
     inv_logging.success(rebuild.__name__)
 
 
@@ -90,17 +91,29 @@ def stop(c):
 def logs(c, cmd):
     """Show the log files from the Docker Services, for example: django"""
     inv_logging.task(logs.__name__)
-    inv_base.docker_compose(c, 'logs {}'.format(cmd))
+    inv_base.docker_compose(c, 'logs -f {}'.format(cmd))
     inv_logging.cmd(cmd)
     inv_logging.success(logs.__name__)
 
-docker_compose_ns = Collection("docker-compose")
-docker_compose_ns.add_task(restart)
-docker_compose_ns.add_task(fullrestart)
-docker_compose_ns.add_task(rebuildhard)
-docker_compose_ns.add_task(rebuild)
-docker_compose_ns.add_task(start)
-docker_compose_ns.add_task(stop)
-docker_compose_ns.add_task(serve)
-docker_compose_ns.add_task(run)
-docker_compose_ns.add_task(logs)
+
+docker_compose_development_ns = Collection("docker-compose")
+docker_compose_development_ns.add_task(restart)
+docker_compose_development_ns.add_task(fullrestart)
+docker_compose_development_ns.add_task(rebuildhard)
+docker_compose_development_ns.add_task(rebuild)
+docker_compose_development_ns.add_task(start)
+docker_compose_development_ns.add_task(stop)
+docker_compose_development_ns.add_task(run)
+docker_compose_development_ns.add_task(logs)
+
+
+docker_compose_production_ns = Collection("docker-compose")
+docker_compose_production_ns.add_task(restart)
+docker_compose_production_ns.add_task(fullrestart)
+docker_compose_production_ns.add_task(rebuildhard)
+docker_compose_production_ns.add_task(rebuild)
+docker_compose_production_ns.add_task(start)
+docker_compose_development_ns.add_task(serve)
+docker_compose_production_ns.add_task(stop)
+docker_compose_production_ns.add_task(run)
+docker_compose_production_ns.add_task(logs)

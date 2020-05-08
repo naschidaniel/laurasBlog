@@ -1,10 +1,11 @@
 #! /usr/bin/env python3
 #  -*- coding: utf-8 -*-
-"""This collection is used to install DjangoVue."""
+"""This collection is used to install cigsanalysistool."""
 
 import os
 import sys
 import logging
+import shutil
 from invoke import task, Collection
 import inv_base
 import inv_logging
@@ -16,7 +17,7 @@ import inv_rsync
 
 @task
 def quickinstallation(c):
-    """A task for quick installation of djangoVue and start of a development server"""
+    """A task for quick installation of cigsanalysistool and start of a development server"""
     inv_logging.task(quickinstallation.__name__)
     folders(c)
     setenvironment(c, "development")
@@ -27,6 +28,25 @@ def quickinstallation(c):
     inv_django.loadexampledata(c)
     inv_docker.serve(c)
     inv_logging.success(quickinstallation.__name__)
+
+
+@task
+def getdockercert(c):
+    """A task to store the batch of docker certificates under ./fabric/cert"""
+    inv_logging.task(getdockercert.__name__)
+    settings = inv_base.read_settings("production")
+    cert_path = settings["docker"]["DOCKER_CERT_PATH"]
+    logging.info(f"The following path is used to store the certificates: {cert_path}")
+    if os.path.exists(cert_path):
+        shutil.rmtree(cert_path)
+        logging.info("The old certificates were deleted.")
+    
+    if not os.path.exists(cert_path):
+        os.mkdir(cert_path)
+        logging.info(f"The {cert_path} folder was created.")
+
+    inv_rsync.scp_get(c, "", settings["REMOTE_HOST"], "~/.docker/*", cert_path)
+    inv_logging.success(getdockercert.__name__)
 
 
 @task
@@ -86,7 +106,7 @@ def setenvironment(c, cmd):
 
 @task
 def setproductionenvironment(c):
-    """The task writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for djangoVue are created."""
+    """The task writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for cigsanalysistool are created."""
     inv_logging.task(setproductionenvironment.__name__)
     settings = inv_base.read_settings("production")
 
@@ -96,9 +116,9 @@ def setproductionenvironment(c):
         "docker": os.path.join(settings["docker"]["INSTALLFOLDER"], ".env")
     }
 
-    inv_rsync.scp(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
+    inv_rsync.scp_push(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
         dict_env["docker"], remote_env["docker"])
-    inv_rsync.scp(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
+    inv_rsync.scp_push(c, settings["REMOTE_USER"], settings["REMOTE_HOST"],
         dict_env["django"], remote_env["django"])
 
     os.system(f"rm {dict_env['docker']}")
@@ -118,5 +138,6 @@ def setproductionenvironment(c):
 
 install_ns = Collection("install")
 install_ns.add_task(folders)
+install_ns.add_task(getdockercert)
 install_ns.add_task(setenvironment)
 install_ns.add_task(quickinstallation)

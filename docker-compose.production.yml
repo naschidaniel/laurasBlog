@@ -19,3 +19,8 @@ volumes:
       type: none
       o: bind
       device: ${INSTALLFOLDER}/vue
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
