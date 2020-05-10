@@ -7,6 +7,12 @@ volumes:
       type: none
       o: bind
       device: ${INSTALLFOLDER}/data/postgresdata
+  postgres_backup:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/postgresdata_backup_server
   django:
     driver: local
     driver_opts:
@@ -19,6 +25,25 @@ volumes:
       type: none
       o: bind
       device: ${INSTALLFOLDER}/vue
+  log:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/log
+  static:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/static
+  media:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${INSTALLFOLDER}/media
+
 
 networks:
   default:

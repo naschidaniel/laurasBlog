@@ -5,9 +5,6 @@ services:
     restart: always
     build: ./django
     container_name: django
-    user: "${USER}:${GROUP}"
-    environment:
-      - PYTHONUNBUFFERED=TRUE
     user: "${USERID}:${GROUPID}"
     depends_on: 
       - postgres
@@ -26,6 +23,4 @@ services:
     container_name: postgres
     volumes:
       - postgresdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      - postgres_backup:/var/backup

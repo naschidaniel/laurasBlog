@@ -7,6 +7,18 @@ volumes:
       type: none
       o: bind
       device: ${PWD}/data/postgresdata
+  postgres_backup:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/postgresdata_backup
+  postgres_backup_server:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/postgresdata_backup_server
   django:
     driver: local
     driver_opts:
@@ -40,8 +52,11 @@ volumes:
 
 services:
   postgres:
-    ports: 
-      - "5432:5432"
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_backup_server:/var/backup_server
+  
   node:
     build: 
       context: ./vue
