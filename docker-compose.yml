@@ -14,6 +14,9 @@ services:
     volumes:
       - django:/www/site
       - frontend:/www/site/frontend
+      - media:/www/media
+      - static:/www/static
+
   postgres:
     build: ./postgres
     environment:
