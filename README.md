@@ -9,11 +9,10 @@ The development and production mode are provided by docker. To communicate pleas
 
 The following dependencies must be installed to access the docker container using invoke.
 
-```
-python 3.7+
-pip install invoke
-```
-
+* python 3.8+
+* pip install invoke
+* docker
+* docker-compose
 
 ## Settings
 
@@ -25,7 +24,7 @@ Under `django` all settings for django must be made.
 Specify the `ALLOWED_HOSTS` of the application.
 You can choose between sqlite3 and postgres for `DB`.
 If necessary, specify `POSTGRES_HOST`, `POSTGRES_USER` and `POSTGRES_PASSWORD`.
-Set a `SECRET_KEY` for the application or generate a new secret key (see [Create a new Secret Key](#Create-a-new-Secret-Key)).
+Set a `SECRET_KEY` for the application or generate a new secret key (see [Useful invoke commands](#Useful-invoke-commands)).
 
 
 ## Installation
@@ -35,38 +34,38 @@ You can use these commands to install DjangoVue locally on your computer. In ord
 ### Create file structure and set environment variables for django and postgres
 
 ```
-python task.py local.install.folders
-python task.py local.install.setenvironment development
+./task.py local.install.folders
+./task.py local.install.setenvironment development
 ```
 
 
 ### Create docker container
 
 ```
-python task.py local.docker-compose.rebuild
+./task.py local.docker-compose.rebuild
 ```
 
 
 ### Install Javascript Ecosystem with NPM
 
 ```
-python task.py local.node.npm install
+./task.py local.node.npm install
 ```
 
 
 ### Install Django
 
 ```
-python task.py local.django.migrate
-python task.py local.django.createsuperuser
-python task.py local.django.loadexampledata
+./task.py local.django.migrate
+./task.py local.django.createsuperuser
+./task.py local.django.loadexampledata
 ```
 
 
 ### Compiles and hot-reloads for development
 
 ```
-python task.py local.docker-compose.serve
+./task.py local.docker-compose.serve
 ```
 
 ### Quick installation for development
@@ -74,7 +73,7 @@ python task.py local.docker-compose.serve
 This command can be used to skip all previously specified installation commands. djangoVue is installed in development mode and started after successful installation.
 
 ```
-python task.py local.install.quickinstallation
+./task.py local.install.quickinstallation
 ```
 
 ## Development links
@@ -91,29 +90,5 @@ http://localhost/admin/
 A list of all implemented invoke commands.
 
 ```
-python task.py --list
-```
-
-### Compiling and minifying Vue files for production
-```
-python task.py local.node.build
-python task.py local.django.collectstatic
-```
-
-### Start and stop of all docker containers
-
-Start and stop the docker compose components and check the website.
-```
-python task.py local.docker-compose.start
-python task.py local.docker-compose.stop
-```
-
-
-
-### Create a new Secret Key
-
-With this command you can create a new `SECRET_KEY` for the `fabric/settings.json` file. Do not forget to update the environment variables after entering the setting.
-
-```
-python task.py local.django.generateSecretKey
+./task.py 
 ```
