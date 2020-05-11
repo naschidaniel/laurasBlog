@@ -1,7 +1,7 @@
 export default {
   state: {
     NetworkError: false,
-    NetworkErrorWindow: false
+    NetworkErrorWindow: false,
   },
   mutations: {
     SET_NETWORK_ERROR(state, NetworkError) {
@@ -9,7 +9,7 @@ export default {
     },
     SET_NETWORK_ERROR_WINDOW(state, NetworkErrorWindow) {
       state.NetworkErrorWindow = NetworkErrorWindow;
-    }
+    },
   },
   actions: {
     setAlertError({ commit }, what, error) {
@@ -28,14 +28,14 @@ export default {
     },
     setAlertErrorWindow({ commit }, value) {
       commit("SET_NETWORK_ERROR_WINDOW", value);
-    }
+    },
   },
   getters: {
-    getNetworkError: state => {
+    getNetworkError: (state) => {
       return state.NetworkError;
     },
-    getNetworkErrorWindow: state => {
+    getNetworkErrorWindow: (state) => {
       return state.NetworkErrorWindow;
-    }
-  }
+    },
+  },
 };

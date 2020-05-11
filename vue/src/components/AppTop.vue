@@ -17,6 +17,6 @@
 
 <script>
 export default {
-  name: "appTop"
+  name: "appTop",
 };
 </script>

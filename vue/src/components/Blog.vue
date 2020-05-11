@@ -60,7 +60,7 @@
       <div
         v-if="
           [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29].includes(index + 1) &&
-            getBlogQuotesLen > index
+          getBlogQuotesLen > index
         "
       >
         <blog-quote :blogQuoteID="index + 1"></blog-quote>
@@ -76,20 +76,20 @@ import BlogQuote from "./BlogQuote.vue";
 export default {
   name: "blogPosts",
   props: {
-    blogCategoryID: String
+    blogCategoryID: String,
   },
   components: {
-    BlogQuote
+    BlogQuote,
   },
   computed: mapGetters([
     "getBlogCategoriesById",
     "getBlogCategory",
     "filterBlogPostsByCategory",
-    "getBlogQuotesLen"
+    "getBlogQuotesLen",
   ]),
   created() {
     this.$store.dispatch("fetchBlogPosts");
     this.$store.dispatch("fetchBlogQuotes");
-  }
+  },
 };
 </script>

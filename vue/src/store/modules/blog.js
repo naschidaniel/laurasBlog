@@ -8,7 +8,7 @@ export default {
     loadingStatusBlogPosts: false,
     blogPosts: "",
     loadingStatusBlogQuotes: false,
-    blogQuotes: ""
+    blogQuotes: "",
   },
   mutations: {
     SET_BLOG_CATEGORIES(state, blogCategories) {
@@ -31,60 +31,60 @@ export default {
     },
     SET_LOADING_STATUS_BLOG_QUOTES(state, status) {
       state.loadingStatusBlogQuotes = status;
-    }
+    },
   },
   actions,
   getters: {
-    allBlogCateogries: state => {
+    allBlogCateogries: (state) => {
       return state.blogCategories;
     },
-    getLoadingStatusBlogPosts: state => {
+    getLoadingStatusBlogPosts: (state) => {
       return state.loadingStatusBlogPosts;
     },
-    getLoadingStatusBlogQuotes: state => {
+    getLoadingStatusBlogQuotes: (state) => {
       return state.loadingStatusBlogQuotes;
     },
-    getBlogById: state => id => {
+    getBlogById: (state) => (id) => {
       if (state.blogPosts === "") {
         return "";
       } else {
-        return state.blogPosts.find(blogPosts => blogPosts.id === Number(id));
+        return state.blogPosts.find((blogPosts) => blogPosts.id === Number(id));
       }
     },
-    getBlogCategoriesById: state => id => {
+    getBlogCategoriesById: (state) => (id) => {
       if (state.blogCategories === "") {
         return "";
       } else {
         return state.blogCategories.find(
-          blogCategories => blogCategories.id === id
+          (blogCategories) => blogCategories.id === id
         );
       }
     },
-    getBlogCategory: state => {
+    getBlogCategory: (state) => {
       return state.blogCategory;
     },
-    getBlogQuoteById: state => id => {
+    getBlogQuoteById: (state) => (id) => {
       if (state.blogQuotes === "") {
         return "";
       } else {
-        return state.blogQuotes.find(blogQuotes => blogQuotes.id === id);
+        return state.blogQuotes.find((blogQuotes) => blogQuotes.id === id);
       }
     },
-    getBlogQuotesLen: state => {
+    getBlogQuotesLen: (state) => {
       return state.blogQuotes.length;
     },
-    filterBlogPostsByCategory: state => category => {
+    filterBlogPostsByCategory: (state) => (category) => {
       if (state.blogPosts === "") {
         return "";
       } else {
         if (category !== "") {
           return state.blogPosts.filter(
-            blogPosts => blogPosts.category === category
+            (blogPosts) => blogPosts.category === category
           );
         } else {
           return state.blogPosts;
         }
       }
-    }
-  }
+    },
+  },
 };

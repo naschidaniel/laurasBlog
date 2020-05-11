@@ -11,9 +11,9 @@ module.exports = {
           "./src/**/*.css",
           "./public/index.html",
           "./@(public|src)/**/*.@(${extensionsUsingCSS.join('|')})",
-          "./node_modules/vue-spinner/src/**/*.vue"
+          "./node_modules/vue-spinner/src/**/*.vue",
         ],
-        defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
-      })
-  ]
+        defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+      }),
+  ],
 };

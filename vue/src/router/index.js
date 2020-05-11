@@ -10,20 +10,20 @@ const routes = [
   {
     path: "/",
     name: "blog",
-    component: Blog
+    component: Blog,
   },
   {
     path: "/blog/:blogID",
     name: "blogpost",
     props: true,
-    component: BlogPost
+    component: BlogPost,
   },
   {
     path: "/pages/:link",
     name: "page",
     props: true,
-    component: Pages
-  }
+    component: Pages,
+  },
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {
@@ -38,7 +38,7 @@ const router = new VueRouter({
   mode: "history",
   base: "/",
   routes,
-  scrollBehavior
+  scrollBehavior,
 });
 
 export default router;

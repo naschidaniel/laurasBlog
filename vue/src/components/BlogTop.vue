@@ -39,7 +39,7 @@ export default {
   computed: mapGetters([
     "allBlogCateogries",
     "getBlogCategory",
-    "filterBlogPostsByCategory"
+    "filterBlogPostsByCategory",
   ]),
   created() {
     this.$store.dispatch("fetchBlogCategories");
@@ -49,9 +49,9 @@ export default {
       return {
         "bg-gray-400": category === this.getBlogCategory,
         "bg-gray-100": category !== this.getBlogCategory,
-        "hover:bg-gray-400": category !== this.getBlogCategory
+        "hover:bg-gray-400": category !== this.getBlogCategory,
       };
-    }
-  }
+    },
+  },
 };
 </script>

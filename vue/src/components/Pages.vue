@@ -15,17 +15,17 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    link: String
+    link: String,
   },
   watch: {
-    link: function() {
+    link: function () {
       this.$store.dispatch("fetchPages", this.link);
-    }
+    },
   },
   computed: mapGetters(["getPage"]),
   created() {
     this.$store.dispatch("fetchPages", this.link);
-  }
+  },
 };
 </script>
 
