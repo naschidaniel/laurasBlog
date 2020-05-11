@@ -16,7 +16,7 @@ The following dependencies must be installed to access the docker container usin
 
 ## Settings
 
-Copy the `fabric/settings.example.json` to `fabric/settings.json` and adapt the file to your individual needs.
+Copy the `fabric/settings.example.json` to `./settings.json` and adapt the file to your individual needs.
 
 Settings for ***development*** and ***production*** can be set:
 Under `django` all settings for django must be made. 

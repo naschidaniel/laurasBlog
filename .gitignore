@@ -1,7 +1,6 @@
 # Envirion
 .env
-.env.local
-.env.*.local
+.env.production
 
 # Folders
 data/
@@ -39,5 +38,4 @@ vue/frontend/package-lock.json
 # Production
 settings.json
 rsync.sh
-.env.production
 all.sh
