@@ -6,10 +6,16 @@
       "./docker-compose.development.yml"
     ],
     "initFolders": [
-      "data/postgresdata",
-      "log/nginx",
-      "django/media"
+      "./data/postgresdata",
+      "./data/postgresdata_backup",
+      "./data/postgresdata_backup_server",
+      "./data/media",
+      "./data/static",
+      "./log/fabric",
+      "./log/nginx"
     ],
+    "postgres_backup_folder": "./data/postgresdata_backup",
+    "postgres_backup_server_folder": "./data/postgresdata_backup_server",
     "django": {
       "DEBUG": "True",
       "ALLOWED_HOSTS": "127.0.0.1,localhost",
@@ -21,16 +27,19 @@
     },
     "docker": {
       "POSTGRES_USER": "postgres",
-      "POSTGRES_PASSWORD": "postgres"
+      "POSTGRES_PASSWORD": "postgres",
+      "NGINX_CONF": "development.conf"
     }
   },
   "test": {
     "collection": "test",
     "docker_compose_files": [
       "./docker-compose.yml",
-      "./docker-compose.production.yml"
+      "./docker-compose.test.yml"
     ],
+    "postgres_backup_server_folder": "./data/postgresdata_backup_server",
     "django": {
+      "INSTALLFOLDER": "./",
       "DEBUG": "False",
       "ALLOWED_HOSTS": "127.0.0.1,localhost",
       "DB": "postgres",
@@ -40,25 +49,19 @@
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
     },
     "docker": {
-      "VIRTUAL_HOST": "local",
-      "DJANGO_HOST": "postgres",
-      "POSTGRES_HOST": "postgres",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres"
     }
   },
   "production": {
     "collection": "production",
-    "certificates": {
-      "tlscacert": "~/.docker/djangoVue/ca.pem",
-      "tlscert": "~/.docker/djangoVue/cert.pem",
-      "tlskey": "~/.docker/djangoVue/key.pem"
-    },
     "initFolders": [
-      "data/postgresdata",
-      "log/nginx",
-      "django/media"
+      "./postgresdata",
+      "./postgresdata_backup_server",
+      "./log/nginx",
+      "./media"
     ],
+    "postgres_backup_server_folder": "./postgresdata_backup_server",
     "docker_compose_files": [
       "./docker-compose.yml",
       "./docker-compose.production.yml"
@@ -67,7 +70,6 @@
       "DEBUG": "False",
       "ALLOWED_HOSTS": "example.com,www.example.com",
       "DB": "postgres",
-      "POSTGRES_HOST": "10.5.0.13",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres",
       "SECRET_KEY": "v06sb^%zx_th^qp$zd#tef329fml638iz@8_so0yed6xk7!#iw"
@@ -76,8 +78,8 @@
       "USERID": "1001",
       "GROUPID": "1001",
       "INSTALLFOLDER": "/www/djangoVue",
-      "DJANGO_HOST": "10.5.0.12",
-      "POSTGRES_HOST": "10.5.0.13",
+      "DJANGO_HOST": "django",
+      "POSTGRES_HOST": "postgres",
       "POSTGRES_USER": "postgres",
       "POSTGRES_PASSWORD": "postgres",
       "DOCKER_TLS_VERIFY": "1",
@@ -91,30 +93,30 @@
         "local_dir": "./django",
         "remote_dir": "/www/djangoVue",
         "exclude": [
+          "__pycache__",
           "static",
           "media",
           "db.sqlite3",
           ".env"
         ]
       },
-      "static": {
-        "local_dir": "./django/static",
-        "remote_dir": "/www/djangoVue/django/"
-      },
       "postgres": {
         "local_dir": "./postgres",
         "remote_dir": "/www/djangoVue/"
       },
-      "vue": {
-        "local_dir": "./vue",
-        "remote_dir": "/www/djangoVue/",
-        "include": [
-          "webpack-stats.json"
-        ],
-        "exclude": [
-          ".dockerignore",
-          "*/*"
-        ]
+      "static": {
+        "local_dir": "./data/static",
+        "remote_dir": "/www/djangoVue/"
+      }
+    },
+    "rsync_get": {
+      "postgresdata_backup_server": {
+        "local_dir": "./data/",
+        "remote_dir": "/www/djangoVue/postgresdata_backup_server"
+      },
+      "media": {
+        "local_dir": "./data/",
+        "remote_dir": "/www/djangoVue/media"
       }
     }
   }
