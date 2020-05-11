@@ -4,8 +4,7 @@ module.exports = {
       fontFamily: {
         title: ["Fredericka+the+Great"],
         blogCard: ["Vidaloka"],
-        content: ["Open+Sans"],
-        cite: ["Open+Sans+Condensed:300"]
+        content: ["Open+Sans"]
       },
       height: {
         "128": "32rem"
