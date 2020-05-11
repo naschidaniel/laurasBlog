@@ -25,8 +25,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "blogCategory",
   props: {
-    blogQuoteID: Number
+    blogQuoteID: Number,
   },
-  computed: mapGetters(["getBlogQuoteById"])
+  computed: mapGetters(["getBlogQuoteById"]),
 };
 </script>

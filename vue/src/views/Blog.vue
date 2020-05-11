@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Blog-top class=" mt-2"></Blog-top>
-    <Blog class=" mt-5"></Blog>
+    <Blog-top class="mt-2"></Blog-top>
+    <Blog class="mt-5"></Blog>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   name: "blog",
   components: {
     Blog,
-    BlogTop
-  }
+    BlogTop,
+  },
 };
 </script>

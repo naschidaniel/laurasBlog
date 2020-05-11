@@ -109,15 +109,15 @@ export default {
     },
     selectBlogNavigation(name) {
       return {
-        "bg-gray-400": name.includes(this.$route.name)
+        "bg-gray-400": name.includes(this.$route.name),
       };
     },
     selectPageNavigation(link) {
       return {
-        "bg-gray-400": link === this.$route.params.link
+        "bg-gray-400": link === this.$route.params.link,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

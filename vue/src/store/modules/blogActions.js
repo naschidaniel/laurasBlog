@@ -1,7 +1,7 @@
 import {
   delay as _delay,
   forEach as _forEach,
-  orderBy as _orderBy
+  orderBy as _orderBy,
 } from "lodash";
 
 import marked from "marked";
@@ -23,7 +23,7 @@ export const actions = {
             breadcrumpsID.push(k.id);
           } else {
             const parent = res[index].parent;
-            let DataParent = res.filter(res => res.id === parent);
+            let DataParent = res.filter((res) => res.id === parent);
             breadcrumps.push(DataParent[0].category);
             breadcrumpsID.push(DataParent[0].id);
           }
@@ -33,7 +33,7 @@ export const actions = {
         res[index]["breadcrumpsID"] = breadcrumpsID.reverse();
       }
 
-      let orderData = _orderBy(res, function(o) {
+      let orderData = _orderBy(res, function (o) {
         return o.breadcrumps.join(" ");
       });
       commit("SET_BLOG_CATEGORIES", orderData);
@@ -48,7 +48,7 @@ export const actions = {
     async function setBlogPosts() {
       commit("SET_LOADING_STATUS_BLOG_POSTS", true);
       let res = await api("/api/blogposts/?format=json");
-      _forEach(res, function(post) {
+      _forEach(res, function (post) {
         if (post.content.length >= 200) {
           post["truncate"] = true;
         }
@@ -62,7 +62,7 @@ export const actions = {
       setBlogPosts();
     }
 
-    _delay(function() {
+    _delay(function () {
       if (
         state.loadingStatusBlogCategories === false &&
         state.blogCategories.length === 0
@@ -83,7 +83,7 @@ export const actions = {
       setBlogQuotes();
     }
 
-    _delay(function() {
+    _delay(function () {
       if (
         state.loadingStatusBlogCategories === false &&
         state.blogCategories.length === 0
@@ -91,5 +91,5 @@ export const actions = {
         dispatch("fetchBlogCategories");
       }
     }, 20);
-  }
+  },
 };

@@ -4,7 +4,7 @@ import { api } from "@/api/api";
 export default {
   state: {
     loadingStatusPage: false,
-    page: ""
+    page: "",
   },
   mutations: {
     SET_LOADING_STATUS_PAGE(state, loadingStatusPage) {
@@ -12,7 +12,7 @@ export default {
     },
     SET_PAGE(state, page) {
       state.page = page;
-    }
+    },
   },
   actions: {
     fetchPages({ commit }, link) {
@@ -25,14 +25,14 @@ export default {
       }
       setPages();
       commit("SET_LOADING_STATUS_PAGE", false);
-    }
+    },
   },
   getters: {
-    getPage: state => {
+    getPage: (state) => {
       return state.page;
     },
-    getLoadingStatusPage: state => {
+    getLoadingStatusPage: (state) => {
       return state.loadingStatusPage;
-    }
-  }
+    },
+  },
 };

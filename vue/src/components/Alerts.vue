@@ -33,7 +33,7 @@ export default {
     clickHandler(value) {
       console.log(value);
       this.$store.dispatch("setAlertErrorWindow", value);
-    }
-  }
+    },
+  },
 };
 </script>

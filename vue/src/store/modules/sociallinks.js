@@ -3,7 +3,7 @@ import { api } from "@/api/api";
 export default {
   state: {
     loadingStatusSocialLinks: false,
-    socialLinks: ""
+    socialLinks: "",
   },
   mutations: {
     SET_LOADING_STATUS_SOCIAL_LINKS(state, loadingStatusSocialLinks) {
@@ -11,7 +11,7 @@ export default {
     },
     SET_SOCIAL_LINKS(state, socialLinks) {
       state.socialLinks = socialLinks;
-    }
+    },
   },
   actions: {
     fetchSocialLinks({ commit }) {
@@ -23,20 +23,20 @@ export default {
       }
       setSocialLinks();
       commit("SET_LOADING_STATUS_SOCIAL_LINKS", false);
-    }
+    },
   },
   getters: {
-    getSocialLinkByPlatform: state => Platform => {
+    getSocialLinkByPlatform: (state) => (Platform) => {
       if (state.socialLinks == "") {
         return "";
       } else {
         return state.socialLinks.find(
-          socialLinks => socialLinks.socialMediaPlatform === String(Platform)
+          (socialLinks) => socialLinks.socialMediaPlatform === String(Platform)
         );
       }
     },
-    getLoadingStatusSocialLinks: state => {
+    getLoadingStatusSocialLinks: (state) => {
       return state.loadingStatusSocialLinks;
-    }
-  }
+    },
+  },
 };

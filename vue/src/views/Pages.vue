@@ -12,7 +12,7 @@ export default {
   name: "pages",
   props: ["link"],
   components: {
-    Pages
-  }
+    Pages,
+  },
 };
 </script>

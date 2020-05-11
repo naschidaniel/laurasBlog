@@ -10,7 +10,7 @@ export default {
   name: "blogpost",
   props: ["blogID"],
   components: {
-    BlogPost
-  }
+    BlogPost,
+  },
 };
 </script>

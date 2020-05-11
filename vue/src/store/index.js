@@ -15,7 +15,7 @@ const store = new Vuex.Store({
     blog,
     navbar,
     pages,
-    sociallinks
-  }
+    sociallinks,
+  },
 });
 export default store;

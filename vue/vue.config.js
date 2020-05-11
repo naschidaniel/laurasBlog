@@ -7,10 +7,12 @@ module.exports = {
       : "http://localhost:8080/",
   outputDir: "./dist/",
 
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.optimization.splitChunks(false);
 
-    config.optimization.minimize(process.env.NODE_ENV === "production" ? true : false);
+    config.optimization.minimize(
+      process.env.NODE_ENV === "production" ? true : false
+    );
 
     config
       .plugin("BundleTracker")
@@ -25,5 +27,5 @@ module.exports = {
       .hot(true)
       .https(false)
       .headers({ "Access-Control-Allow-Origin": ["*"] });
-  }
+  },
 };

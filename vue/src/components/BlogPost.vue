@@ -1,6 +1,6 @@
 <template>
   <div class="mt-6 mb-8 flex flex-wrap">
-    <h1 class=" text-3xl md:text-5xl text-red-600 font-blogCard">
+    <h1 class="text-3xl md:text-5xl text-red-600 font-blogCard">
       {{ getBlogById(blogID).title }}
     </h1>
     <img
@@ -12,7 +12,7 @@
       v-html="getBlogById(blogID).content"
       class="content mt-5 text-gray-700"
     ></div>
-    <div class=" mx-auto mt-5 font-semibold text-lg md:text-2xl">
+    <div class="mx-auto mt-5 font-semibold text-lg md:text-2xl">
       <router-link
         :to="{ name: 'blogpost', params: { blogID: blogPostNavigation.back } }"
         v-if="blogPostNavigation.back != ''"
@@ -42,13 +42,13 @@ import { findIndex as _findIndex } from "lodash";
 
 export default {
   props: {
-    blogID: String
+    blogID: String,
   },
   computed: {
     ...mapGetters([
       "getBlogById",
       "filterBlogPostsByCategory",
-      "getBlogCategory"
+      "getBlogCategory",
     ]),
     blogPostNavigation: function navi() {
       const blogPosts = this.filterBlogPostsByCategory(this.getBlogCategory);
@@ -69,15 +69,15 @@ export default {
         navigation = {
           back: back,
           current: blogPosts[currentIndex].id,
-          next: next
+          next: next,
         };
       }
       return navigation;
-    }
+    },
   },
   created() {
     this.$store.dispatch("fetchBlogPosts");
-  }
+  },
 };
 </script>
 

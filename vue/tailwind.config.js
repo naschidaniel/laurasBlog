@@ -1,14 +1,14 @@
 module.exports = {
+  purge: false,
   theme: {
     extend: {
       fontFamily: {
         title: ["Fredericka+the+Great"],
         blogCard: ["Vidaloka"],
         content: ["Open+Sans"],
-        cite: ["Open+Sans+Condensed:300"]
       },
       height: {
-        "128": "32rem"
+        "128": "32rem",
       },
       spacing: {
         "1/2": "50%",
@@ -36,10 +36,10 @@ module.exports = {
         "8/12": "66.666667%",
         "9/12": "75%",
         "10/12": "83.333333%",
-        "11/12": "91.666667%"
-      }
-    }
+        "11/12": "91.666667%",
+      },
+    },
   },
   variants: {},
-  plugins: []
+  plugins: [],
 };

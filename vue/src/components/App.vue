@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="z-2">
     <div
-      class=" flex justify-center w-screen h-screen absolute z-20 opacity-75"
+      class="flex justify-center w-screen h-screen absolute z-20 opacity-75"
       :class="setLoadingWindow(setSpinner())"
     >
       <ring-loader
@@ -16,7 +16,7 @@
         <navbar />
         <alerts class="mt-2" />
         <app-top />
-        <main class=" mx-auto flex-grow w-full px-3 lg:max-w-6xl">
+        <main class="mx-auto flex-grow w-full px-3 lg:max-w-6xl">
           <router-view />
         </main>
         <app-Footer />
@@ -42,7 +42,7 @@ export default {
     "getLoadingStatusBlogPosts",
     "getLoadingStatusBlogQuotes",
     "getLoadingStatusPage",
-    "getLoadingStatusSocialLinks"
+    "getLoadingStatusSocialLinks",
   ]),
   methods: {
     appClickHandler(appClick, isOpen) {
@@ -68,16 +68,16 @@ export default {
     setLoadingWindow(setSpinner) {
       return {
         block: setSpinner,
-        hidden: !setSpinner
+        hidden: !setSpinner,
       };
-    }
+    },
   },
   components: {
     Alerts,
     AppTop,
     AppFooter,
     Navbar,
-    RingLoader
-  }
+    RingLoader,
+  },
 };
 </script>
