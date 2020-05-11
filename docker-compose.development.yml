@@ -55,8 +55,9 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - postgres_backup:/var/backup
       - postgres_backup_server:/var/backup_server
-  
+
   node:
     build: 
       context: ./vue
