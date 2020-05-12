@@ -15,11 +15,11 @@ services:
       - static:/www/static
 
   postgres:
+    restart: always
     build: ./postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    restart: always
     container_name: postgres
     volumes:
       - postgresdata:/var/lib/postgresql/data

@@ -59,6 +59,7 @@ services:
       - postgres_backup_server:/var/backup_server
 
   node:
+    restart: unless-stopped
     build: 
       context: ./vue
     container_name: node
