@@ -6,13 +6,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${INSTALLFOLDER}/data/postgresdata
+      device: ${INSTALLFOLDER}/postgresdata
   postgres_backup_server:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${INSTALLFOLDER}/data/postgresdata_backup_server
+      device: ${INSTALLFOLDER}/postgresdata_backup_server
   django:
     driver: local
     driver_opts:

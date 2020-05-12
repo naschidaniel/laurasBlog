@@ -2,6 +2,14 @@
 
 In this file the further steps for the production on the server are explained.
 
+
+## DockerDaemon certificates
+Put the certificates in the ./fabric/cert folder.
+
+```
+./task.py local.install.getdockercert
+```
+
 ### Compiling and minifying Vue files for production
 
 First the frontend files have to be made available for production.
