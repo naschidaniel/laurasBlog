@@ -51,6 +51,10 @@ volumes:
       device: ${PWD}/data/media
 
 services:
+  django:
+    build:
+      target: development
+  
   postgres:
     ports:
       - 5432:5432

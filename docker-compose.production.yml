@@ -45,6 +45,12 @@ volumes:
       device: ${INSTALLFOLDER}/media
 
 services: 
+  django:
+    build:
+      target: production
+    environment: 
+      - UID=${USERID}
+  
   postgres:
     volumes:
       - postgres_backup_server:/var/backup_server

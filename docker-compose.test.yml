@@ -46,6 +46,8 @@ volumes:
 
 services:
   postgres:
+    build:
+      target: production
     volumes:
       - postgres_backup_server:/var/backup_server
 
