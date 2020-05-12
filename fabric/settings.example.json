@@ -59,7 +59,8 @@
       "./postgresdata",
       "./postgresdata_backup_server",
       "./log/nginx",
-      "./media"
+      "./media",
+      "./static"
     ],
     "postgres_backup_server_folder": "./postgresdata_backup_server",
     "docker_compose_files": [
@@ -98,6 +99,22 @@
           "media",
           "db.sqlite3",
           ".env"
+        ]
+      },
+      "vue": {
+        "local_dir": "./vue",
+        "remote_dir": "/www/djangoVue/",
+        "include": [
+          "*/",
+          "webpack-stats.json",
+          "dist"
+        ],
+        "exclude": [
+          "*",
+          "node_modules",
+          "src",
+          "public",
+          ".dockerignore"
         ]
       },
       "postgres": {
