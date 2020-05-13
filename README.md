@@ -93,6 +93,6 @@ http://localhost/api/
 http://localhost/admin/
 ```
 
-### djangoVue for local testing and production
+## djangoVue for local testing and production
 
 A detailed description for the local test environment and the operation on the server is described in the file [PRODUCTION.md](PRODUCTION.md). 
