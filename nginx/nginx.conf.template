@@ -13,6 +13,10 @@ http {
     ''      close;
     }
 
+    upstream django {
+        server ${DJANGO_HOST}:8000;
+    }
+
     include /etc/nginx/conf.d/base.conf;
 
     server {

@@ -79,9 +79,10 @@ services:
     container_name: nginx
     build:
       context: "./nginx"
-      args: 
-        NGINX_CONF: ${NGINX_CONF}
+    environment: 
+      - DJANGO_HOST=django_${PROJECT}
     volumes:
+      - ./nginx/nginx.conf.template:/etc/nginx/conf.d/nginx.conf.template
       - django:/www/site
       - static:/www/static
       - media:/www/media
@@ -92,3 +93,4 @@ services:
       - django
       - postgres
       - node
+    command: /bin/bash -c "envsubst '$${DJANGO_HOST}' < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'" 

@@ -4,7 +4,7 @@ services:
   django:
     restart: always
     build: ./django
-    container_name: django
+    container_name: django_${PROJECT}
     user: "${USERID}:${GROUPID}"
     depends_on: 
       - postgres
