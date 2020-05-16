@@ -1,8 +1,11 @@
 # djangoVue
 
-With the help of Django as backend and Vue as frontend a small website was created. DjangoVue includes a blog and classic pages. 
-The development and production mode are provided by docker. To communicate pleasantly with docker container python invoke is used. 
+With the help of Django as backend and Vue as frontend two small websites were created. Have a look at the sample pages: 
+* [milena-and-her-dog.com](milena-and-her-dog.com)
+* WIP: [tirolair.com](tirolair.com)
 
+DjangoVue includes a blog and classic pages. 
+The development and production mode is provided via docker. Python invoke is used for the pleasant communication with the docker container. 
 
 
 ## Dependencies
@@ -44,11 +47,13 @@ You can use these commands to install DjangoVue locally on your computer. In ord
 ```
 ./task.py local.install.folders
 ./task.py local.install.setenvironment development
+export PROJECT=milena || tirolair
 ```
 
 
 #### Create docker container
 
+If the `PROJECT` environment variable has been reset, the PROJECT must be rebuilt.
 ```
 ./task.py local.docker-compose.rebuild
 ```
