@@ -10,7 +10,7 @@ from itertools import chain, repeat
 from invoke import task, Collection
 import inv_base
 import inv_logging
-
+import inv_install
 
 def ssh(c, remote_user, remote_host, cmd):
     """This function executes the ssh command on the server"""
@@ -62,7 +62,7 @@ def _rsync(c, remote_user, remote_host, local_dir, remote_dir, include=None, exc
     subprocess.run(rsync_cmd, check=True)
 
 
-@task
+@task(inv_install.check_upstream)
 def push(c):
     """This task synchronizes the local folders to the server"""
     inv_logging.task(push.__name__)

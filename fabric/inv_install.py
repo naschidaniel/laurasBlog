@@ -16,6 +16,29 @@ import inv_docker
 import inv_rsync
 
 @task
+def check_upstream(c):
+    """Check master """
+    print("Do you really want to run on production? [y/N]")
+    answer = input()
+
+    if answer.upper() not in ("Y", "YES", "JA", "J"):
+        sys.exit(1)
+
+    if c.run("git rev-parse --abbrev-ref HEAD", hide=True).stdout.strip() != "master":
+        logging.error("You are not in the master branch. Only the master branch can be uploaded onto the server.")
+        sys.exit(1)
+
+    c.run("git fetch origin master", hide=True)
+    if c.run("git diff origin/master", hide=True).stdout.strip() != "":
+        logging.error("Your local branch differs from upstream master (run git diff)")
+        sys.exit(1)
+    
+    if c.run("git status --short", hide=True).stdout.strip() != "":
+        logging.error("You have a dirty working directory (run git status)")
+        sys.exit(1)
+    
+        
+@task
 def quickinstallation(c):
     """A task for quick installation of cigsanalysistool and start of a development server"""
     inv_logging.task(quickinstallation.__name__)
@@ -106,7 +129,7 @@ def setenvironment(c, cmd):
     return dict_env
 
 
-@task
+@task(pre=[check_upstream])
 def setproductionenvironment(c):
     """The task writes the environment variables on the server for django and docker. The created files are uploaded to the server and the required folders for cigsanalysistool are created."""
     inv_logging.task(setproductionenvironment.__name__)
@@ -136,6 +159,20 @@ def setproductionenvironment(c):
             settings["REMOTE_HOST"], f"mkdir -p {folder}")
 
     inv_logging.success(setproductionenvironment.__name__)
+
+@task(pre=[check_upstream])
+def deploy(c):
+    """Everything you need to deploy"""
+    inv_logging.task(deploy.__name__)
+    c.run("./task.py local.node.build")
+    c.run("./task.py local.django.collectstatic")
+    inv_docker.stop(c)
+    inv_rsync.push(c)
+    setproductionenvironment(c)
+    inv_docker.rebuild(c)
+    inv_django.migrate(c)
+    inv_docker.start(c)
+    inv_logging.success(deploy.__name__)
 
 
 install_ns = Collection("install")
