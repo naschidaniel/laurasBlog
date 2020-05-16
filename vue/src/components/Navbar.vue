@@ -11,10 +11,19 @@
         <router-link
           to="/"
           class="text-2xl md:text-4xl truncate cursor-pointer md:hidden"
+          v-if="appProject === 'milena'"
         >
           <span class="text-gray-700">Milena</span>
           <span class="text-red-600"> & </span>
           <span class="text-gray-700">her dog</span>
+        </router-link>
+        <router-link
+          to="/"
+          class="text-2xl md:text-4xl truncate cursor-pointer"
+          v-if="appProject === 'tirolair'"
+        >
+          <span class="text-gray-900">TIROL</span>
+          <span class="text-gray-700">AIR</span>
         </router-link>
         <div class="sm:hidden">
           <button
@@ -47,6 +56,7 @@
               :to="{ name: 'blog' }"
               class="block p-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-xl hover:bg-gray-400"
               :class="selectBlogNavigation(['blog', 'blogpost'])"
+              v-if="appProject === 'milena'"
             >
               Blog
             </router-link>
@@ -61,6 +71,7 @@
               :to="{ name: 'page', params: { link: 'kontakt' } }"
               class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 text-xl hover:bg-gray-400"
               :class="selectPageNavigation('kontakt')"
+              v-if="appProject === 'milena'"
             >
               Kontakt
             </router-link>
@@ -73,6 +84,7 @@
             :to="{ name: 'blog' }"
             class="hover:bg-gray-100 hover:bg-gray-400 rounded p-2"
             v-bind:class="selectBlogNavigation(['blog', 'blogpost'])"
+            v-if="appProject === 'milena'"
           >
             Blog
           </router-link>
@@ -80,6 +92,7 @@
             :to="{ name: 'page', params: { link: 'about' } }"
             class="hover:bg-gray-100 hover:bg-gray-400 rounded p-2 mx-2"
             v-bind:class="selectPageNavigation('about')"
+            v-if="appProject === 'milena'"
           >
             About
           </router-link>
@@ -101,7 +114,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Navbar",
-  computed: mapGetters(["getNavbarOpen", "getAppClick"]),
+  computed: mapGetters(["getNavbarOpen", "getAppClick", "appProject"]),
   methods: {
     clickHandler(isOpen, appClick) {
       this.$store.dispatch("setNavbarOpen", !isOpen);
