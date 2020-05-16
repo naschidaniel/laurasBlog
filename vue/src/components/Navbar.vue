@@ -11,6 +11,7 @@
         <router-link
           to="/"
           class="text-2xl md:text-4xl truncate cursor-pointer md:hidden"
+          v-if="appProject === 'milena'"
         >
           <span class="text-gray-700">Milena</span>
           <span class="text-red-600"> & </span>
@@ -37,7 +38,7 @@
           </button>
         </div>
       </div>
-      <nav>
+      <nav v-if="appProject === 'milena'">
         <transition name="slide-fade">
           <div
             v-if="getNavbarOpen"
@@ -101,7 +102,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Navbar",
-  computed: mapGetters(["getNavbarOpen", "getAppClick"]),
+  computed: mapGetters(["getNavbarOpen", "getAppClick", "appProject"]),
   methods: {
     clickHandler(isOpen, appClick) {
       this.$store.dispatch("setNavbarOpen", !isOpen);

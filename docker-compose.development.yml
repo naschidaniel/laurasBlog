@@ -68,6 +68,8 @@ services:
       context: ./vue
     container_name: node
     command: "npm run serve"
+    environment:
+      - VUE_APP_PROJECT=${PROJECT}
     volumes:
       - frontend:/usr/src/app
     user: "${USERID}:${GROUPID}"
