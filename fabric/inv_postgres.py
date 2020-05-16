@@ -18,6 +18,7 @@ def delete_db_dump(c, host, postgres_backup_folder, file):
     if host == "development":
         c.run(command)
     elif host == "production":
+        settings = inv_base.read_settings(host)
         inv_rsync.ssh(c, settings["REMOTE_USER"], settings["REMOTE_HOST"], command)
 
 def dump_backup(c, host):
