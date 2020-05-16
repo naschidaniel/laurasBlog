@@ -1,4 +1,4 @@
-# djangoVue
+# djangoVue for multiple web projects
 
 With the help of Django as backend and Vue as frontend two small websites were created. Have a look at the sample pages: 
 * [milena-and-her-dog.com](milena-and-her-dog.com)
@@ -96,6 +96,26 @@ A local nginx webserver will provide the data for the development mode. The list
 http://localhost
 http://localhost/api/
 http://localhost/admin/
+```
+
+## Differentiation between the two projects in the frontend
+
+In order to differentiate between the two PROJECT in the application, use one of the following variations:
+
+```js
+// in JavaScript
+if (process.env.VUE_APP_PROJECT === 'milena') {
+  // ...
+}
+```
+
+```js
+// in Vue components
+{
+  computed: mapGetters(['appProject']);
+}
+
+<div v-if="appProject === 'milena'"></div>
 ```
 
 ## djangoVue for local testing and production
