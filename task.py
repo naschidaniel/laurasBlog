@@ -22,6 +22,14 @@ from fabric import inv_test
 # Logging
 inv_logging.start_logging()
 
+try:
+    if os.environ['PROJECT'] not in ("milena", "tirolair"):
+        logging.error("The PROJECT environment variable is set incorrectly. Set the environment variable correctly with 'export PROJECT=milena || tirolair'!")
+        sys.exit(1)
+except:
+    logging.error("The environment variable PROJECT is not set. With 'export PROJECT=milena || tirolair' djangoVue can be started.")
+    sys.exit(1)
+
 # Namespace
 MAIN_NS = Collection()
 

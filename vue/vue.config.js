@@ -1,7 +1,5 @@
 const BundleTracker = require("webpack-bundle-tracker");
 
-process.env.VUE_APP_PROJECT === '' ? process.env.VUE_APP_PROJECT = 'milena' : process.env.VUE_APP_PROJECT = process.env.VUE_APP_PROJECT
-
 module.exports = {
   publicPath:
     process.env.NODE_ENV === "production"
